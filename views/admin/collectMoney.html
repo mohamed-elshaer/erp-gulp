@@ -1,0 +1,145 @@
+<div class="container-fluid">
+  <div class="card-inner position-relative card-tools-toggle">
+    <div class="card-title-group">
+      <div class="nk-block-head-content">
+        <h3 class="nk-block-title page-title">
+          {{Translate[lang].TEXT_COLLECTMONEY}}
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-12 col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="basic-form">
+            <form name="form" ng-submit="addCollectMoney(currentObj)">
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                  <label>{{Translate[lang].TEXT_THE_ACCOUNT}}<span class="text-danger">*</span></label>
+                  <ui-select ng-model="currentObj.accountPayToId" theme="select2" name="account" on-select="setToAccBalance($select.selected)" ng-required="true">
+                    <ui-select-match placeholder="{{Translate[lang].TEXT_CHOOSEBANKORINVENTORY}}">{{$select.selected.accountNameArabic}}</ui-select-match>
+
+                    <ui-select-choices group-by="'groupby'" repeat="item.accountId  as item in accounttype | filter: $select.search"
+                    
+                    >
+                      <span >{{item.accountNameArabic}}</span>
+                    </ui-select-choices>
+                  </ui-select>
+                  <span class="text-danger"
+                  ng-show="form.account.$touched && form.account.$error.required">{{Translate[lang].TEXT_REQUIRED}}</span>
+                </div>
+                <div class="form-group col-md-2">
+                  <label>{{Translate[lang].TEXT_ACCOUNT_BALANCE}}</label>
+                  <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_ACCOUNT_BALANCE}}"
+                    name="amount" ng-model="currentObj.toAccountBalance" readonly />
+                </div>
+                <div class="form-group col-md-3">
+                  <label>{{Translate[lang].TEXT_CURRENCY_NAME}}</label>
+                  <ui-select ng-model="currentObj.currencyId" name="currency" ng-required="true"theme="select2" on-select="calccurrency($select.selected)">
+                    <ui-select-match placeholder="{{Translate[lang].TEXT_CHOOSECURRENCY}}">{{$select.selected.currencyNameArabic}}</ui-select-match>
+
+                    <ui-select-choices repeat="item.id  as item in currencyLst | filter: $select.search">
+
+                        <span ng-bind="item.currencyNameArabic"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                    <span class="text-danger"
+                    ng-show="form.currency.$touched && form.currency.$error.required">{{Translate[lang].TEXT_REQUIRED}}</span>
+                </div>
+                <!-- <div class="form-group col-md-4">
+                  <div class="d-flex">
+                    <div class="col-md-6">
+                      <label>{{Translate[lang].TEXT_FACTOR_POUND}}</label>
+                      <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_AMOUNT}}"
+                        name="amount" ng-model="currentObj.factorWithPound" readonly />
+                    </div> -->
+                    <!-- <div class="col-md-6">
+                      <label>{{Translate[lang].TEXT_FACTOR_DOLAR}}</label>
+                      <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_AMOUNT}}"
+                        name="amount" ng-model="currentObj.factorWithDolar" readonly />
+                    </div> -->
+                 
+               
+                <div class="form-group col-md-4">
+                  <label>{{Translate[lang].TEXT_FACTOR}}</label>
+                  <div class="form-control-wrap">
+                      <div class="form-text-hint">
+                          <span class="overline-title">{{defaultCurrency.symbol}}</span>
+                      </div>
+                      <input type="number" step="any"class="form-control" id="default-05"  ng-model="currentfactor" ng-change="updatecurrency()">
+                  </div>
+                </div>
+                <div class="form-group col-md-3">
+                  <label>{{Translate[lang].TEXT_RESIVE_FROM}}<span class="text-danger">*</span></label>
+                  <ui-select ng-model="currentObj.accountPayFromId" theme="select2"
+                    on-select="setFromAccBalance($select.selected)" name="accountPayFromId" ng-required="true">
+                    <ui-select-match placeholder="{{Translate[lang].TEXT_CHOOSEACCOUNT}}">{{$select.selected.accountNameArabic}}</ui-select-match>
+
+                    <ui-select-choices group-by="'groupby'" repeat="item.accountId  as item in allaccounttype | filter: $select.search">
+                      <span ng-bind="item.accountNameArabic"></span>
+                    </ui-select-choices>
+                  </ui-select>
+                  <span class="text-danger"
+                    ng-show="form.accountPayFromId.$touched && form.accountPayFromId.$error.required">{{Translate[lang].TEXT_REQUIRED}}</span>
+                </div>
+                <div class="form-group col-md-2">
+                  <label>{{Translate[lang].TEXT_ACCOUNT_BALANCE}}</label>
+                  <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_AMOUNT}}" name="amount"
+                    ng-model="currentObj.fromAccountBalance" readonly />
+                </div>
+                <div class="form-group col-md-3">
+                  <label>{{Translate[lang].TEXT_DATE}} <span class="text-danger">*</span></label>
+                  <input type="date" class="form-control" ng-model="currentObj.date" name="txtAutomaticdate" name="date"
+                    id="date" ng-required="true" />
+                    <div ng-show="form.date.$touched&&form.date.$error.required">
+                      <span class="text-danger">{{Translate[lang].TEXT_REQUIRED}}</span>
+    
+                    </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>{{Translate[lang].TEXT_AMOUNT}}<span class="text-danger">*</span></label>
+                  <input type="number" step="any" ng-change="doTafqit()" class="form-control" placeholder="{{Translate[lang].TEXT_AMOUNT}}" name="amount"
+                    ng-model="currentObj.amount" ng-required="true" />
+                    <div ng-show="form.amount.$touched&&form.amount.$error.required">
+                      <span class="text-danger">{{Translate[lang].TEXT_REQUIRED}}</span>
+    
+                    </div>
+                  </div>
+              </div>
+              <div class="row" ng-if="currentObj.amount">
+                <div class="col-md-12 text-center">
+                  <div class="alert alert-primary" role="alert">
+                    {{tafqite}}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-label" >{{Translate[lang].description}}</label>
+                    <div class="form-control-wrap">
+                        <textarea ng-model="currentObj.description" class="form-control" cols="30" rows="5"></textarea>
+                    </div>
+                </div>
+                </div>
+              </div>
+              <div class="mt-4">
+                <button type="submit" class="btn btn-success" ng-disabled="form.$invalid">
+                  {{Translate[lang].ADD}}
+                </button>
+                <button ng-click="addCollectMoneyAndPrint(currentObj)" class="btn btn-success" ng-disabled="form.$invalid">
+                  {{Translate[lang].TEXT_SAVE_AND_PRINT}}
+                </button>
+                <a ui-sref="menu.listcollectmoney" class=" btn btn-secondary" style="color: #fff;
+                background-color: #364a63;
+                border-color: #364a63;">{{Translate[lang].TEXT_BACK}}</a>
+              </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

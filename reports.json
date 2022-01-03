@@ -1,0 +1,769 @@
+{
+  "sales": [
+    {
+      "name": "فواتير المبيعات",
+      "link": "CustomerInvoices",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.SalesInvoicesReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    },
+    {
+      "name": "تحليل الفواتير",
+      "link": "CustomerInvoicesWith_3_Parameters",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.CustomersInvoicesWithFilterReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        },
+        {
+          "title": "العميل",
+          "name": "customerId",
+          "default": "0",
+          "type": "lookup",
+          "range": "0"
+        },
+        {
+          "title": "طريقه الدفع",
+          "name": "paymentTypeId",
+          "default": "0",
+          "type": "lookup",
+          "range": "7"
+        },
+        {
+          "title": "العمله",
+          "name": "currencyId",
+          "default": "0",
+          "type": "lookup",
+          "range": "6"
+        },
+        {
+          "title": "المخزن",
+          "name": "storeId",
+          "default": "0",
+          "type": "lookup",
+          "range": "2"
+        },
+        {
+          "title": "المستخدم",
+          "name": "userId",
+          "default": "0",
+          "type": "lookup",
+          "range": "8"
+        }
+
+      ]
+    },
+    {
+      "name": "فاتوره مبيعات",
+      "link": "SellingInvoice",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.SalesInvoiceReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        },
+        {
+          "title": "الكود",
+          "name": "invoiceNumber",
+          "default": "0",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "name": "تقرير ارباح الفواتير",
+      "link": "InvoiceEarning",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.InvoicesEarningsReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    },
+    {
+      "name": "تقرير ارباح الاصناف",
+      "link": "ItemEarning",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.ProductsEarningsReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    }
+  ],
+  "purchase": [
+    {
+      "name": "فواتير المشتريات",
+      "link": "SupplierInvoices",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.SupplierInvoicesReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    },
+    {
+      "name": "فاتوره مشتريات",
+      "link": "PurchasingInvoice",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.SupplierInvoicesReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "رقم الفاتوره",
+          "name": "invoiceNumber",
+          "default": "0",
+          "type": "text"
+        },
+     
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "name": "حركة الاصناف",
+      "link": "ItemsTransactions",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.ProductsMovementsReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    },
+    {
+      "name": "حركه صنف",
+      "link": "producMovement",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.ProductMovementReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        },
+        {
+          "title": "الصنف",
+          "name": "productId",
+          "default": "2",
+          "type": "lookup",
+          "range": "5"
+        }
+      ]
+    },
+    {
+      "name": "تقرير جرد الاصناف",
+      "link": "Products",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.ProductsReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    },
+    {
+      "name": "تقرير حد الطلب",
+      "link": "ProductsDemandLimit",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.DemandLimitReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    },
+    {
+      "name": "تقرير الصلاحيه",
+      "link": "ProductsExpiration",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.ProductExpirationReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    },
+    {
+      "name": "حركه كل الاصناف",
+      "link": "ProductsMovememnt",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.ProductExpirationReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    },
+    {
+      "name": "حركه مخزن",
+      "link": "ProductStoreRelocation",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.StoreMovementReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        },
+        {
+          "title": "من مخزن",
+          "name": "storeIdFrom",
+          "default": "0",
+          "type": "lookup",
+          "range": "2"
+        },
+        {
+          "title": "الي مخزن",
+          "name": "storeIdTo",
+          "default": "0",
+          "type": "lookup",
+          "range": "2"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "دفتر الاستاذ",
+      "link": "master",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.LedgerReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "DateFrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "DateTo",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "الحسابات",
+          "name": "customerAccountId",
+          "default": "0",
+          "type": "lookup",
+          "range": "4"
+        }
+      ]
+    }
+  ],
+  "customers": [
+    {
+      "name": "كشف حساب عميل",
+      "link": "Master",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.CustomerStatementReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "DateFrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "DateTo",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "حساب عميل",
+          "name": "customerAccountId",
+          "default": "5",
+          "type": "lookup",
+          "range": "4"
+        }
+      ]
+    },
+    {
+      "name": "العملاء",
+      "link": "Customers",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.CustomersReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    },
+    {
+      "name": "العملاء الاكثر حركه",
+      "link": "MostActiveCusttomer",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.MostActiveCustomersReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    },
+    {
+      "name": "حركه العميل بناء علي الفواتير",
+      "link": "CustomerDependOnInvoice",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.CustomerMovementAsInvoicesReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "حساب عميل",
+          "name": "customerAccountId",
+          "default": "5",
+          "type": "lookup",
+          "range": "4"
+        }
+      ]
+    },
+    {
+      "name": "حركة العميل بناء علي السندات",
+      "link": "CustomerDependOnPays",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.CustomerMovementAsPayMoneyReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": " حساب عميل",
+          "name": "customerAccountId",
+          "default": "5",
+          "type": "lookup",
+          "range": "4"
+        }
+      ]
+    }
+  ],
+  "Supplier": [
+    {
+      "name": "كشف حساب مورد",
+      "link": "Supplier",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.SupplierStatemntReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "DateFrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "DateTo",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "حساب مورد",
+          "name": "supplierAccountId",
+          "default": "0",
+          "type": "lookup",
+          "range": "4"
+        }
+      ]
+    },
+ 
+    {
+      "name": "حركه المورد بناء علي الفواتير",
+      "link": "SupplierDependOnInvoice",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.SupplierMovementAsInvoicesReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "حساب مورد",
+          "name": "supplierAccountId",
+          "default": "0",
+          "type": "lookup",
+          "range": "4"
+        }
+      ]
+    },
+    {
+      "name": "حركة المورد بناء علي السندات",
+      "link": "SupplierDependOnPay",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.SupplierMovementsAsPayMoney.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": " حساب مورد",
+          "name": "supplierAccountId",
+          "default": "0",
+          "type": "lookup",
+          "range": "4"
+        }
+      ]
+    },
+    {
+      "name": "الموردين  ",
+      "link": "Suppliers",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.MostActiveSuppliersReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    }
+    ,
+    {
+      "name": "الموردين الاكثر حركه",
+      "link": "MostActiveSupplier",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.MostActiveSuppliersReport.View"
+      ],
+      "parametars": [
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    }
+  ],
+  "endingAccount":[
+    {
+      "name": "قائمه المركز المالي",
+      "link": "FinancialCenter",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.SupplierStatemntReport.View"
+      ],
+      "parametars":[
+        {
+          "title": "الى تاريخ",
+          "name": "DateTo",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    },
+    {
+      "name": "قائمه دخل",
+      "link": "IncomeStatement",
+      "Img": "theme/images/gallery/money.png",
+      "Perm": [
+        "Permissions.SupplierStatemntReport.View"
+      ],
+      "parametars":[
+        {
+          "title": "الى تاريخ",
+          "name": "dateto",
+          "default": "1/1/2020",
+          "type": "date"
+        },
+        {
+          "title": "من تاريخ",
+          "name": "datefrom",
+          "default": "1/1/2000",
+          "type": "date"
+        },
+        {
+          "title": "الفرع",
+          "name": "branchId",
+          "default": "2",
+          "type": "lookup",
+          "range": "9"
+        }
+      ]
+    }
+  ]
+}

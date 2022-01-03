@@ -1,0 +1,723 @@
+<div class="container-fluid">
+  <div class="nk-content-inner">
+    <div class="nk-content-body">
+      <div class="nk-block-head nk-block-head-sm">
+        <div class="nk-block-between">
+          <div class="nk-block-head-content">
+            <h3 class="nk-block-title page-title">
+              {{Translate[lang].TEXT_ADDPRODUCT}}
+            </h3>
+          </div>
+        </div>
+        <!-- .nk-block-between -->
+      </div>
+      <div class="card card-bordered">
+        <div class="card-inner">
+          <form ng-submit="addproduct(productform)" name="proForm" class="css-form">
+            <ul class="nav nav-tabs" id="tabs">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  data-toggle="tab"
+                  data-target="#tabItem1"
+                  >{{Translate[lang].maininformation}}</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" data-target="#tabItem4"
+                  >{{Translate[lang].units}}</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" data-target="#tabItem5"
+                  >{{Translate[lang].startbakance}}</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" data-target="#tabItem3">
+                  {{Translate[lang].size}}</a
+                >
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tabItem1">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="form-label" for="full-name-1"
+                        >{{Translate[lang].TEXT_PRODUCTNAME}}
+                        <span class="text-danger">*</span>
+                        </label
+                      >
+                     
+                      <div class="form-control-wrap">
+                        <input
+                          ng-model="productform.productName"
+                          type="text"
+                          class="form-control"
+                          id="full-name-1"
+                          ng-required="true"
+                          name="proName"
+                        />
+                        <span class="text-danger" ng-show="proForm.proName.$touched&&proForm.proName.$error.required">{{Translate[lang].nameRequired}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="form-label" for="default-01"
+                        >{{Translate[lang].TEXT_PRODUCTCODE}}
+                        <span class="text-danger">*</span>
+
+                        </label
+                      >
+                     
+                      <div class="form-control-wrap">
+                        <input
+                          ng-model="productform.productCode"
+                          name="productCode"
+                          type="text"
+                          class="form-control"
+                          id="default-01"
+                          ng-required="true"
+                          ng-change="productCodeExist(productform.productCode)"
+                        />
+                        <span
+                        class="text-danger "
+                        ng-show="proForm.productCode.$error.required&&proForm.productCode.$touched"
+                        >{{Translate[lang].codeRequired}}</span
+                      >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="form-label"
+                        >{{Translate[lang].store}}
+                        <span class="text-danger">*</span>
+                        </label
+                      
+                        >
+                   
+                      <div class="d-flex">
+                        <ui-select  theme="select2" ng-model="productform.storeId" name="proStore" ng-required="true">
+                              <ui-select-match>
+                                <span ng-bind="$select.selected.storeName"></span>
+                              </ui-select-match>
+                              <ui-select-choices
+                                repeat="item.id as item in stores | filter: $select.search"
+                              >
+                                <span ng-bind="item.storeName"></span>
+                              </ui-select-choices>
+                            </ui-select>
+                          
+                           
+                            <a
+                            class="btn btn-primary btn-sm"
+                            data-toggle="modal"
+                            data-target="#storeForm"
+                          >
+                            <span class="text-lighter"
+                              ><i class="icon ni ni-plus-medi"></i
+                            ></span>
+                              </a>
+                             
+                      </div>
+                      <span
+                      class="text-danger"
+                      ng-show="proForm.proStore.$touched&&proForm.proStore.$error.required"
+                      >{{Translate[lang].storeRequired}}</span
+                    >
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="form-label"
+                        >{{Translate[lang].category}}
+                        <span class="text-danger">*</span>
+                        </label
+                      >
+                     
+                      <div class="d-flex">
+                        <ui-select ng-model="productform.categoryId" name="category" ng-required="true"  theme="select2">
+                              <ui-select-match>
+                                <span ng-bind="$select.selected.categoryName"></span>
+                              </ui-select-match>
+                              <ui-select-choices
+                                repeat="item.id as item in categories | filter: $select.search"
+                              >
+                                <span ng-bind="item.categoryName"></span>
+                              </ui-select-choices>
+                            </ui-select>
+                        <a
+                          class="btn btn-primary btn-sm"
+                          data-toggle="modal"
+                          data-target="#categoryForm"
+                        >
+                          <span class="text-lighter"
+                            ><i class="icon ni ni-plus-medi"></i
+                          ></span>
+                            </a>
+                      </div>
+                      <span
+                      class="text-danger"
+                      ng-show="proForm.category.$touched&&proForm.category.$error.required"
+                      >{{Translate[lang].categoryRequired}}</span
+                    >
+                    </div>
+                   
+                  </div>
+                 
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <label class="form-label" for="phone-no-1"
+                        >{{Translate[lang].demandLimit}}
+                        <span class="text-danger">*</span>
+                        </label
+                      >
+                      
+                      <div class="form-control-wrap">
+                        <input
+                          ng-model="productform.demandLimit"
+                          name="demandLimit"
+                          type="number"
+                          class="form-control"
+                          id="phone-no-1"
+                          ng-required="true"
+                        />
+                        <span
+                        class="text-danger "
+                        ng-show="proForm.demandLimit.$error.required&&proForm.demandLimit.$touched"
+                        >{{Translate[lang].orderLimitRequired}}</span
+                      >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row pt-2">
+                  <div class="col-12 m-auto">
+                    <div class="form-group">
+                      <div
+                        class="custom-control custom-control-sm custom-checkbox"
+                      >
+                        <input
+                          ng-model="productform.isExpiration"
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="pay-card-1"
+                        />
+                        <label class="custom-control-label" for="pay-card-1"
+                          >{{Translate[lang].isExpiration}}</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-8 mt-4" ng-if="productform.isExpiration">
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="form-label"
+                            >{{Translate[lang].productionDate}}</label
+                          >
+                          <div class="form-control-wrap">
+                            <input
+                              type="date"
+                              ng-model="productform.productionDate"
+                              class="form-control"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                          <label class="form-label"
+                            >{{Translate[lang].expirationDate}}</label
+                          >
+                          <div class="form-control-wrap">
+                            <input
+                              type="date"
+                              ng-model="productform.expirationDate"
+                              class="form-control"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row pt-2">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="form-label" for="email-address-1"
+                        >{{Translate[lang].description}}</label
+                      >
+
+                      <div class="form-control-wrap">
+                        <textarea
+                          ng-model="productform.description"
+                          name="description"
+                          class="form-control"
+                          cols="30"
+                          rows="5"
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3 group-end pt-4">
+                  <a class="btn btn-success btnNext mr-2 text-white"
+                    >{{Translate[lang].TEXT_NEXT}}
+                    
+                    </a
+                  >
+                </div>
+              </div>
+              <div class="tab-pane" id="tabItem3">
+                <div class="row">
+                  <div class="col-4">
+                    <label for="">{{Translate[lang].width}}</label>
+                    <input
+                      ng-model="productform.wiedth"
+                      type="number"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-4">
+                    <label for="">{{Translate[lang].height}}</label>
+                    <input
+                      ng-model="productform.hiegth"
+                      type="number"
+                      class="form-control"
+                    />
+                  </div>
+                  <div class="col-4">
+                    <label for="">{{Translate[lang].elevation}}</label>
+                    <input
+                      ng-model="productform.elevation"
+                      type="number"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="input-group mb-3 group-end pt-4">
+                  <a class="btn btn-success btnNext mr-2 text-white"
+                    >{{Translate[lang].TEXT_NEXT}}</a
+                  >
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    ng-disabled="proForm.$invalid"
+                  >
+                    {{Translate[lang].ADD}}
+                  </button>
+                </div>
+              </div>
+              <div class="tab-pane" id="tabItem4">
+                <div class="row">
+                  <div class="card card-preview col-12">
+                    <div class="card-inner row">
+                      <table class="table table-striped col-12">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th scope="col">{{Translate[lang].unitName}}</th>
+                            <th scope="col">
+                              {{Translate[lang].TEXT_FACTORY}}
+                            </th>
+                            <th scope="col">
+                              {{Translate[lang].purchasingPric}}
+                            </th>
+                            <th scope="col">
+                              <span ng-if="!sellpricepolicy.amount&&!sellpricepolicy.percent">{{Translate[lang].sellingprice}}</span>
+                              <span ng-if="sellpricepolicy.amount&&!sellpricepolicy.percent">قيمه هامش الربح</span>
+                              <span ng-if="!sellpricepolicy.amount&&sellpricepolicy.percent">نسبه هامش الربح</span>
+                            </th>
+                            <th scope="col">
+                              {{Translate[lang].defaultSelling}}
+                            </th>
+                            <th scope="col">
+                              {{Translate[lang].defaultPurchasing}}
+                            </th>
+
+                            <th scope="col">
+                              {{Translate[lang].productBarCode}}
+                            </th>
+                            <th></th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            ng-repeat="item in productform.unitViewModels track by $index"
+                          >
+                            <th scope="row">{{$index+1}}</th>
+                            <td>
+                              <!-- <input
+                                class="form-control"
+                                type="text"
+                                ng-model="productform.unitViewModels[$index].unitName"
+                              /> --> 
+                              <div class="d-flex">
+                                  <ui-select ng-model="productform.unitViewModels[$index].unitName" class="w-120px"  theme="select2"
+                                  >
+                                    <ui-select-match class="w-120px">
+                                      <span ng-bind="$select.selected.unitName"></span>
+                                    </ui-select-match>
+                                    <ui-select-choices
+                                      repeat="item.unitName as item in unitLst | filter: $select.search"
+                                    >
+                                      <span ng-bind="item.unitName"></span>
+                                    </ui-select-choices>
+                                  </ui-select>
+                                  <a
+                                  class="btn btn-primary btn-sm"
+                                  data-toggle="modal"
+                                  data-target="#unitModal"
+                                >
+                              <span class="text-lighter"
+                                ><i class="icon ni ni-plus-medi"></i
+                              ></span>
+                              </a></div>
+                              </div>
+                            
+                            </td>
+                            <td>
+                              <input
+                                class="form-control"
+                                type="number"
+                                step="any"
+                                ng-model="productform.unitViewModels[$index].factor"
+                                ng-change="calcforfactor()" ng-disabled="$index == 0"/>
+                            </td>
+                            <td>
+                              <input
+                                class="form-control"
+                                type="number"
+                                step="any"
+                                ng-model="productform.unitViewModels[$index].purchasingprice"
+                              />
+                            </td>
+                            <td>
+                              <div class="form-control-wrap">
+                                <div class="form-text-hint">
+                               
+                                  <span class="overline-title" ng-if="!sellpricepolicy.amount&&!sellpricepolicy.percent">{{currency.symbol}}</span>
+                                  <span class="overline-title" ng-if="sellpricepolicy.amount&&!sellpricepolicy.percent">{{currency.symbol}}</span>
+                                  <span class="overline-title" ng-if="!sellpricepolicy.amount&&sellpricepolicy.percent"> <em class="icon ni ni-percent"></em></span>
+                              </div>
+                              <input type="number" step="any"
+                              class="form-control" id="default-05"  ng-model="productform.unitViewModels[$index].sellingprice" >
+                              </div>
+                            </td>
+                            <td>
+                             
+                              <div class="custom-control custom-control-sm custom-checkbox mt-1">
+                                <input type="checkbox" ng-change="onClick(productform.unitViewModels[$index].defaultSelling)" ng-model="productform.unitViewModels[$index].defaultSelling" class="custom-control-input" id="com-email{{$index}}">
+                                <label class="custom-control-label" for="com-email{{$index}}"></label>
+                            </div>
+                            </td>
+                            <td>
+
+                              <div class="custom-control custom-control-sm custom-checkbox mt-1">
+                                <input type="checkbox" ng-change="onClickDefaultPurchasing(productform.unitViewModels[$index].defaultPurchasing)" ng-model="productform.unitViewModels[$index].defaultPurchasing" 
+                                class="custom-control-input" id="com-email2{{$index}}">
+                                <label class="custom-control-label" for="com-email2{{$index}}"></label>
+                            </div>
+                            </td>
+                            <td>
+                              <input
+                                class="form-control"
+                                type="number"
+                                ng-model="productform.unitViewModels[$index].bareCode"
+                              />
+                            </td>
+                            <td>
+                              <a
+                                class="form-control btn btn-danger btn-sm"
+                                ng-click="removerow($index)"
+                              >
+                                <span><i class="icon ni ni-trash"></i></span>
+                            </a>
+                            </td>
+                            <td class="col-1 pt-2" ng-if="$index==0">
+                              <!-- <input type="button" class=" btn-info" value="الوحده الرئيسيه" readonly/> -->
+                              <span class="badge badge-info badge-sm">الوحده الرئيسيه</span>
+                              
+                          </td>
+                          </tr>
+                        </tbody>
+                        <a
+                          class="btn btn-primary text-lighter btn-sm"
+                          ng-click="addrow()"
+                          >{{Translate[lang].AddNewUnit}}</a
+                        >
+                       
+                      </table>
+                    </div>
+                  </div>
+                  <!-- .card-preview -->
+                </div>
+                <div class="input-group mb-3 group-end pt-4">
+                  <a class="btn btn-success btnNext mr-2 text-white"
+                    >{{Translate[lang].TEXT_NEXT}}</a
+                  >
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    ng-disabled="proForm.$invalid"
+                  >
+                    {{Translate[lang].ADD}}
+                  </button>
+                </div>
+              </div>
+              <div class="tab-pane" id="tabItem5">
+                <div class="row">
+                  <div class="form-group col-4">
+                    <label class="form-label" for="email-address-1"
+                      >{{Translate[lang].stock}}</label
+                    >
+                    <div class="form-control-wrap">
+                      <input
+                        ng-model="productform.stock"
+                        type="number"
+                        class="form-control"
+                        id="email-address-1"
+                        ng-change="reCalcItemCost()"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group col-4">
+                    <label class="form-label"
+                      >{{Translate[lang].balanceUnit}}</label
+                    >
+                    <ui-select ng-model="selectedunit.unitName" ng-disabled="!productform.stock" theme="select2"
+                    on-select="calcCost($select.selected)">
+                      <ui-select-match>
+                        <span ng-bind="$select.selected.unitName"></span>
+                      </ui-select-match>
+                      <ui-select-choices
+                        repeat="item.bareCode as item in productform.unitViewModels | filter: $select.search"
+                        ng-click="calcamount(item)"
+                      >
+                        <span ng-bind="item.unitName"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                  </div>
+                  <div class="form-group col-4">
+                    <label class="form-label" for="default-05"
+                      >{{Translate[lang].balanceCost}}
+                    </label>
+                    <div class="form-control-wrap">
+                      <div class="form-text-hint">
+                        <span class="overline-title">{{defaultCurrency.symbol}}</span>
+                      </div>
+                      <input
+                        type="number"
+                        ng-model="productform.amount"
+                        class="form-control"
+                        id="default-05"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3 group-end pt-4">
+                  <a class="btn btn-success btnNext mr-2 text-white"
+                    >{{Translate[lang].TEXT_NEXT}}</a
+                  >
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    ng-disabled="productform.$invalid"
+                  >
+                    {{Translate[lang].ADD}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ccategory Form -->
+<div class="modal fade" tabindex="-1" id="categoryForm">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{Translate[lang].addCategory}}</h5>
+        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+          <em class="icon ni ni-cross"></em>
+        </a>
+      </div>
+      <form
+        class="form-validate is-alter"
+        ng-submit="addcategory(categoryform)"
+      >
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="full-name"
+              >{{Translate[lang].categoryName}}</label
+            >
+            <div class="form-control-wrap">
+              <input
+                type="text"
+                class="form-control"
+                id="full-name"
+                ng-model="categoryform.categoryName"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer bg-light">
+          <button
+            type="submit"
+            class="btn btn-success"
+            data-dismiss="modal"
+            ng-click="addcategory(categoryform)"
+          >
+            {{Translate[lang].ADD}}
+          </button>
+          <a
+            href="#"
+            class="close btn btn-warning"
+            data-dismiss="modal"
+            aria-label="Close"
+            >{{Translate[lang].CANCEL}}</a
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- validationModal -->
+
+<!-- Modal confirmation for delete role -->
+<div
+  class="modal fade"
+  id="validationUnit"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body bg-orange-dim">
+        <h3>{{Translate[lang].MSG_YOU_SHOULD_ADD_UNIT}}</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          {{Translate[lang].TEXT_CANCEL}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- store Form -->
+<div class="modal fade" tabindex="-1" id="storeForm">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{Translate[lang].addStore}}</h5>
+        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+          <em class="icon ni ni-cross"></em>
+        </a>
+      </div>
+      <form class="form-validate is-alter" ng-submit="addstore(storeform)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="full-name"
+              >{{Translate[lang].storeName}}</label
+            >
+            <div class="form-control-wrap">
+              <input
+                type="text"
+                class="form-control"
+                id="full-name"
+                ng-model="storeform.storeName"
+                required
+              />
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer bg-light">
+          <button
+            type="submit"
+            class="btn btn-success"
+            data-dismiss="modal"
+            ng-click="addstore(storeform)"
+          >
+            {{Translate[lang].ADD}}
+          </button>
+          <a
+            href="#"
+            class="close btn btn-warning"
+            data-dismiss="modal"
+            aria-label="Close"
+            >{{Translate[lang].CANCEL}}</a
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" tabindex="-1" id="unitModal">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" >{{Translate[lang].AddNewUnit}}</h5>
+              <a href="#" class="close" id="close" data-dismiss="modal" aria-label="Close">
+                  <em class="icon ni ni-cross"></em>
+              </a>
+          </div>
+          <form class="form-validate is-alter" name="unitObj">
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col-md-6">
+                          <div class="form-group">
+                              <label class="form-label" for="full-name">
+                                  {{Translate[lang].unitName}}</label>
+                              <div class="form-control-wrap">
+                                  <input type="text" class="form-control" name="role" ng-model="unitObj.unitName"
+                                      required />
+                                  <span class="text-danger" ng-show="unitObj.role.$touched &&
+                                      unitObj.role.$invalid">
+                                      {{Translate[lang].TEXT_REQUIERD}}
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+    
+                  </div>
+              </div>
+              <div class="modal-footer justify-content-start">
+                  <div>
+                      <button id="sbtn1" type="button" data-dismiss="modal" class="btn btn-secondary"
+                          ng-click="addNewUnit(unitObj)" ng-disabled="unitObj.$invalid">
+                          {{Translate[lang].TEXT_ADD}}
+                      </button>
+                      <button id="sbtn2" type="button" data-dismiss="modal" class="btn btn-primary">
+                          {{Translate[lang].TEXT_CANCEL}}
+                      </button>
+                  </div>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>

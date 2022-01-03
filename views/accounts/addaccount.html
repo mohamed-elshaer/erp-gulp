@@ -1,0 +1,160 @@
+<div class="container-fluid">
+    <div class="card-inner position-relative card-tools-toggle">
+      <div class="card-title-group">
+        <div class="nk-block-head-content">
+          <h3 class="nk-block-title page-title">
+            اضافه حساب
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="basic-form">
+              <form name="accForm" ng-submit="addaccount(accountform)">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label
+                          >{{Translate[lang].TEXT_ACCOUNT_NAME}}
+                          <span class="text-danger">*</span></label
+                        >
+                        <input class=" form-control" type="text"
+                        ng-required="true"
+                        name="accountNameArabic" id="" ng-model="accountform.accountNameArabic">
+                        <span
+                          class="text-danger"
+                          ng-show="accForm.accountNameArabic.$touched && accForm.accountNameArabic.$error.required"
+                          >{{Translate[lang].TEXT_REQUIRED}}</span
+                        >
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label
+                          >{{Translate[lang].TEXT_ACCOUNT_NAME_LATINE}}
+                          <span class="text-danger">*</span></label
+                        >
+                        <input class=" form-control" ng-required="true"type="text" name="accountName" id="" ng-model="accountform.accountName">
+                        <span
+                          class="text-danger"
+                          ng-show="accForm.accountName.$touched && accForm.accountName.$error.required"
+                          >{{Translate[lang].TEXT_REQUIRED}}</span
+                        >
+                      </div>
+                  <div class="form-group col-md-4">
+                    <label
+                      >{{Translate[lang].TEXT_MAIN_ACCOUNT}}
+                                            <span class="text-danger">*</span></label
+                    >
+                    <ui-select ng-model="accountform.parentId" name="parentId"theme="select2"  ng-required="true">
+                        <ui-select-match placeholder="{{Translate[lang].TEXT_MAIN_ACCOUNT_choose}}">{{$select.selected.accountNameArabic}}</ui-select-match>
+    
+                        <ui-select-choices repeat="item.accountId  as item in accounts | filter: $select.search">
+                          <span >{{item.accountNameArabic}} || {{item.code}}</span>
+                        </ui-select-choices>
+                      </ui-select>
+                    <span
+                      class="text-danger"
+                      ng-show="accForm.parentId.$touched && accForm.parentId.$error.required"
+                      >{{Translate[lang].TEXT_REQUIRED}}</span
+                    >
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].TEXT_ACCOUNT_NATURE}}</label>
+                    <ui-select ng-model="accountform.accountNatureId" ng-required="true" name="accNature" ng-required="true" theme="select2" on-select="setaccountnature($select.selected)" ng-required="true">
+                        <ui-select-match placeholder="{{Translate[lang].TEXT_ACCOUNT_NATURE_choose}}">{{$select.selected.accountNatureNameArabic}}</ui-select-match>
+    
+                        <ui-select-choices repeat="item.accountNatureId  as item in natures | filter: $select.search">
+                          <span ng-bind="item.accountNatureNameArabic"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                      <span
+                      class="text-danger"
+                      ng-show="accForm.accNature.$touched && accForm.accNature.$error.required"
+                      >{{Translate[lang].TEXT_REQUIRED}}</span
+                    >
+                  </div>
+  
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].TEXT_LEVEL}} </label>
+                    <ui-select ng-model="accountform.accountLevelId" theme="select2" name="level"  ng-required="true">
+                        <ui-select-match placeholder="{{Translate[lang].TEXT_LEVEL_choose}}">{{$select.selected.accountLevelNameArabic}}</ui-select-match>
+    
+                        <ui-select-choices repeat="item.accountLevelId  as item in levels | filter: $select.search">
+                          <span ng-bind="item.accountLevelNameArabic"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                      <span
+                      class="text-danger"
+                      ng-show="accForm.level.$touched && accForm.level.$error.required"
+                      >{{Translate[lang].TEXT_REQUIRED}}</span
+                    >
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].TEXT_END_ACCOUNTS}}</label>
+                    <ui-select ng-model="accountform.reportTypeId" name="report"theme="select2"  ng-required="true">
+                        <ui-select-match placeholder="{{Translate[lang].TEXT_END_ACCOUNTS_CHOOSE}}">{{$select.selected.nameArabic}}</ui-select-match>
+    
+                        <ui-select-choices repeat="item.id  as item in reporttypes | filter: $select.search">
+                          <span ng-bind="item.nameArabic"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                      <span
+                      class="text-danger"
+                      ng-show="accForm.report.$touched && accForm.report.$error.required"
+                      >{{Translate[lang].TEXT_REQUIRED}}</span
+                    >
+                  </div>
+                  <div class="form-group col-md-4">
+                  
+                    <div class=" form-control-wrap">
+                      <button ng-disabled="accForm.accNature.$invalid" type="button" ng-click="addopenbalance()" class=" btn btn-info text-white">
+                        اضافه رصيد افتتاحي
+                      </button>
+                    </div>
+                
+                  </div>
+
+                  <div class="form-group col-md-4" ng-if="credit&&opening">
+                    <label class="col-lg-4 col-form-label" for="val-suggestions"
+                      >الرصيد
+                    </label>
+                    <div class="form-control-wrap">
+                      <div class="form-text-hint">
+                          <span class="overline-title">{{currency.symbol}}</span>
+                      </div>
+                      <input type="number" step="0.0001" class="form-control" id="default-05"  ng-model="accountform.credit">
+                  </div>
+                  </div>
+                  <div class="form-group col-md-4" ng-if="debit&&opening">
+                    <label class="col-lg-4 col-form-label" for="val-suggestions"
+                      > الرصيد 
+                    </label>
+                    <div class="form-control-wrap">
+                      <div class="form-text-hint">
+                          <span class="overline-title">{{currency.symbol}}</span>
+                      </div>
+                      <input type="number" step="0.0001" class="form-control" id="default-05"  ng-model="accountform.debit">
+                  </div>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    ng-disabled="accForm.$invalid"
+                  >
+                    {{Translate[lang].ADD}}
+                  </button>
+                  <button ui-sref="menu.tree" class="btn btn-info">
+                    {{Translate[lang].CANCEL}}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

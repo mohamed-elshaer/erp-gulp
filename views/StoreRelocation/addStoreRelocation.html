@@ -1,0 +1,149 @@
+  <div class="container-fluid">
+    <div class="card-inner position-relative card-tools-toggle">
+      <div class="card-title-group">
+        <div class="nk-block-head-content">
+          <h3 class="nk-block-title page-title">
+         {{Translate[lang]. TEXT_ADD_STORE_RELOCATE}}
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="basic-form">
+              <form name="store" ng-submit="addRelocation(currentObj)" >
+                <div class="form-row">
+                
+                  <div class="form-group col-md-6">
+                    <label>  {{Translate[lang]. TEXT_STORE_FROM}}
+
+                      <span class="text-danger">*</span>
+                    </label>
+                    <ui-select ng-model="currentObj.storeIdFrom" theme="select2" name="storeFrom" ng-required="true"  on-select="getproductbtstore($select.selected)">
+                        <ui-select-match>
+                          <span ng-bind="$select.selected.storeName"></span>
+                        </ui-select-match>
+                        
+                        <ui-select-choices
+                          repeat="item.id as item in stores | filter: $select.search"
+                        >
+                          <span ng-bind="item.storeName"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                      <span class="text-danger" ng-show="store.storeFrom.$touched&&store.storeFrom.$error.required">{{Translate[lang].MSG_REQUIRED}}</span>
+
+                  </div>
+               
+                  <div class="form-group col-md-6">
+                    <label>  {{Translate[lang]. TEXT_STORE_TO}}
+
+                      <span class="text-danger">*</span>
+
+                    </label>
+                    <ui-select ng-model="currentObj.storeIdTo" name="storeTo"theme="select2" ng-required="true" >
+                        <ui-select-match>
+                          <span ng-bind="$select.selected.storeName"></span>
+                        </ui-select-match>
+                        <ui-select-choices
+                          repeat="item.id as item in stores | filter: $select.search"
+                        >
+                          <span ng-bind="item.storeName"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                      <span class="text-danger" ng-show="store.storeTo.$touched&&store.storeTo.$error.required">{{Translate[lang].MSG_REQUIRED}}</span>
+                  </div>
+                 
+                
+                  <div class="form-group col-md-6">
+                    <label>  {{Translate[lang].TEXT_DATE}}
+                      <span class="text-danger">*</span>
+
+                    </label>
+                    <input type="date" ng-model="currentObj.Date" class="form-control" name="date" ng-required="true" >
+              
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>  {{Translate[lang]. TEXT_DESCRIPTION}}</label>
+                    <textarea ng-model="currentObj.description" class="form-control" name="description"theme="select2"  >
+                    </textarea>
+                  </div>
+                  <div class="col-12">
+                    <div class="">
+                        <div class="card card-preview col-112">
+                            <div class="card-inner row">
+                                <table class="table table-striped col-12 text-center">
+                                    <thead>
+                                        <tr >
+                                            <th></th>
+                                            <th scope="col">{{Translate[lang].TEXT_PRODUCT_RELOCATE}}</th>
+                                            <th scope="col">{{Translate[lang].TEXT_STOCK_RELOCATE}}</th>
+                                            <th scope="col">{{Translate[lang].TEXT_QUANTITY_RELOCATE}}</th>
+                                            <th scope="col">{{Translate[lang].TEXT_AMOUNT_RELOCATE}}</th>
+                                        
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in currentObj.productsRelocate track by $index">
+                                            <th scope="row">{{$index+1}}</th>
+                                            <td>
+                                              <ui-select ng-model="currentObj.productsRelocate[$index].productId" on-select="stock(currentObj.productsRelocate[$index].productId,$index)"ng-required="true" theme="select2">
+                                                <ui-select-match>
+                                                  <span ng-bind="$select.selected.productName"></span>
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                  repeat="item.id as item in producsbystore | filter: $select.search"
+                                                  
+                                                >
+                                             
+                                                  <span ng-bind="item.productName"></span>
+                                                </ui-select-choices>
+                                              </ui-select>
+                                            </td>
+                                            <td>
+                  
+                                                <input disabled type="number"class="form-control" ng-model="currentObj.productsRelocate[$index].stock">
+                                            </td>
+                                            <td>
+                                              <input ng-disabled="productStock==0" type="number" class="form-control"  
+                                              ng-model="currentObj.productsRelocate[$index].outgoingQuantity" />
+                                            </td>
+  
+                                            <td>
+                                              <input type="number" class="form-control"  
+                                              ng-model="currentObj.productsRelocate[$index].stock-(currentObj.productsRelocate[$index].outgoingQuantity)" />
+                                            </td>
+                                          
+                                            <td>
+                                                <button class="btn btn-danger btn-sm" ng-click="removerow($index)"><span><i class=" icon ni ni-trash"></i></span></button>    
+                                            </td>
+                                        </tr>
+                               
+                                    </tbody>
+                                    <button type="button" class=" btn btn-primary btn-sm" ng-click="addrow()">{{Translate[lang].TEXT_ADD_PRODUCT_RELOCATE}}</button>
+                                </table>
+                            </div>
+                        </div><!-- .card-preview -->
+                    </div>
+                </div>
+                
+               
+                </div>
+
+               
+                <div class="mt-4">
+                  <button type="submit"ng-disabled="store.$invalid|| currentObj.productsRelocate.length==0" class="btn btn-success" >
+                    {{Translate[lang].TEXT_SAVE}}
+                  </button>
+                  <a ui-sref="menu.storeRelocation" class="btn btn-info">{{Translate[lang].CANCEL}}</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

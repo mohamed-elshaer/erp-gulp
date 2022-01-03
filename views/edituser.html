@@ -1,0 +1,110 @@
+<div class="container-fluid">
+    <div class="card-inner position-relative card-tools-toggle">
+      <div class="card-title-group">
+        <div class="nk-block-head-content">
+          <h3 class="nk-block-title page-title">
+            {{Translate[lang].TEXT_EDITUSER}}
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="basic-form">
+              <form name="form" >
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].USERNAME}}
+                      <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_CustomerName}}"
+                      name="userName" ng-model="edituser.userName" ng-required="true" />
+                      <span class="text-danger"
+                      ng-show="form.userName.$touched && form.userName.$error.required">{{Translate[lang]. MSG_REQUIRED}}</span>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].Text_Email}}
+                      <span class="text-danger">*</span>
+
+                    </label>
+                    <input type="email"ng-required="true" class="form-control" placeholder="{{Translate[lang].Text_Email}}" name="email"
+                      ng-model="edituser.email" />
+                   
+                      <span class="text-danger"
+                      ng-show="form.email.$touched && form.email.$error.required">{{Translate[lang]. TEXT_EMAIL_REQUIRED}}</span>
+                      <span class="text-danger"
+                      ng-show="form.email.$touched && form.email.$error.email">{{Translate[lang]. MSG_INVALID_EMAIL}}</span>
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].Text_mobilephone}}</label>
+                    <input type="text" class="form-control" name="phoneNumber"
+                      placeholder="{{Translate[lang].Text_mobilephone}}" ng-model="edituser.phoneNumber" />
+                      
+                  </div>
+                 
+                    <!-- <div class="form-group col-md-4">
+                    <label>{{Translate[lang].ROLE}}</label>
+                    <select id="inputState"ng-model="edituser.role" class="form-control default-select" 
+                    ng-options="role.name as role.name for role in roles"
+                    name="roles" 
+                      ng-required="required">
+                        <option value="" disabled>
+                        ..{{Translate[lang].CHOOSE}}..
+                      </option>
+                      
+                    </select>
+                  
+                  </div> -->
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].ROLE}}
+                      <span class="text-danger">*</span>
+                    </label>
+                    <ui-select ng-model="edituser.role" name="role" ng-required="true" theme="select2">
+                      <ui-select-match>
+                        <span ng-bind="$select.selected.name.split('.')[0]"></span>
+                      </ui-select-match>
+                      <ui-select-choices
+                        repeat="item.name as item in roles | filter: $select.search"
+                        
+                      >
+                        <span ng-bind="item.name.split('.')[0]"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                    <span class="text-danger" ng-show="form.role.$error.required&&form.role.$touched">{{Translate[lang].TEXT_ROLE_REQUIRED}}</span>
+
+                  </div>
+                  <div class="form-group col-md-4">
+                    <div class="col-sm-3">{{Translate[lang].STATE}}</div>
+                    <div class="col-sm-9 pt-4">
+                     
+                       
+                          <div class="custom-control custom-control-sm custom-checkbox ">
+                            <input class="custom-control-input" ng-model="edituser.isActive" id="default" type="checkbox">
+                            <label class="custom-control-label" for="default">
+                                <span ng-if="edituser.isActive" class=" badge light badge-success">{{Translate[lang].ISACTIVE}}</span>
+                                <span ng-if="!edituser.isActive" class=" badge light badge-danger">{{Translate[lang].ISNOTACTIVE}}</span>
+                            </label>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="mt-4">
+                    <a ui-sref="menu.users" class=" btn btn-success">{{Translate[lang].CANCEL}}</a>
+                    <!-- Modal Trigger Code -->
+                    <button type="submit" class="btn btn-danger"ng-click="updateuser(edituser)"  data-target="#modalDefault" ng-disabled="form.$invalid">{{Translate[lang].UPDATE}}</button>
+                </div>
+                <!-- Modal Content Code -->
+               
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+

@@ -1,0 +1,316 @@
+[
+  {
+    "Name": "TEXT_DASHBOARD",
+    "Id": "1",
+    "Img": "theme/images/icons/devices.svg",
+    "Rout": "menu.dashboard",
+    "Target": "_self"
+  },
+  {
+    "Name": "TEXT_INVOICES",
+    "Id": "10",
+    "Img": "theme/images/icons/card-debit.svg",
+    "List": [
+      {
+        "Name": "TEXT_SUPLIERSINVOICES",
+        "Rout": "menu.supplierinvoice",
+        "Img": "theme/images/gallery/budget.png",
+        "fav": true,
+        "Target": "_self",
+        "Perm": ["Permissions.SupplierInvoice.View"]
+      },
+      {
+        "Name": "TEXT_CUSTOMERINVOICE",
+        "Rout": "menu.customerInvoice",
+        "Img": "theme/images/gallery/bill.png",
+        "fav": true,
+        "Target": "_self",
+        "Perm": ["Permissions.CustomerInvoice.View"]
+      }
+    ]
+  },
+  {
+    "Name": "TEXT_E_INVOICES",
+    "Id": "11",
+    "Img": "theme/images/icons/card-debit.svg",
+    "List": [
+      {
+        "Name": "TEXT_CONFIGURATION",
+        "Rout": "menu.configuration",
+        "Img": "theme/images/gallery/budget.png",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.CustomerInvoice.View"]
+      }
+    ]
+  },
+  {
+    "Name": "TEXT_DEALERS",
+    "Id": "5",
+    "Img": "theme/images/icons/profile.svg",
+    "List": [
+      {
+        "Name": "TEXT_CUSTOMERS",
+        "Rout": "menu.customers",
+        "Img": "theme/images/gallery/customer.png",
+        "ActiveTab": "dealers",
+        "fav": true,
+        "Target": "_self",
+        "Perm": ["Permissions.Customer.View"]
+      },
+      {
+        "Name": "TEXT_SUPPLIERS",
+        "Rout": "menu.suppliers",
+        "Img": "theme/images/gallery/supplier.png",
+        "ActiveTab": "dealers",
+        "fav": true,
+        "Target": "_self",
+        "Perm": ["Permissions.Supplier.View"]
+      }
+    ]
+  },
+  {
+    "Name": "TEXT_ACCOUNTS",
+    "Id": "8",
+    "Img": "theme/images/icons/card-debit.svg",
+    "List": [
+      {
+        "Name": "TEXT_CHARTOFACCOUNT",
+        "Rout": "menu.tree",
+        "Img": "theme/images/gallery/accounting (6).png",
+        "ActiveTab": "accounts",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Accountant.View"]
+      },
+      {
+        "Name": "TEXT_TRANSACTIONS_NOTES",
+        "Rout": "menu.transactions",
+        "Img": "theme/images/gallery/budget (1).png",
+        "ActiveTab": "accounts",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Transaction.View"]
+      },
+      {
+        "Name": "TEXT_ADD_TRANSACTION",
+        "Rout": "menu.addTransaction",
+        "Img": "theme/images/gallery/accountingadd.png",
+        "ActiveTab": "accounts",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Accountant.View"]
+      },
+      {
+        "Name": "TEXT_TRANSACTIONS_REPORT",
+        "Rout": "menu.transactions-report",
+        "Img": "theme/images/gallery/growth.png",
+        "ActiveTab": "accounts",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Transaction.View"]
+      },
+      {
+        "Name": "TEXT_BANK_ACCOUNT",
+        "Rout": "menu.bankaccount",
+        "Img": "theme/images/gallery/financial (1).png",
+        "ActiveTab": "accounts",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Transaction.View"]
+      },
+      {
+        "Name": "TEXT_SAFES",
+        "Rout": "menu.inventories",
+        "Img": "theme/images/gallery/safe-box.png",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Inventory.View"]
+      }
+    ]
+  },
+  {
+    "Name": "TEXT_MONEY_TRANSACTIONS",
+    "Id": "9",
+    "Img": "theme/images/icons/card-debit.svg",
+    "List": [
+      {
+        "Name": "TEXT_PAYMONEY",
+        "Rout": "menu.listpaymoney",
+        "Img": "theme/images/gallery/finance.png",
+        "ActiveTab": "money",
+        "fav": true,
+        "Target": "_self",
+        "Perm": ["Permissions.PayMoney.View"]
+      },
+      {
+        "Name": "TEXT_COLLECTMONEY",
+        "Rout": "menu.listcollectmoney",
+        "Img": "theme/images/gallery/financial.png",
+        "ActiveTab": "money",
+        "fav": true,
+        "Target": "_self",
+        "Perm": ["Permissions.PayMoney.View"]
+      }
+    ]
+  },
+  {
+    "Name": "TEXT_WAREHOUSE",
+    "Id": "7",
+    "Img": "theme/images/icons/sync.svg",
+    "Perm": ["Permissions.product.View"],
+    "List": [
+      {
+        "Name": "TEXT_ITEMS",
+        "Rout": "menu.items",
+        "Img": "theme/images/gallery/shopping-basket.png",
+        "ActiveTab": "dealers",
+        "fav": true,
+        "Target": "_self",
+        "Perm": ["Permissions.product.View"]
+      },
+      {
+        "Name": "TEXT_STORE_RELOCATION",
+        "Rout": "menu.storeRelocation",
+        "Img": "theme/images/gallery/warehouse.png",
+        "ActiveTab": "dealers",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.product.View"]
+      }
+    ]
+  },
+  {
+    "Name": "TEXT_SETTINGS",
+    "Id": "6",
+    "Img": "theme/images/icons/settings.svg",
+    "List": [
+      {
+        "Name": "TEXT_COMPANYSETTING",
+        "Rout": "menu.company",
+        "Img": "theme/images/gallery/settings.png",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Company.View"]
+      },
+      {
+        "Name": "TEXT_BRANCHSETTING",
+        "Rout": "menu.branches",
+        "Img": "theme/images/gallery/branches.png",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Branch.View"]
+      },
+      {
+        "Name": "TEXT_USERS",
+        "Rout": "menu.users",
+        "Img": "theme/images/gallery/employe.png",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Users.View"]
+      },
+      {
+        "Name": "TEXT_Roles",
+        "Rout": "menu.roles",
+        "Img": "theme/images/gallery/approve.png",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Role.View"]
+      },
+      {
+        "Name": "TEXT_BANKS",
+        "Rout": "menu.banks",
+        "Img": "theme/images/gallery/bank (1).png",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Bank.View"]
+      },
+      {
+        "Name": "TEXT_CURRENCIES",
+        "Rout": "menu.currencies",
+        "Img": "theme/images/gallery/money.png",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Supplier.View"]
+      },
+      {
+        "Name": "TEXT_CATEGORIES",
+        "Rout": "menu.categories",
+        "Img": "theme/images/gallery/category.png",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Category.View"]
+      },
+      {
+        "Name": "TEXT_UNITS",
+        "Rout": "menu.units",
+        "Img": "theme/images/gallery/units.png",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Category.View"]
+      },
+      {
+        "Name": "TEXT_STORES",
+        "Rout": "menu.stores",
+        "Img": "theme/images/gallery/stores.png",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Store.View"]
+      },
+      {
+        "Name": "TEXT_TAXES",
+        "Rout": "menu.taxes",
+        "Img": "theme/images/gallery/tax (2).png",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Supplier.View"]
+      },
+      {
+        "Name": "TEXT_storesetting",
+        "Rout": "menu.storesetting",
+        "Img": "theme/images/gallery/warehouse.png",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Company.Create"]
+      },
+      {
+        "Name": "TEXT_LOGS",
+        "Rout": "menu.logs",
+        "Img": "theme/images/gallery/log.png",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Role.View"]
+      },
+      {
+        "Name": "TEXT_BACKUP",
+        "Rout": "menu.backup",
+        "Img": "theme/images/icons/file-doc.svg",
+        "ActiveTab": "settings",
+        "fav": false,
+        "Target": "_self",
+        "Perm": ["Permissions.Backup.View"]
+      }
+    ]
+  },
+  {
+    "Name": "TEXT_REPORTS",
+    "Id": "16",
+    "Img": "theme/images/icons/file-doc.svg",
+    "Rout": "menu.reports",
+    "Target": "_self"
+  }
+  
+]

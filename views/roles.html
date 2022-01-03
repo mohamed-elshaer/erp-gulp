@@ -1,0 +1,141 @@
+<div class="container-fluid">
+    <div class="nk-content-inner">
+        <div class="nk-content-body">
+            <!-- row -->
+            <div class="">
+                <div class="nk-block-head nk-block-head-sm">
+                    <div class="nk-block-between">
+                        <div class="nk-block-head-content">
+                            <h3 class="nk-block-title page-title">{{Translate[lang].Text_Roles}}</h3>
+                        </div>
+                    </div>
+                    <!-- .nk-block-between -->
+                </div>
+                <div class="nk-block">
+                    <div class="card">
+                        <div class="card-header bg-white">
+                            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#roleForm">
+                                {{Translate[lang].Text_AddRole}}
+                            </button>
+                            <button ng-click="exportToPdf('tblMaster')" class="text-right btn btn-info">
+                                <img src="../../theme/images/icons/pdf.png" width="20px" class="mrx text-right" />&nbsp;
+                                {{Translate[lang].TEXT_EXPORT_PDF}} &nbsp;
+                            </button>
+                            <button ng-click="exportToExcel('#tblMaster')" class="text-right btn btn-info">
+                                <img src="../../theme/images/icons/xls.png" width="20px"
+                                    class="mrx text-right" />&nbsp;{{Translate[lang].TEXT_EXPORT_EXCEL}} &nbsp;
+                            </button>
+                            <button ng-click="print('#printTable')" id="print" class="text-right btn btn-info">
+                                <img src="../../theme/images/icons/print-131964753156480777.png" width="20px"
+                                    class="mrx text-right" />{{Translate[lang].TEXT_PRINT}}
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="">
+                                <div class="row">
+                                    <div id="printDiv" class="w-100 table-responsive">
+                                        <table id="tblMaster" class="table table-striped text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>{{Translate[lang].Text_RoleName}}</th>
+                                                    <th colspan="2"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="role in roles">
+                                                    <td>{{role.name.split(".")[0]}}</td>
+                                                    <td>
+                                                        <a href="#/menu/manageroles/{{role.id}}"
+                                                            class="btn btn-success btn-sm"
+                                                            title="{{Translate[lang].Text_ManagePermission}}"><i
+                                                                class="icon ni ni-edit"></i></a>
+                                                        <button type="button" class="btn
+                                            btn-danger btn-sm" data-toggle="modal"
+                                                            data-target="#exampleModal{{role.id}}"
+                                                            title="{{Translate[lang].Text_deleteRole}}"><i
+                                                                class="icon ni ni-trash"></i>
+                                                        </button>
+
+                                                        <!-- Modal confirmation for delete role -->
+
+                                                        <div class="modal fade" id="exampleModal{{role.id}}"
+                                                            tabindex="-1" aria-labelledby="exampleModalLabel"
+                                                            aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLabel">
+                                                                            {{Translate[lang].Text_deleteRole}}
+                                                                        </h5>
+                                                                        <button type="button" class="close"
+                                                                            data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body"
+                                                                        style="height:150px !important">
+                                                                        <h3 id="content">
+                                                                            {{Translate[lang].Text_ConfirmdeleteRole}}
+                                                                            {{role.name.split('.')[0]}} </h3>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn
+                                                            btn-secondary"
+                                                                            data-dismiss="modal">{{Translate[lang].TEXT_CANCEL}}</button>
+                                                                        <button ng-click="deleteRole(role.id)" class="btn 
+                                                            btn-danger">{{Translate[lang].Text_deleteRole}}</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" tabindex="-1" id="roleForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"> {{Translate[lang].Text_AddRole}} </h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <form class="form-validate is-alter" name="roleForm" ng-submit="addRole(roleForm)">
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label class="form-label" for="full-name">
+                                {{Translate[lang].Text_RoleName}}</label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" name="role" ng-model="roleForm.name" required>
+                                <span class="text-danger" ng-show="roleForm.role.$touched &&
+                                roleForm.role.$invalid">
+                                    {{Translate[lang].Text_RoleRequired}}
+                                </span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="submit" class="btn btn-success" ng-click="addRole(roleForm)" data-dismiss="modal"
+                            ng-disabled="roleForm.$invalid">{{Translate[lang].TEXT_ADD}}</button>
+                        <a href="#" class="close btn btn-warning" data-dismiss="modal"
+                            aria-label="Close">{{Translate[lang].TEXT_CANCEL}}</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>

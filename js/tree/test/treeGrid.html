@@ -1,0 +1,25 @@
+
+<div ng-model="showMinDir" ng-value="false">
+  
+  
+  <br/><br/>
+  <div ng-show="!showMinDir">
+ 
+      <div class="col-md-4 text-center">
+        <div class="input-icon mt-2 w-75">
+            <i class="fa fa-search"></i>
+            <input type="text" data-ng-model="filterString" class="colorpicker-default
+                form-control" placeholder="{{Translate[lang].TEXT_SEARCH}}" />
+        </div>
+    </div>
+     
+      <tree-grid tree-data="tree_data" class="tree-grid"  col-defs="col_defs" expand-on="expanding_property" 
+      on-select="my_tree_handler(branch)" expand-level="0" icon-expand = "icon ni ni-chevron-down"
+      icon-collapse = "icon ni ni-chevron-up"
+   ></tree-grid>
+  </div>
+  <div ng-show="showMinDir">
+      <tree-grid tree-data="tree_data" col-defs="col_defse" icon-expand = "icon ni ni-chevron-down"
+      icon-collapse = "icon ni ni-chevron-up"></tree-grid>
+  </div>
+</div>

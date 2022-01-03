@@ -1,0 +1,126 @@
+<div class="container-fluid">
+    <div class="nk-content-inner">
+        <div class="nk-content-body">
+            <div class="nk-block">
+                <div class="card card-bordered">
+                    <div class="card-aside-wrap">
+                        <div class="card-inner card-inner-lg">
+                            <div class="nk-block-head nk-block-head-lg">
+                                <div class="nk-block-between">
+                                    <div class="nk-block-head-content">
+                                        <h4 class="nk-block-title">{{Translate[lang].TEXT_PERSONAL_INFORMATION}}</h4>
+                                        <div class="nk-block-des">
+                                            <p>{{Translate[lang].TEXT_BASIC_INFO}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="nk-block-head-content align-self-start d-lg-none">
+                                        <a href="#" class="toggle btn btn-icon btn-trigger mt-n1" data-target="userAside"><em class="icon ni ni-menu-alt-r"></em></a>
+                                    </div>
+                                </div>
+                            </div><!-- .nk-block-head -->
+                            <div class="nk-block">
+                                <div class="nk-data data-list">
+                                    <div class="data-head">
+                                        <h6 class="overline-title">{{Translate[lang].TEXT_BASICS}}</h6>
+                                    </div>
+                                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                                        <div class="data-col">
+                                            <span class="data-label">{{Translate[lang].TEXT_FULL_NAME}}</span>
+                                            <span class="data-value">{{userData.userName}}</span>
+                                        </div>
+                                        <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
+                                    </div><!-- data-item -->
+                                  
+                                    <div class="data-item">
+                                        <div class="data-col">
+                                            <span class="data-label">{{Translate[lang].Text_Email}}</span>
+                                            <span class="data-value">{{userData.email}}</span>
+                                        </div>
+                                        <div class="data-col data-col-end"><span class="data-more disable"><em class="icon ni ni-lock-alt"></em></span></div>
+                                    </div><!-- data-item -->
+                                    <div class="data-item" data-toggle="modal" data-target="#profile-edit">
+                                        <div class="data-col">
+                                            <span class="data-label">{{Translate[lang].Text_mobilephone}}</span>
+                                            <span class="data-value text-soft" ng-show="userData.phoneNumber==''||userData.address==null">{{Translate[lang].TEXT_NOT_ADDED}}</span>
+                                            <span class="data-value" ng-show="userData.phoneNumber!=null">{{userData.phoneNumber}}</span>
+
+                                        </div>
+                                        <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
+                                    </div><!-- data-item -->
+                                  
+                                    <div class="data-item" data-toggle="modal" data-target="#profile-edit" >
+                                        <div class="data-col">
+                                            <span class="data-label">{{Translate[lang].Text_Address}}</span>
+                                            <span class="data-value" ng-show="userData.address!=null">{{userData.address}}</span>
+                                            <span class="data-value text-soft" ng-show="userData.address==''||userData.address==null">{{Translate[lang].TEXT_NOT_ADDED}}</span>
+
+                                        </div>
+                                        <div class="data-col data-col-end"><span class="data-more"><em class="icon ni ni-forward-ios"></em></span></div>
+                                    </div><!-- data-item -->
+                                </div><!-- data-list -->
+                              
+                            </div><!-- .nk-block -->
+                        </div>
+                       
+                    </div><!-- .card-aside-wrap -->
+                </div><!-- .card -->
+            </div><!-- .nk-block -->
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="profile-edit">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+            <div class="modal-body modal-body-lg">
+                <h5 class="title">{{Translate[lang].TEXT_UPDATE_PROFILE}}</h5>
+                <ul class="nk-nav nav nav-tabs">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" >{{Translate[lang].TEXT_BASICS}}</a>
+                    </li>
+                  
+                </ul><!-- .nav-tabs -->
+                <div class="tab-content">
+                    <div class="tab-pane active" id="personal">
+                        <form >
+                            <div class="row gy-4">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="full-name">{{Translate[lang].TEXT_FULL_NAME}}</label>
+                                        <input type="text" class="form-control form-control-lg" id="full-name" ng-model="userData.userName" placeholder="{{Translate[lang].TEXT_FULL_NAME}}">
+                                    </div>
+                                </div>
+                              
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="phone-no">{{Translate[lang].Text_mobilephone}}</label>
+                                        <input type="text" class="form-control form-control-lg" id="phone-no" ng-model="userData.phoneNumber" placeholder="{{Translate[lang].Text_mobilephone}}">
+                                    </div>
+                                </div>
+                              
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="form-label" for="phone-no">{{Translate[lang].Text_Address}}</label>
+                                        <input type="text" class="form-control form-control-lg" id="phone-no" ng-model="userData.address" placeholder="{{Translate[lang].Text_Address}}">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <ul class="align-center flex-wrap flex-sm-nowrap gx-4 gy-2">
+                                        <li>
+                                            <button type="submit"data-dismiss="modal" ng-click="editUserProfile(userData)" href="#" class="btn btn-lg btn-primary">{{Translate[lang].TEXT_UPDATE_PROFILE}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="#" data-dismiss="modal" class="btn btn-warning">{{Translate[lang].TEXT_CANCEL}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </form>
+                       
+                    </div><!-- .tab-pane -->
+                
+                </div><!-- .tab-content -->
+            </div><!-- .modal-body -->
+        </div><!-- .modal-content -->
+    </div><!-- .modal-dialog -->
+</div><!-- .modal -->

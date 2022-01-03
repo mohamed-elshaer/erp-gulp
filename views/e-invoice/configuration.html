@@ -1,0 +1,38 @@
+<div class=" container-fluid">
+    <div class="card-inner position-relative card-tools-toggle">
+        <div class="card-title-group">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">{{Translate[lang].TEXT_CONFIGURATION}}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                   <div class="basic-form">
+                        <form name="form" ng-submit="save(currentObj)">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].TEXT_CLIENT_ID}}</label>
+                                    <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_CLIENT_ID}}" name="clientId" ng-model="currentObj.clientId" readonly>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].TEXT_SECRET_ID}}</label>
+                                    <input type="text" class="form-control" name="secretId" placeholder="{{Translate[lang].TEXT_SECRET_ID}}" ng-model="currentObj.secretId">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].TEXT_ISSUER}}</label>
+                                    <input type="text" class="form-control" name="issuer" placeholder="{{Translate[lang].TEXT_ISSUER}}" ng-model="currentObj.issuer" >
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-success" ng-disabled="form.$invalid">{{Translate[lang].TEXT_SAVE}}</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

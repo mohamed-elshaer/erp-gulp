@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <div class="card-inner position-relative card-tools-toggle">
+        <div class="card-title-group">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">
+                    {{permissions.roleName.split(".")[0]}}
+                </h3>
+
+            </div>
+        </div>
+    </div>
+    <form ng-submit="updatePermission(permissions)">
+        <div class="card mt-4">
+            <!-- <div class="card-header">
+            <h2>{{permissions.roleName}}</h2>
+            {{Translate[lang].Text_AddAndDeletePermission}}
+        </div> -->
+            <div class="card-body">
+                <input type="hidden" ng-model="permissions.roleId" />
+                <table class="table table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th>
+                                <div class="custom-control custom-control-sm custom-checkbox ">
+                                    <input type="checkbox" class="custom-control-input" id="selectall"
+                                        ng-model="selectedAll" ng-click="checkAll()"> &nbsp;
+                                    <label class="custom-control-label" for="selectall">
+                                    </label>
+                                </div>
+                            </th>
+                            <th> {{Translate[lang].Text_Module}}</th>
+                            <th colspan="5">{{Translate[lang].Text_PermissionModule}}</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr ng-repeat="(key, value) in permissions.roleClaims | groupBy: 'model'" >
+
+                            <td>
+                                <div class="custom-control custom-control-sm custom-checkbox ">
+                                    <input type="checkbox" ng-model="isSelected" ng-change="CheckUncheckHeader();checkRow(key,isSelected)"class="custom-control-input"
+                                        id="{{key}}"> &nbsp;
+                                    <label class="custom-control-label" for="{{key}}">
+                                    </label>
+                                </div>
+                            </td>
+                            <td>{{Translate[lang]["TEXT_"+key]}}</td>
+
+                            <td ng-repeat="item in value ">
+                                <span>
+                                    <div class="custom-control custom-control-sm custom-checkbox ">
+                                        <input type="checkbox" ng-model="item.isSelected" ng-change="CheckUncheckHeader();" class="custom-control-input"
+                                            id="{{item.displayValue}}"> &nbsp;
+                                        <label class="custom-control-label" for="{{item.displayValue}}">
+                                            {{Translate[lang]["TEXT_"+item.displayValue.split('.')[2]]}}</label>
+                                    </div>
+
+                                </span>
+                            </td>
+
+
+                        </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">{{Translate[lang].TEXT_SAVE}}</button>
+            <a href="#/menu/roles" class="btn btn-secondary">{{Translate[lang].TEXT_CANCEL}}</a>
+        </div>
+    </form>
+</div>

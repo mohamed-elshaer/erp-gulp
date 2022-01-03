@@ -1,0 +1,246 @@
+<div class="container-fluid">
+  <div class="card-inner position-relative card-tools-toggle">
+    <div class="card-title-group">
+      <div class="nk-block-head-content">
+        <h3 class="nk-block-title page-title">
+          {{Translate[lang].TEXT_ADD_TRANSACTION}}
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-12 col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="basic-form">
+            <form name="form" ng-submit="addTransaction(currentObj)">
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label
+                    >{{Translate[lang].TEXT_TRANSACTION_NUMBER}}</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="{{Translate[lang].TEXT_TRANSACTION_NUMBER}}"
+                    name="amount"
+                    ng-model="currentObj.transactionId"
+                    readonly
+                  />
+                </div>
+                <div class="form-group col-md-4">
+                  <label
+                    >{{Translate[lang].TEXT_DATE}}
+                    <span class="text-danger">*</span></label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    ng-model="currentObj.transactionDate"
+                    name="txtAutomaticdate"
+                    name="date"
+                    id="date"
+                    ng-required="true"
+                  />
+                  
+                </div>
+                <div class="form-group col-md-4">
+                  <label
+                    >{{Translate[lang].TEXT_REFERANCE}}</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="{{Translate[lang].TEXT_REFERANCE}}"
+                    name="amount"
+                    ng-model="currentObj.refrenceId"
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-label"
+                      >{{Translate[lang].description}}</label
+                    >
+                    <div class="form-control-wrap">
+                      <textarea
+                        ng-model="currentObj.description"
+                        class="form-control"
+                        cols="30"
+                        rows="5"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <hr />
+              <a
+                class="btn btn-primary btn-sm"
+                data-toggle="modal"
+                data-target="#storeForm"
+              >
+                <span class="text-lighter"
+                  >{{Translate[lang].TEXT_ADD_ACCOUNT}}</span>
+              </a>
+              <div class="row">
+                <div class="col-md-12">
+                  <table id="example" class="table table-striped text-center">
+                    <thead>
+                      <tr>
+                        <th>{{Translate[lang].TEXT_ACCOUNT_CODE}}</th>
+                        <th>{{Translate[lang].TEXT_ACCOUNT_NAME}}</th>
+                        <th>{{Translate[lang].TEXT_DEBIT}}</th>
+                        <th>{{Translate[lang].TEXT_CREDIT}}</th>
+                        <th colspan="1"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="item in transactionDetails track by $index">
+                        <td>{{item.code}}</td>
+                        <td>
+                          {{item.accountNameArabic}}
+                        <input type="hidden" ng-model="item.accountId">
+                        </td>
+                        <td>
+                         
+                          <span>
+                            <input
+                              type="number"
+                              ng-disabled="item.credit > 0"
+                              ng-init="!item.debit? item.debit = 0:item.debit = item.debit"
+                              class="
+                                form-control form-control-sm
+                                shadow-none
+                                small-font
+                              "
+                              ng-model="item.debit"
+                              name="txtDepit"
+                              id="txtDepit"
+                              min="0"
+                              max="100000000"
+                              required
+                            />
+                          </span>
+                        </td>
+                        <td>
+                          <span>
+                            <input
+                              type="number"
+                              ng-disabled="item.debit > 0"
+                              ng-init="!item.credit? item.credit = 0:item.credit = item.credit"
+                              class="
+                                form-control form-control-sm
+                                shadow-none
+                                small-font
+                              "
+                              ng-model="item.credit"
+                              name="txtDepit"
+                              id="txtDepit"
+                              min="0"
+                              max="100000000"
+                              required
+                            />
+                          </span>
+                        </td>
+                        <td>
+                          <a
+                            ng-click="remove(item)"
+                            class="btn btn-danger btn-xs text-white"
+                            title="{{Translate[lang].TEXT_DELETE}}"
+                          >
+                            <i class="icon ni ni-trash"></i>
+                          </a>
+                        </td>
+                      </tr>
+                      <tr class = "bg-grey">
+                        <td colspan="1"></td>
+                        <td colspan="1"></td>
+                        <td colspan="1"> {{getTotal('debit')}}</td>
+                        <td colspan="1"> {{getTotal('credit')}}</td>
+                        <td colspan="1">
+                            {{getTotal('credit')- getTotal('debit')}}</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="mt-4">
+                <button
+                  type="submit"
+                  class="btn btn-success"
+                  ng-disabled="form.$invalid || transactionDetails.length<=0  ||  ((getTotal('credit')- getTotal('debit') !== 0))"
+                >
+                  {{Translate[lang].ADD}}
+                </button>
+                <a ui-sref="menu.transactions" class=" btn btn-secondary" style="color: #fff;
+                background-color: #364a63;
+                border-color: #364a63;">{{Translate[lang].TEXT_BACK}}</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- store Form -->
+<div class="modal fade" tabindex="-1" id="storeForm">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{Translate[lang].TEXT_ACCOUNT_NAME}}</h5>
+        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+          <em class="icon ni ni-cross"></em>
+        </a>
+      </div>
+      <form class="form-validate is-alter">
+        <div class="modal-body" style="height: 35rem;
+        overflow: auto;">
+          <div class="row pb-1">
+            <div class="col-md-8 text-center">
+                <div class="input-icon mt-2 w-75">
+                    <i class="fa fa-search"></i>
+                    <input type="text" ng-model="search" class="colorpicker-default form-control"
+                        placeholder="{{Translate[lang].TEXT_SEARCH}}" />
+                </div>
+            </div>
+        </div>
+          <table id="example" class="table table-striped text-center">
+            <thead>
+              <tr>
+                <th>{{Translate[lang].TEXT_ACCOUNT_CODE}}</th>
+                <th>{{Translate[lang].TEXT_ACCOUNT_NAME}}</th>
+                <th colspan="1"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in listChildAccounts|filter:search track by $index">
+                <td>{{item.code}}</td>
+                <td>{{item.accountNameArabic}}</td>
+                <td>
+                  <button
+                    ng-click="addAccountDetails(item)"
+                    class="btn btn-primary btn-sm"
+                    title="{{Translate[lang].TEXT_ADD}}"
+                  >
+                    <i class="icon ni ni-plus-medi"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer bg-light p-1">
+          <a
+            href="#"
+            class="close btn btn-warning btn-sm"
+            data-dismiss="modal"
+            aria-label="Close"
+            >{{Translate[lang].CANCEL}}</a
+          >
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

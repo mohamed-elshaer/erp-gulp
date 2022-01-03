@@ -1,0 +1,1052 @@
+<div class="container-fluid">
+  <div class="card-inner position-relative card-tools-toggle">
+    <div class="card-title-group">
+      <div class="nk-block-head-content">
+        <h3 class="nk-block-title page-title">
+          {{Translate[lang].TEXT_ADDSUPPLIERINVOICE}}
+        </h3>
+        <button type="button" class="btn btn-info btn-rounded bg-transpernt ml-auto" value="click to toggle fullscreen"
+          ng-click="toggleFullScreen()">
+          <i class="ni ni-maximize text-light"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-12 col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="basic-form">
+            <form name="formCus" ng-submit="addinvoice(supplierinvoiceform)">
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label>{{Translate[lang].TEXT_INVOICENUMBER}}
+                    <span class="text-danger">*</span>
+                  </label>
+                  <input type="number" class="form-control" name="invNum" ng-model="supplierinvoiceform.invoiceNumber" ng-required="true">
+                  <span class="text-danger"
+                  ng-show="formCus.invNum.$error.required &&formCus.invNum.$touched ">{{Translate[lang].
+                  MSG_REQUIRED}}</span>
+                </div>
+              
+                <div class="form-group col-md-4">
+                  <div class="row">
+                    <div class="col-md-10 pr-0">
+                      <label>{{Translate[lang].TEXT_SupplierName}}
+                        <span class="text-danger">*</span></label>
+                      <ui-select ng-model="supplierinvoiceform.supplierId" theme="select2" ng-required="true" name="supplier"
+                        on-select="suppliertopay($select.selected)">
+                        <ui-select-match  placeholder="{{Translate[lang].TEXT_SupplierName}}" >
+                          <span ng-bind="$select.selected.supplierName"></span>
+                        </ui-select-match>
+
+                        <ui-select-choices repeat="item.id as item in suppliers | filter: $select.search">
+                          <span ng-bind="item.supplierName"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                      <span class="text-danger"
+                        ng-show="formCus.supplier.$error.required &&formCus.supplier.$touched ">{{Translate[lang].
+                        MSG_REQUIRED}}</span>
+                    </div>
+                    <div class="col-md-2 m-auto mt-lg-3 pl-lg-0">
+                      <a data-toggle="modal" data-target="#modalTabsSupplier2" 
+                        class="btn btn-primary btn-sm mt-4">
+                        <span class="text-lighter"><i class=" icon ni ni-plus-medi"></i></span></a>
+                    </div>
+                  </div>
+                </div>
+               
+              
+
+
+                <div class="form-group col-md-4">
+                  <label>{{Translate[lang].TEXT_PAYMENTTYPE}}
+                    <span class="text-danger">*</span>
+                  </label>
+                  <ui-select ng-model="supplierinvoiceform.paymentTypeId" theme="select2" ng-required="true" name="paymenttype"
+                    on-select="setpay($select.selected.paymentTypeNameArabic)">
+                    <ui-select-match placeholder="{{Translate[lang].TEXT_ADDPAYMENTTYPE}}">
+                      <span ng-bind="$select.selected.paymentTypeNameArabic"></span>
+                    </ui-select-match >
+                    <ui-select-choices repeat="item.id as item in paymenttypes | filter: $select.search">
+                      <span ng-bind="item.paymentTypeNameArabic"></span>
+                    </ui-select-choices>
+                  </ui-select>
+                  <span class="text-danger"
+                    ng-show="formCus.paymenttype.$touched && formCus.paymenttype.$error.required">{{Translate[lang].
+                    MSG_REQUIRED}}</span>
+                </div>
+                <div class="form-group col-md-4">
+                  <div class="row">
+                    <div class="col-md-10 pr-0">
+                      <label>{{Translate[lang].TEXT_FROM_ACCOUNT}}</label>
+                      <ui-select ng-model="supplierinvoiceform.accountPayFromId" theme="select2"  name="account"
+                        >
+                        <ui-select-match placeholder="{{Translate[lang].TEXT_CHOOSEACCOUNT}}">
+                          <span ng-bind="$select.selected.accountNameArabic"></span>
+                        </ui-select-match>
+                        <ui-select-choices group-by="'groupby'"
+                          repeat="item.accountId as item in invandbanks | filter: $select.search">
+                          <span ng-bind="item.accountNameArabic"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                      <span class="text-danger"
+                        ng-show="formCus.account.$error.required &&formCus.account.$touched ">{{Translate[lang].
+                        MSG_REQUIRED}}</span>
+                    </div>
+                    <div class="col-md-2 m-auto mt-lg-3 pl-lg-0">
+                      <a data-toggle="modal" data-target="#modalTabsSupplier" ng-click="reseatObj"
+                        class="btn btn-primary btn-sm mt-4">
+                        <span class="text-lighter"><i class=" icon ni ni-plus-medi"></i></span></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <div class="row">
+                    <div class="col-md-10 pr-0">
+                      <label>{{Translate[lang].TEXT_CURRENCY_NAME}}</label>
+
+                      <ui-select ng-model="supplierinvoiceform.currencyId" theme="select2"
+                        on-select="calccurrency($select.selected)" >
+                        <ui-select-match>
+                          <span ng-bind="$select.selected.currencyNameArabic"></span>
+                        </ui-select-match>
+                        <ui-select-choices repeat="item.id as item in currencyLst | filter: $select.search">
+                          <span ng-bind="item.currencyNameArabic"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                    </div>
+                    <div class="col-md-2 m-auto mt-lg-3 pl-lg-0">
+                      <a data-toggle="modal" data-target="#currencyModalSupplier" ng-click="reseatObj"
+                        class="btn btn-primary btn-sm mt-4">
+                        <span class="text-lighter"><i class=" icon ni ni-plus-medi"></i></span></a>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label> {{Translate[lang].TEXT_SPEND_PRICE}}</label>
+                  <div class="form-control-wrap">
+                    <div class="form-text-hint">
+                      <span class="overline-title">{{currency.symbol}}</span>
+                    </div>
+                    <input type="number" step="any" class="form-control" id="default-05" ng-model="currentfactor"
+                      ng-change="updatecurrency()" >
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <div class="row">
+                    <div class="col-md-10 pr-0">
+                      <label>{{Translate[lang].storeName}}
+                        <span class="text-danger">*</span>
+                      </label>
+                      <ui-select ng-model="supplierinvoiceform.storeId" theme="select2" ng-required="true" name="store"
+                        on-select="getproductbtstore()">
+                        <ui-select-match placeholder="{{Translate[lang].selectStore}}">
+                          <span ng-bind="$select.selected.storeName"></span>
+                        </ui-select-match >
+                        <ui-select-choices repeat="item.id as item in stores | filter: $select.search">
+                          <span ng-bind="item.storeName"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                      <span class="text-danger"
+                        ng-show="formCus.store.$error.required &&formCus.store.$touched ">{{Translate[lang].
+                        MSG_REQUIRED}}</span>
+                    </div>
+                    <div class="col-md-2 m-auto mt-lg-3 pl-lg-0">
+                      <a data-toggle="modal" data-target="#storeSup" ng-click="reseatObj"
+                        class="btn btn-primary btn-sm mt-4">
+                        <span class="text-lighter"><i class=" icon ni ni-plus-medi"></i></span></a>
+                    </div>
+                  </div>  
+                 
+                
+                
+                  </div>
+                 
+
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].TEXT_DATE}}</label>
+                    <input type="date" class="form-control" ng-model="supplierinvoiceform.invoiceDate" />
+                  </div>
+
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].description}}</label>
+                    <textarea class="form-control" ng-model="supplierinvoiceform.description"></textarea>
+                  </div>
+                </div>
+               
+                <hr>
+                <div class="row pt-2">
+                  <div class=" col-md-12">
+                    <a class=" btn btn-primary btn-sm text-light" ng-click="addrow()">{{Translate[lang].AddNewItem}}</a>
+                    <a ng-click="newItem()" style="float: left;"
+                          class="btn btn-primary btn-sm">
+                          <span class="text-lighter"><i class=" icon ni ni-plus-medi"></i></span></a>
+                    <table class="table table-striped col-12 text-center table-responsive">
+                      <thead>
+                        <tr>
+                          <th class="col-1"></th>
+                          <th class="col-1">{{Translate[lang].TEXT_PRODUCTNAME}}
+                            <span class="text-danger">*</span>  
+                          </th>
+                          <th class="col-1">{{Translate[lang].unitName}} </th>
+                          <th class="col-1">{{Translate[lang].purchasingPric}}</th>
+                          <th class="col-1">{{Translate[lang].TEXT_QUANTITY}}</th>
+                          <th class="col-1">{{Translate[lang].TEXT_TOTALUNITPRICE}}</th>
+                          <th class="col-1">{{Translate[lang].TEXT_DISCOUNTS}}</th>
+                          <th class="col-1">{{Translate[lang].TEXT_TAX_NAME}}</th>
+                          <th class="col-1">{{Translate[lang].TEXT_TOTAL}}</th>
+                          <th class="col-1">{{Translate[lang].TEXT_COST}}</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-show="!supplierinvoiceform.supplierInvoiceDetails.length">
+                          <td colspan="11">
+                            <h5 class="gray">{{Translate[lang].MSG_NO_RESULT}}</h5>
+                            <div class="spacer1"></div>
+                            <h3 class="gray"></h3>
+                          </td>
+                        </tr>
+                        <tr ng-repeat="item in supplierinvoiceform.supplierInvoiceDetails track by $index">
+                          <th scope="row">{{$index+1}}</th>
+                          <td class="col-1">
+                            <ui-select name="pro{{$index}}" ng-model="supplierinvoiceform.supplierInvoiceDetails[$index].productId"
+                              on-select="passunits($select.selected,$index)" 
+                              ng-required="true"
+                              id="select{{$index}}" theme="select2">
+                              <ui-select-match  >
+                                <span ng-bind="$select.selected.productName"></span>
+                              </ui-select-match>
+                              <ui-select-choices  repeat="item.id as item in producsbystore | filter: $select.search">
+                                <span ng-bind="item.productName" ></span>
+                              </ui-select-choices>
+                            </ui-select>
+                            <span class="text-danger"
+                            ng-show="formCus.pro{{$index}}.$error.required &&formCus.pro{{$index}}.$touched ">{{Translate[lang].
+                            MSG_REQUIRED}}</span>                          </td>
+                          <td class="col-1">
+                            <ui-select ng-model="supplierinvoiceform.supplierInvoiceDetails[$index].unitId"
+                              theme="select2">
+                              <ui-select-match>
+                                <span ng-bind="$select.selected.unitName"></span>
+                              </ui-select-match>
+                              <ui-select-choices repeat="item.id as item in units | filter: $select.search">
+                                <span ng-bind="item.unitName"></span>
+                              </ui-select-choices>
+                            </ui-select>
+                          </td>
+                          <td class="col-1">
+                            <div class="form-control-wrap">
+                             
+                              <input type="number" step="any" class="form-control" id="default-05"
+                                ng-model="supplierinvoiceform.supplierInvoiceDetails[$index].unitPrice">
+                            </div>
+                          </td>
+                          <td class="col-1">
+                            <input type="number" step="any" class=" form-control"
+                              ng-model="supplierinvoiceform.supplierInvoiceDetails[$index].quantity"
+                              ng-change="calccost($index)">
+                          </td>
+                          <td class="col-1">
+                            <input type="number" step="any" class=" form-control"
+                              ng-model="supplierinvoiceform.supplierInvoiceDetails[$index].totalUnitPrice"
+                              ng-change="totalunitclsh()">
+                          </td>
+                          <td class="col-1">
+                            <div class="form-control-wrap">
+                              <div class="form-text-hint">
+                                <span class="overline-title"><em class="icon ni ni-percent"></em></span>
+                              </div>
+                              <input type="number" step="any" class="form-control" id="default-05"
+                                ng-model="supplierinvoiceform.supplierInvoiceDetails[$index].discount"
+                                ng-change="dicountclsh($index)">
+                            </div>
+                          </td>
+                          <td class="col-1">
+                            <ui-select ng-model="supplierinvoiceform.supplierInvoiceDetails[$index].taxId"
+                              theme="select2" on-select="calctotal($select.selected,$index)">
+                              <ui-select-match>
+                                <span ng-bind="$select.selected.amount"></span>
+                                <span class="overline-title"><em class="icon ni ni-percent"></em></span>                              </ui-select-match>
+                              <ui-select-choices repeat="item.id as item in taxes | filter: $select.search">
+                                <span ng-bind="item.taxTypeName"></span>
+                              </ui-select-choices>
+                            </ui-select>
+                          </td>
+                          <td class="col-1">
+                            <div class="form-control-wrap">
+                              
+                              <input type="number" placeholder="0.00" name="price" min="0" value="0" step="0.01"
+                                title="Currency" pattern="^\d+(?:\.\d{1,3})?$" onblur="
+                                                            this.parentNode.parentNode.style.backgroundColor=/^\d+(?:\.\d{1,2})?$/.test(this.value)?'inherit':'red'
+                                                            " step="any" step="any" class="form-control"
+                                id="default-05" ng-model="supplierinvoiceform.supplierInvoiceDetails[$index].totalPrice"
+                                ng-change="totalclsh()">
+                            </div>
+                          </td>
+                          <td class="col-1">
+                            <ui-select ng-model="supplierinvoiceform.supplierInvoiceDetails[$index].costId"
+                              theme="select2" >
+                              <ui-select-match>
+                                <span ng-bind="$select.selected.name"></span>
+                                <span class="overline-title"><em class="icon ni ni-percent"></em></span>                              </ui-select-match>
+                              <ui-select-choices repeat="item.id as item in costcenters | filter: $select.search">
+                                <span ng-bind="item.name"></span>
+                              </ui-select-choices>
+                            </ui-select>
+                          </td>
+                          <td class="col-1">
+                            <a class="btn btn-danger btn-sm" ng-click="removerow(supplierinvoiceform.supplierInvoiceDetails[$index],$index)"><span><i
+                                  class=" icon ni ni-trash"></i></span></a>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                  </div>
+                </div><!-- .card-preview -->
+                <hr>
+                <div class="row pt-2">
+                  <div class="col-md-6">
+                    <div class="form-group col-md-12 ml-auto m-0 p-0 text-right">
+                      <div class="table-responsive-md">
+                        <table class="mb-0 table table-active">
+                          <tr class="  text-white text-center">
+                            <td class="polder pt-3 bg-info" colspan="2">المصروفات</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-control-wrap">
+                                <div class="form-text-hint">
+                                  <span class="overline-title">{{currency.symbol}}</span>
+                                </div>
+                                <input type="number" step="any" class="form-control" id="default-05"
+                                  ng-model="supplierinvoiceform.transportExpense">
+                              </div>
+                            </td>
+                            <td class="polder pt-3"><span>مصروفات النقل</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-control-wrap">
+                                <div class="form-text-hint">
+                                  <span class="overline-title">{{currency.symbol}}</span>
+                                </div>
+                                <input type="number" step="any" class="form-control" id="default-05"
+                                  ng-model="supplierinvoiceform.insuranceExpense">
+                              </div>
+                            </td>
+                            <td class="pt-3 polder">مصروفات التأمين</td>
+                          </tr>
+                 
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group col-md-8 ml-auto m-0 p-0 text-left">
+                      <div class="table-responsive-md">
+                        <table class="mb-0 table table-active">
+                          <tr class="  text-white text-center">
+                            <td class="polder pt-3 bg-info" colspan="2">الأجمالي</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-control-wrap">
+                                <div class="form-text-hint">
+                                  <span class="overline-title">{{currency.symbol}}</span>
+                                </div>
+                                <input type="number" step="any" class="form-control" id="default-05"
+                                  ng-model="show.totalunitprice">
+                              </div>
+                            </td>
+                            <td class="polder pt-3"><span>الأجمالي</span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-control-wrap">
+                                <div class="form-text-hint">
+                                  <span class="overline-title">{{currency.symbol}}</span>
+                                </div>
+                                <input type="number" step="any" class="form-control" id="default-05"
+                                  ng-model="show.discount">
+                              </div>
+                            </td>
+                            <td class="pt-3 polder">اجمالي الخصم</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="form-control-wrap">
+                                <div class="form-text-hint">
+                                  <span class="overline-title">{{currency.symbol}}</span>
+                                </div>
+                                <input type="number" step="any" class="form-control" id="default-05"
+                                  ng-model="show.tax">
+                              </div>
+
+                            </td>
+                            <td class="polder pt-3">
+                              اجمالي الضرائب
+                            </td>
+                          </tr>
+                          <tr class="">
+                            <td>
+                              <div class="form-control-wrap">
+                                <div class="form-text-hint">
+                                  <span class="overline-title">{{currency.symbol}}</em></span>
+                                </div>
+                                <input type="number" step="any" class="form-control" id="default-05"
+                                  ng-model="show.totalPrice">
+                              </div>
+
+                            </td>
+                            <td class="polder pt-3">
+                              اجمالي الفاتوره
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+            
+                </div>
+
+              
+          <div class="mt-4">
+            <button type="submit" class="btn btn-success" ng-disabled="formCus.$invalid || supplierinvoiceform.supplierInvoiceDetails.length==0 ">
+              {{Translate[lang].TEXT_SAVE}}
+            </button>
+            <a ui-sref="menu.supplierinvoice" class="btn btn-info">{{Translate[lang].CANCEL}}</a>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Modal Form -->
+<div class="modal fade" role="dialog" tabindex="-1" id="paymoney">
+  <div class="modal-dialog" role="document" id="paymoneywidth">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"> {{Translate[lang].TEXT_PAYMONEY}}</h5>
+        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+          <em class="icon ni ni-cross"></em>
+        </a>
+      </div>
+      <form name="form" ng-submit="addPaysome(paysome)">
+        <div class="modal-body modal-body-xl">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12">
+
+
+                <div class="row">
+                  <div class="form-group col-md-3">
+                    <label>{{Translate[lang].TEXT_THE_ACCOUNT}}<span class="text-danger">*</span></label>
+                    <ui-select ng-model="paysome.accountPayFromId" theme="select2"
+                      on-select="setFromAccBalance($select.selected)" ng-required="true">
+                      <ui-select-match>
+                        <span ng-bind="$select.selected.accountNameArabic"></span>
+                      </ui-select-match>
+                      <ui-select-choices repeat="item.accountId  as item in invandbanks | filter: $select.search">
+                        <span ng-bind="item.accountNameArabic"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                    <span class="text-danger"
+                      ng-show="form.accountPayFromId.$touched && form.accountPayFromId.$error.required">{{Translate[lang].TEXT_REQUIRED}}</span>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label>{{Translate[lang].TEXT_ACCOUNT_BALANCE}}</label>
+                    <input type="number" step="any" class="form-control" placeholder="{{Translate[lang].TEXT_AMOUNT}}"
+                      name="amount" ng-model="accbalance" readonly />
+                  </div>
+                  <div class="form-group col-md-3">
+                    <div class="row">
+                      <div class="col-md-10 pr-0">
+                        <label>{{Translate[lang].TEXT_CURRENCY_NAME}}</label>
+  
+                        <ui-select ng-model="supplierinvoiceform.currencyId" theme="select2"
+                          on-select="calccurrency($select.selected)">
+                          <ui-select-match>
+                            <span ng-bind="$select.selected.currencyNameArabic"></span>
+                          </ui-select-match>
+                          <ui-select-choices repeat="item.id as item in currencyLst | filter: $select.search">
+                            <span ng-bind="item.currencyNameArabic"></span>
+                          </ui-select-choices>
+                        </ui-select>
+                      </div>
+                      <div class="col-md-2 m-auto mt-lg-3 pl-lg-0">
+                        <a data-toggle="modal" data-target="#currencyModalSupplier" ng-click="reseatObj"
+                          class="btn btn-primary btn-sm mt-4">
+                          <span class="text-lighter"><i class=" icon ni ni-plus-medi"></i></span></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label>{{Translate[lang].TEXT_FACTOR_POUND}}</label>
+                    <input type="number" step="any" class="form-control" ng-model="currentfactor"
+                      ng-change="updatecurrency()" />
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label>{{Translate[lang].TEXT_TO_ACCOUNT}}<span class="text-danger">*</span></label>
+
+                    <input type="text" ng-model="suptopay.accountNameArabic" readonly></input>
+
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label>{{Translate[lang].TEXT_ACCOUNT_BALANCE}}</label>
+                    <input type="number" step="any" class="form-control"
+                      placeholder="{{Translate[lang].TEXT_ACCOUNT_BALANCE}}" ng-model="suptopay.balance" readonly />
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label>{{Translate[lang].TEXT_DATE}} <span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" ng-model="paysome.date" name="txtAutomaticdate" name="date"
+                      id="date" ng-required="true" />
+                  </div>
+                  <div class="form-group col-md-3">
+                    <label>{{Translate[lang].TEXT_AMOUNT}}<span class="text-danger">*</span></label>
+                    <input type="number" step="any" class="form-control" placeholder="{{Translate[lang].TEXT_AMOUNT}}"
+                      name="amount" ng-model="paysome.amount" ng-required="true" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label class="form-label">{{Translate[lang].description}}</label>
+                      <div class="form-control-wrap">
+                        <textarea ng-model="currentObj.description" class="form-control" cols="30" rows="5"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer bg-light">
+          <button type="submit" class="btn btn-success" ng-disabled="form.$invalid">
+            {{Translate[lang].TEXT_SAVE}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- SupplierName module -->
+
+<div class="modal fade" tabindex="-1" role="dialog" id="modalTabsSupplier2">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+      <div class="modal-body modal-body-md">
+        <div class=" container-fluid">
+          <div class="card-inner position-relative card-tools-toggle">
+            <div class="card-title-group">
+              <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">{{Translate[lang].TEXT_ADDSUPPLIER}}</h3>
+              </div>
+              <!-- .card-tools -->
+
+              <!-- .card-tools -->
+            </div>
+            <!-- .card-title-group -->
+
+            <!-- .card-search -->
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="basic-form">
+                    <form name="formsup" >
+                      <div class="form-row">
+                        <div class="form-group col-md-4">
+                          <label>{{Translate[lang].TEXT_SupplierName}} <span class="text-danger">*</span></label>
+                          <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_SupplierName}}"
+                            name="supplierName" ng-model="supplierForm.supplierName" ng-required="true">
+                          <span class=" text-danger"
+                            ng-show="formsup.supplierName.$touched && formsup.supplierName.$error.required">{{Translate[lang].TEXT_supplierRequired}}</span>
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label>{{Translate[lang].Text_Email}}</label>
+                          <input type="email" class="form-control" placeholder="{{Translate[lang].Text_Email}}"
+                            name="email" ng-model="supplierForm.email">
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label>{{Translate[lang].Text_mobilephone}}</label>
+                          <input type="text" class="form-control" name="phoneNumber"
+                            placeholder="{{Translate[lang].Text_mobilephone}}" ng-model="supplierForm.phoneNumber">
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label>{{Translate[lang].TEXT_HomeMobile}}</label>
+                          <input type="text" class="form-control" name="address"
+                            placeholder="{{Translate[lang].TEXT_HomeMobile}}" ng-model="supplierForm.homeMobile">
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label>{{Translate[lang].Text_Address}}</label>
+                          <input type="text" class="form-control" name="address"
+                            placeholder="{{Translate[lang].Text_Address}}" ng-model="supplierForm.address">
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label>{{Translate[lang].TEXT_FAX}}</label>
+                          <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_FAX}}" name="fax"
+                            ng-model="supplierForm.fax">
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label>{{Translate[lang].TEXT_DISCOUNT}}</label>
+                          <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_DISCOUNT}}"
+                            name="discount" ng-model="supplierForm.discount">
+                        </div>
+                        <div class="form-group col-md-4">
+                          <label>{{Translate[lang].Text_Balance}}</label>
+                          <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_CREDIT}}"
+                            name="credit" ng-model="supplierForm.credit">
+                        </div>
+                      </div>
+                      <!-- <div class="form-group col-md-4 mt-3">
+                                            <input type="checkbox"  ng-model="supplierForm.isBoth" >&nbsp;{{Translate[lang].  TEXT_SUPPLIERANDCUSTOMER}}
+                                        </div> -->
+                      <div class="custom-control custom-control-sm custom-checkbox  mt-3">
+                        <input type="checkbox" ng-model="supplierForm.isBoth" class="custom-control-input"
+                          id="com-email">
+                        <label class="custom-control-label"
+                          for="com-email">{{Translate[lang].TEXT_SUPPLIERANDCUSTOMER}}</label>
+                      </div>
+                      <div class="mt-3">
+                        <button type="submit"  data-dismiss="modal" ng-click="addSupplier(supplierForm)" class="btn btn-success"
+                          ng-disabled="formsup.$invalid">{{Translate[lang].ADD}}</button>
+                        <a data-dismiss="modal" class=" btn btn-secondary" style="color: #fff;
+                                        background-color: #364a63;
+                                        border-color: #364a63;">{{Translate[lang].CANCEL}}</a>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- currency Form -->
+<div class="modal fade" tabindex="-1" id="currencyModalSupplier">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" ng-show="currencyObj.id==null">{{Translate[lang].TEXT_ADD_CURRENCY}}</h5>
+        <h5 class="modal-title" ng-show="currencyObj.id>0">{{Translate[lang].TEXT_UPDATECURRENCY}}</h5>
+
+        <a href="#" class="close" id="close" data-dismiss="modal" aria-label="Close">
+          <em class="icon ni ni-cross"></em>
+        </a>
+      </div>
+      <form name="formSUP">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label" for="full-name">
+                  {{Translate[lang].TEXT_CURRENCY_NAME}}
+                  <span class="text-danger">*</span>
+                </label>
+                <div class="form-control-wrap">
+                  <input type="text" class="form-control" name="curAr" ng-model="currencyObj.currencyNameArabic"
+                    ng-required="true" />
+                  <span class="text-danger" ng-show="formSUP.curAr.$dirty &&
+                  formSUP.curAr.$error.required">
+                    {{Translate[lang].TEXT_REQUIRED}}
+                  </span>
+
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label" for="full-name">
+                  {{Translate[lang].TEXT_CURRENCY_NAME_English}}
+                  <span class="text-danger">*</span>
+
+                </label>
+                <div class="form-control-wrap">
+                  <input type="text" class="form-control" name="currencyName" ng-model="currencyObj.currencyName"
+                    ng-required="true" />
+                  <span class="text-danger" ng-show="formSUP.currencyName.$dirty &&
+                  formSUP.currencyName.$invalid">
+                    {{Translate[lang].TEXT_REQUIRED}}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label" for="full-name">
+                  {{Translate[lang].TEXT_COUNTRY}}
+                  <span class="text-danger">*</span>
+
+                </label>
+                <div class="form-control-wrap">
+                  <input type="text" class="form-control" name="country" ng-model="currencyObj.country"
+                    ng-required="true" />
+                  <span class="text-danger" ng-show="formSUP.country.$dirty &&
+                  formSUP.country.$invalid">
+                    {{Translate[lang].TEXT_REQUIRED}}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label" for="full-name">
+                  {{Translate[lang].TEXT_FACTORY}}
+                  <span class="text-danger">*</span>
+
+                </label>
+                <div class="form-control-wrap">
+                  <input type="number" step="any" class="form-control" name="factor" ng-model="currencyObj.factor"
+                    ng-required="true" />
+                  <span class="text-danger" ng-show="formSUP.factor.$dirty &&
+                  formSUP.factor.$invalid">
+                    {{Translate[lang].TEXT_REQUIRED}}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="form-label" for="full-name">
+                  {{Translate[lang].TEXT_SYMBOL}}
+                  <span class="text-danger">*</span>
+
+                </label>
+                <div class="form-control-wrap">
+                  <input type="text" class="form-control" name="symbol" ng-model="currencyObj.symbol"
+                    ng-required="true" />
+                  <span class="text-danger" ng-show="formSUP.symbol.$dirty &&
+                  formSUP.symbol.$invalid">
+                    {{Translate[lang].TEXT_REQUIRED}}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group" style="margin-top: 40px;">
+                <div class="custom-control custom-control-sm custom-checkbox ">
+                  <input type="checkbox" ng-model="currencyObj.default" class="custom-control-input"
+                    id=" {{Translate[lang].TEXT_DEFAULT}}"> &nbsp;
+                  <label class="custom-control-label" for=" {{Translate[lang].TEXT_DEFAULT}}">
+                    {{Translate[lang].TEXT_DEFAULT}}</label>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
+          </div>
+        </div>
+        <div class="modal-footer justify-content-start">
+          <div ng-show="currencyObj.id==null">
+            <button id="sbtnSUP1" type="button" class="btn btn-secondary" data-dismiss="modal"
+              ng-click="addCurrency(currencyObj)" ng-disabled="formSUP.$invalid">
+              {{Translate[lang].TEXT_ADD}}
+            </button>
+            <button id="sbtnSUP2" type="button" data-dismiss="modal" class="btn btn-primary">
+              {{Translate[lang].TEXT_CANCEL}}
+            </button>
+          </div>
+          <div ng-show="currencyObj.id>0">
+            <button id="sbtnSUP1" type="button" class="btn btn-secondary" ng-click="addCurrency(currencyObj)"
+              ng-disabled="currency.$invalid">
+              {{Translate[lang].TEXT_UPDATE}}
+            </button>
+            <button id="sbtnSUP3" type="button" data-dismiss="modal" class="btn btn-primary">
+              {{Translate[lang].TEXT_CANCEL}}
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- store module -->
+<div class="modal fade" tabindex="-1" id="storeSup">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{Translate[lang].addStore}}</h5>
+        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+          <em class="icon ni ni-cross"></em>
+        </a>
+      </div>
+
+      <form class="form-validate is-alter" name="addStore" ng-submit="addstore(storeform)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="full-name">{{Translate[lang].storeName}}</label>
+            <div class="form-control-wrap">
+              <input type="text" class="form-control" id="full-name" ng-model="storeform.storeName" name="store"
+                ng-required="true" />
+            </div>
+            <span class="text-danger" ng-show="addStore.store.$dirty&&addStore.store.$error.required">
+              {{Translate[lang].MSG_REQUIRED}}
+            </span>
+          </div>
+        </div>
+        <div class="modal-footer bg-light">
+          <button type="submit" class="btn btn-success" data-dismiss="modal" ng-click="addstore(storeform)"
+            ng-disabled="addStore.$invalid">
+            {{Translate[lang].ADD}}
+          </button>
+          <a href="#" class="close btn btn-warning" data-dismiss="modal"
+            aria-label="Close">{{Translate[lang].CANCEL}}</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Tabs -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modalTabsSupplier">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <a href="#" class="close" data-dismiss="modal"><em class="icon ni ni-cross-sm"></em></a>
+      <div class="modal-body modal-body-md">
+        <ul class="nk-nav nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" style="cursor: pointer;" data-target="#tabItemSUP1">النقديه
+              بالبنوك</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" style="cursor: pointer;" data-target="#tabItemSUP2">النقديه
+              بالخزينه</a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="tabItemSUP1">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="basic-form">
+                      <form name="bankAccountForm" ng-submit="addBankAccount(currentObj1)">
+                        <div class="form-row">
+                         
+                          <div class="form-group col-md-4">
+                            <label>{{Translate[lang].TEXT_BANKACCOUNTNAME}}</label><span class="text-danger">*</span>
+                            <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_BANKACCOUNTNAME}}"
+                              name="bankAccountName" ng-model="currentObj1.bankAccountName" ng-required="true" />
+                            <span class=" text-danger"
+                              ng-show="bankAccountForm.bankAccountName.$touched && bankAccountForm.bankAccountName.$error.required">{{Translate[lang].TEXT_BANKACCOUNTNAMEREQUIRED}}</span>
+          
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label>{{Translate[lang].TEXT_BANKACCOUNTNUMBER}}</label>
+                            <span class="text-danger">*</span>
+                            <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_BANKACCOUNTNUMBER}}"
+                              name="bankAccountNumber" ng-model="currentObj1.bankAccountNumber" ng-required="true" />
+                            <span class=" text-danger"
+                              ng-show="bankAccountForm.bankAccountNumber.$touched && bankAccountForm.bankAccountNumber.$error.required">{{Translate[lang].TEXT_BANKACCOUNTNUMBERREQUIRED}}</span>
+                          </div>
+                          <div class="form-group col-md-4">
+                            <div class="row">
+                              <div class="col-md-10 pr-0">
+                                <label>{{Translate[lang].TEXT_BANK_NAME}}<span class="text-danger">*</span></label>
+                                <ui-select ng-model="currentObj1.bankId" theme="select2"
+                                  on-select="setToAccBalance($select.selected)" ng-required="true" name="bank">
+          
+                                  <ui-select-match placeholder="{{Translate[lang].TEXT_CHOOSEBANK}}">
+                                    {{$select.selected.bankNameArabic}}</ui-select-match>
+          
+                                  <ui-select-choices repeat="item.id  as item in bankLst | filter: $select.search">
+                                    <span ng-bind="item.bankNameArabic"></span>
+                                  </ui-select-choices>
+                                </ui-select>
+                                <span class=" text-danger"
+                                  ng-show="bankAccountForm.bank.$touched && bankAccountForm.bank.$error.required">{{Translate[lang].TEXT_BANKREQUIRD}}</span>
+          
+                              </div>
+          
+                              <div class="col-md-2 m-auto mt-lg-3 pl-lg-0">
+                                <a class="btn btn-primary btn-sm mt-4" data-toggle="modal" data-target="#banknamecust">
+                                  <span class="text-lighter"><i class="icon ni ni-plus-medi"></i></span>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label>{{Translate[lang].TEXT_ACCOUNT_TYPE}}</label>
+                            <ui-select ng-model="currentObj1.bankAccountType" theme="select2"
+                              on-select="getFactory($select.selected)">
+                              <ui-select-match placeholder="{{Translate[lang].TEXT_CHOOSEBANKACCOUNTTYPE}}">
+                                {{$select.selected.name}}</ui-select-match>
+          
+                              <ui-select-choices repeat="item.name as item in typesLst | filter: $select.search">
+                                <span ng-bind="item.name"></span>
+                              </ui-select-choices>
+                            </ui-select>
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label>{{Translate[lang].TEXT_START_BALANCE}}</label>
+                            <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_START_BALANCE}}"
+                              name="amount" ng-model="currentObj1.debit" />
+                          </div>
+                          <div class="form-group col-md-4">
+                            <label>{{Translate[lang].TEXT_CURRENCY_NAME}}</label>
+                            <ui-select ng-model="currentObj1.currencyId" theme="select2">
+                              <ui-select-match>
+                                <span ng-bind="$select.selected.currencyNameArabic"></span>
+                              </ui-select-match>
+                              <ui-select-choices
+                                repeat="item.id as item in currencyLst | filter: $select.search track by item.id">
+                                <span ng-bind="item.currencyNameArabic"></span>
+                              </ui-select-choices>
+                            </ui-select>
+                          </div>
+                        </div>
+                        <div class="mt-4">
+                          <button type="submit" class="btn btn-success" ng-disabled="bankAccountForm.$invalid">
+                            {{Translate[lang].ADD}}
+                          </button>
+                          <a data-dismiss="modal" class=" btn btn-secondary" style="color: #fff;
+                          background-color: #364a63;
+                          border-color: #364a63;">{{Translate[lang].CANCEL}}</a>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="banknamecust" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                      {{Translate[lang].TEXT_CREATE_BANK}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form name="bankForm">
+                    <div class="modal-body">
+                      <div class="form-group col-md-12">
+                        <label class="justify-start">{{Translate[lang].TEXT_BANK_NAME_ARABIC}}
+                          <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_BANK_NAME_ARABIC}}"
+                          name="bank" ng-model="bankForm.bankNameArabic" ng-required="true" />
+                        <span class="text-danger"
+                          ng-show="bankForm.bank.$touched && bankForm.bank.$error.required">{{Translate[lang].MSG_REQUIRED}}</span>
+                      </div>
+
+                      <div class="form-group col-md-12">
+                        <label class="justify-start">{{Translate[lang].TEXT_BANK_NAME_ENGLISH}}
+                          <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_BANK_NAME_ENGLISH}}"
+                          name="bankEng" ng-model="bankForm.bankName" ng-required="true" />
+                        <span class="text-danger"
+                          ng-show="bankForm.bankEng.$touched && bankForm.bankEng.$error.required">{{Translate[lang].MSG_REQUIRED}}</span>
+                      </div>
+                    </div>
+                    <div class="modal-footer justify-content-start">
+                      <button id="sbtn1" ng-click="addbank(bankForm)" type="submit" class="btn btn-secondary"
+                        ng-disabled="bankForm.$invalid">{{Translate[lang].TEXT_ADD}}</button>
+                      <button id="sbtn2" type="button" data-dismiss="modal"
+                        class="btn btn-primary">{{Translate[lang].TEXT_CANCEL}}</button>
+                    </div>
+                  </form>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="tabItemSUP2">
+            <!-- Modal add Inventory -->
+
+            <h5 class="modal-title" id="tabItemSUP2"> {{Translate[lang].TEXT_CREATE_SAFE}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+
+
+            <div class="modal-body">
+
+              <div class="row">
+                <div class="col-xl-12 col-lg-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="basic-form">
+                        <form name="formedit" ng-submit="addInventory(InvObj)">
+                          <div class="form-row">
+                            <div class="form-group col-md-12">
+                              <label>{{Translate[lang].TEXT_SAFE_NAME}}
+                                <span class="text-danger">*</span></label>
+                              <input type="text" class="form-control " placeholder="{{Translate[lang].TEXT_SAFE_NAME}}"
+                                name="inventoryName" ng-model="InvObj.inventoryName" ng-required="true" />
+                              <span class="text-danger"
+                                ng-show="formedit.inventoryName.$touched && formedit.inventoryName.$error.required">{{Translate[lang].TEXT_REQUIRED}}</span>
+                            </div>
+                            <div class="form-group col-md-12">
+                              <label>{{Translate[lang].TEXT_DEBIT}}</label>
+                              <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_DEBIT}}"
+                                name="debit" ng-model="InvObj.debit" />
+                            </div>
+
+                            <div class="form-group col-md-12">
+                              <label>{{Translate[lang].TEXT_CURRENCY_NAME}}</label>
+                              <ui-select ng-model="InvObj.currencyId" theme="select2">
+                                <ui-select-match>
+                                  <span ng-bind="$select.selected.currencyNameArabic"></span>
+                                </ui-select-match>
+                                <ui-select-choices
+                                  repeat="item.id as item in currencyLst | filter: $select.search track by item.id">
+                                  <span ng-bind="item.currencyNameArabic"></span>
+                                </ui-select-choices>
+                              </ui-select>
+                            </div>
+                            <div class="mt-4">
+                              <button type="submit"  ng-click="addInventory(currentObj)"
+                                class="btn btn-success" ng-disabled="formedit.$invalid">
+                                {{Translate[lang].ADD}}
+                              </button>
+                              <button type="button" data-dismiss="modal"
+                                class="btn btn-info">{{Translate[lang].CANCEL}}</button>
+                            </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  <!-- End Modal add Inentory -->
+</div>
+
+
+
+

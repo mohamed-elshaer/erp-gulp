@@ -1,0 +1,115 @@
+<div class="container-fluid">
+    <div class="nk-content-inner">
+        <div class="nk-content-body">
+            <div class="nk-block-head nk-block-head-sm">
+                <div class="nk-block-between">
+                    <div class="nk-block-head-content">
+                        <h3 class="nk-block-title page-title">{{Translate[lang].TEXT_BRANCHLIST}}</h3>
+                    </div>
+                </div>
+                <!-- .nk-block-between -->
+            </div>
+            <!-- .nk-block-head -->
+            <div class="nk-block">
+                <div class="card card-bordered card-stretch">
+                    <div class="card-inner-group">
+                        <!-- .card-inner -->
+                        <div class="card-inner card card-bordered card-stretch">
+                            <div class="row pb-1">
+                                <div class="col-md-4 text-center">
+                                    <div class="input-icon mt-2 w-75">
+                                        <i class="fa fa-search"></i>
+                                        <input type="text" ng-model="search" class="colorpicker-default form-control" placeholder="{{Translate[lang].TEXT_SEARCH}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-8 text-right">
+                                    <button ui-sref="menu.addbranch" class=" btn btn-info"><span><i
+                                                class=" icon ni ni-user-add"></i></span></button>
+                                    <button ng-click="exportToPdf('tblMaster')" class="text-right btn btn-info">
+                                        <img src="../../theme/images/icons/pdf.png" width="20px"
+                                            class="mrx text-right" />&nbsp;
+                                        {{Translate[lang].TEXT_EXPORT_PDF}} &nbsp;
+                                    </button>
+                                    <button ng-click="exportToExcel('#tblMaster')" class="text-right btn btn-info">
+                                        <img src="../../theme/images/icons/xls.png" width="20px"
+                                            class="mrx text-right" />&nbsp;{{Translate[lang].TEXT_EXPORT_EXCEL}} &nbsp;
+                                    </button>
+                                    <button ng-click="print('#printTable')" id="print" class="text-right btn btn-info">
+                                        <img src="../../theme/images/icons/print-131964753156480777.png" width="20px"
+                                            class="mrx text-right" />{{Translate[lang].TEXT_PRINT}}
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="printDiv" class="w-100 table-responsive">
+                                    <table id="tblMaster" class="table table-striped table-lg">
+                                        <thead class="bg-blue-dim">
+                                            <tr class="">
+                                                <th sort by="order" reverse="reverse" order="'personName'" class="nk-tb-col"><span class="sub-text">{{Translate[lang].TEXT_BRANCHLIST}}</span></th>
+                                                <th sort by="order" reverse="reverse" order="'email'" class="nk-tb-col tb-col-mb"><span class="sub-text">{{Translate[lang].Text_companyAddress}}</span>
+                                                </th>
+                                                <th sort by="order" reverse="reverse" order="'phoneNumber'" class="nk-tb-col tb-col-md"><span class="sub-text">{{Translate[lang].Text_Email}}</span></th>
+                                                <th sort by="order" reverse="reverse" order="'homeMobile'" class="nk-tb-col tb-col-lg"><span class="sub-text">{{Translate[lang].TEXT_HomeMobile}}</span></th>
+                                                <th sort by="order" reverse="reverse" order="'currentBalance'" class="nk-tb-col tb-col-md"><span class="sub-text">{{Translate[lang].Text_phone}}</span></th>
+                                                <th class="nk-tb-col nk-tb-col-tools text-right" ng-if="hideLastColumn != true">
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="nk-tb-item" dir-paginate="item in branches|orderBy:sortKey:reverse|filter:search|itemsPerPage:perPageCount track by $index">
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.branchName}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-mb">
+                                                    <span class="tb-amount">{{item.address}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.email}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.phoneNumber}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.landNumber}}</span>
+                                                </td>
+                                                <td class="cursor d-print-none" ng-if="hideLastColumn != true">
+                                                    <span class="pl-2 pr-2 pt-0 pb-0 btn btn-outline-info btn-sm ml-3" title="{{Translate[lang].TEXT_EDIT}}" ng-click="filldata(item)">
+                                                        <i class="icon ni ni-edit"></i>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <!-- .nk-tb-item  -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row pt-2">
+                                    <div class="col-md-6">
+                                        <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+                                        </dir-pagination-controls>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="text-right">
+                                            <select ng-init="perPageCount == 20" ng-model="perPageCount" class="dropDown1 colorpicker-default form-control w-auto p-0 d-inline-flex">
+                                                <option value="10">10</option>
+                                                <option value="20">20</option>
+                                                <option value="50">50</option>
+                                                <option value="100000">الكل</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- .card-inner-group -->
+                    </div>
+                    <!-- .card -->
+                </div>
+                <!-- .nk-block -->
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,107 @@
+<div class="container-fluid">
+  <div class="card-inner position-relative card-tools-toggle">
+    <div class="card-title-group">
+      <div class="nk-block-head-content">
+        <h3 class="nk-block-title page-title">
+          {{Translate[lang].TEXT_CHARTOFACCOUNT}}
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="">
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <script type="text/ng-template" id="tree_item.html">
+
+                  <tr style="width:100%">
+                      <td><i class="icon ni ni-chevron-down font-weight-bolder" style="font-size:20px;" ng-if="data.nodes.length>0" ng-click="toggleChildren(data)"></i></td>
+                      <td  style="cursor: pointer;">
+                             <span ng-click="setObj(data)">{{data.accountNameArabic}}</span>
+                          <div id="expanded-data" ng-if="data.childrenVisible">
+                              <table class="table" id="nested-table">
+                                      <div ng-repeat="data in data.nodes"  ng-include="'tree_item.html'"></div>
+                              </table>
+                          </div>
+                      </td>
+                  </tr>
+                  
+                </script>
+
+              <div class="row">
+                <div id="printDiv" class="w-100 table-responsive">
+                  <table id="tblMaster" class="table table-borderless shadow">
+                    <thead class="bg-gray-100">
+                      <tr>
+                        <th style="width: 30px"></th>
+                        <th style="width: auto">{{Translate[lang].TEXT_ACCOUNTS}}</th>
+                      </tr>
+                    </thead>
+                    <tbody ng-repeat="data in tree_data" ng-include="'tree_item.html'"></tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-md-8">
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label class="mb-1">{{Translate[lang].TEXT_CODE}}</label>
+                    <input type="text" class="form-control" name="address" placeholder="{{Translate[lang].TEXT_CODE}}"
+                      ng-model="currentObj.code">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="mb-1">{{Translate[lang].TEXT_ACCOUNT_NAME}}</label>
+                    <input type="text" class="form-control" name="phoneNumber"
+                      placeholder="{{Translate[lang].TEXT_ACCOUNT_NAME}}" ng-model="currentObj.accountNameArabic">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="mb-1">{{Translate[lang].TEXT_ACCOUNT_NATURE}}</label>
+                    <input type="text" class="form-control" name="address"
+                      placeholder="{{Translate[lang].TEXT_ACCOUNT_NATURE}}"
+                      ng-model="currentObj.accountNature.accountNatureNameArabic">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="mb-1">{{Translate[lang].TEXT_LEVEL}}</label>
+                    <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_LEVEL}}" name="fax"
+                      ng-model="currentObj.accountLevel.accountLevelNameArabic">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="mb-1">{{Translate[lang].TEXT_MAIN_ACCOUNT}}</label>
+                    <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_MAIN_ACCOUNT}}"
+                      name="discount" ng-model="currentObj.accountParent.accountNameArabic">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="mb-1">{{Translate[lang].TEXT_ACCOUNT_TYPE}}</label>
+                    <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_ACCOUNT_TYPE}}"
+                      name="mmm" ng-model="currentObj.accountType.accountTypeNameArabic">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="mb-1">{{Translate[lang].TEXT_DEBIT}}</label>
+                    <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_DEBIT}}" name="debit"
+                      ng-model="currentObj.debit">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="mb-1">{{Translate[lang].TEXT_CREDIT}}</label>
+                    <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_CREDIT}}"
+                      name="credit" ng-model="currentObj.credit">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="mb-1">{{Translate[lang].TEXT_BALANCE}}</label>
+                    <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_BALANCE}}"
+                      name="BALANCE" ng-model="currentObj.balance">
+                  </div>
+
+                </div>
+              </div>
+              <div>
+                <tree-grid tree-data="tree_data" col-defs="col_defs" icon-expand="icon ni ni-chevron-down"
+                  icon-collapse="icon ni ni-chevron-up" expand-on="expanding_property"></tree-grid>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

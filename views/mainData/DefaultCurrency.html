@@ -1,0 +1,181 @@
+<div class="container-fluid">
+    <div class="nk-content-inner">
+        <div class="nk-content-body">
+            <div class="nk-block-head nk-block-head-sm">
+                <div class="nk-block-between">
+                    <div class="nk-block-head-content" style="margin:auto;margin-top:40px">
+                        <h3 class="nk-block-title page-title">
+                            {{Translate[lang].TEXT_CHOOSEDEFAULTCURRENCY}}
+                        </h3>
+                    </div>
+                </div>
+                <!-- .nk-block-between -->
+            </div>
+            <!-- .nk-block-head -->
+            <div class="nk-block">
+                <div class="card card-bordered card-stretch">
+                    <div class="card-inner-group">
+                        <!-- .card-inner -->
+                        <div class="card-inner card card-bordered card-stretch">
+                            <div class="row pb-1">
+                                <div class="col-md-4 text-center">
+                                    
+                                </div>
+                               
+                            </div>
+                            <table class="table table-striped table-lg">
+                                <thead class="bg-blue-dim">
+                                    <tr>
+                                        <th sort by="order" reverse="reverse" order="'personName'" class="nk-tb-col">
+                                            <span class="sub-text">{{Translate[lang].TEXT_CURRENCY_NAME}}</span>
+                                        </th>
+                                        <th sort by="order" reverse="reverse" order="'email'"
+                                            class="nk-tb-col tb-col-mb">
+                                            <span class="sub-text">{{Translate[lang].TEXT_COUNTRY}}</span>
+                                        </th>
+                                        <th sort by="order" reverse="reverse" order="'email'"
+                                        class="nk-tb-col tb-col-mb">
+                                        <span class="sub-text">{{Translate[lang].TEXT_SYMBOL}}</span>
+                                        </th>
+                                        <th sort by="order" reverse="reverse" order="'email'"
+                                        class="nk-tb-col tb-col-mb">
+                                        <span class="sub-text">{{Translate[lang].TEXT_FACTORY}}</span>
+                                       </th>
+                                            <th sort by="order" reverse="reverse" order="'email'"
+                                            class="nk-tb-col tb-col-mb">
+                                            <span class="sub-text">{{Translate[lang].TEXT_DEFAULTSpan}}</span>
+                                        </th>
+                                        <th class="nk-tb-col nk-tb-col-tools text-right"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="nk-tb-item"
+                                    ng-hide="currencyLst[3].default||currencyLst[1].default||currencyLst[2].default"
+                                       >
+                                        <td class="nk-tb-col tb-col-md">
+                                            <span>{{currencyLst[0].currencyNameArabic}}</span>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-mb">
+                                            <span class="tb-amount">{{currencyLst[0].country}}</span>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-mb">
+                                            <span class="tb-amount">{{currencyLst[0].symbol}}</span>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-mb">
+                                            <span class="tb-amount">{{currencyLst[0].factor}}</span>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-md">
+                                            <div class="custom-control custom-control-sm custom-checkbox  mt-3">
+                                                <input type="checkbox" ng-model="currencyLst[0].default"ng-disabled="currencyLst[3].default||currencyLst[1].default||currencyLst[2].default"  class="custom-control-input" id="com-email0">
+                                                <label class="custom-control-label" for="com-email0">   {{Translate[lang].TEXT_DEFAULT}}</label>
+                                            </div>
+                                        </td>
+                                        <td >
+                                            <button id="sbtn1" type="submit"class="btn btn-success" ng-disabled="!currencyLst[0].default"ng-click="update(currencyLst[0])"
+                                           >
+                                            {{Translate[lang]. TEXT_SAVE}}
+                                        </button>
+                                        </td>
+                                    </tr>
+                                    <!-- .nk-tb-item  -->
+                                    <tr class="nk-tb-item"
+                                    ng-hide="currencyLst[0].default||currencyLst[3].default||currencyLst[2].default"
+                                  >
+                                    <td class="nk-tb-col tb-col-md">
+                                        <span>{{currencyLst[1].currencyNameArabic}}</span>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-mb">
+                                        <span class="tb-amount">{{currencyLst[1].country}}</span>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-mb">
+                                        <span class="tb-amount">{{currencyLst[1].symbol}}</span>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-mb">
+                                        <span class="tb-amount">{{currencyLst[1].factor}}</span>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-md">
+                                        <div class="custom-control custom-control-sm custom-checkbox  mt-3">
+                                            <input type="checkbox" ng-model="currencyLst[1].default"ng-disabled="currencyLst[0].default||currencyLst[3].default||currencyLst[2].default"  class="custom-control-input" id="com-email1">
+                                            <label class="custom-control-label" for="com-email1">   {{Translate[lang].TEXT_DEFAULT}}</label>
+                                        </div>
+                                    </td>
+                                   
+                                        <td >
+                                            <button id="sbtn2" type="submit" ng-disabled="!currencyLst[1].default"class="btn btn-success"  ng-click="update(currencyLst[1])"
+                                            >
+                                            {{Translate[lang]. TEXT_SAVE}}
+                                        </button>
+                                        </td>
+                                  
+                                </tr>
+
+                                <tr class="nk-tb-item"
+                                ng-hide="currencyLst[0].default||currencyLst[1].default||currencyLst[3].default">
+                                <td class="nk-tb-col tb-col-md">
+                                    <span>{{currencyLst[2].currencyNameArabic}}</span>
+                                </td>
+                                <td class="nk-tb-col tb-col-mb">
+                                    <span class="tb-amount">{{currencyLst[2].country}}</span>
+                                </td>
+                                <td class="nk-tb-col tb-col-mb">
+                                    <span class="tb-amount">{{currencyLst[2].symbol}}</span>
+                                </td>
+                                <td class="nk-tb-col tb-col-mb">
+                                    <span class="tb-amount">{{currencyLst[2].factor}}</span>
+                                </td>
+                                <td class="nk-tb-col tb-col-md">
+                                    <div class="custom-control custom-control-sm custom-checkbox  mt-3">
+                                        <input type="checkbox" ng-model="currencyLst[2].default"ng-disabled="currencyLst[0].default||currencyLst[1].default||currencyLst[3].default"  class="custom-control-input" id="com-email2">
+                                        <label class="custom-control-label" for="com-email2">   {{Translate[lang].TEXT_DEFAULT}}</label>
+                                    </div>
+                                </td>
+                                <td class="cursor">
+                                    <button id="sbtn3" type="submit"ng-disabled="!currencyLst[2].default" class="btn btn-success"  ng-click="update(currencyLst[2])"
+                                    >
+                                    {{Translate[lang]. TEXT_SAVE}}
+                                </button>
+                                </td>
+                            </tr>
+
+                            <tr class="nk-tb-item"
+                            ng-hide="currencyLst[0].default||currencyLst[1].default||currencyLst[2].default">
+                            <td class="nk-tb-col tb-col-md">
+                                <span>{{currencyLst[3].currencyNameArabic}}</span>
+                            </td>
+                            <td class="nk-tb-col tb-col-mb">
+                                <span class="tb-amount">{{currencyLst[3].country}}</span>
+                            </td>
+                            <td class="nk-tb-col tb-col-mb">
+                                <span class="tb-amount">{{currencyLst[3].symbol}}</span>
+                            </td>
+                            <td class="nk-tb-col tb-col-mb">
+                                <span class="tb-amount">{{currencyLst[3].factor}}</span>
+                            </td>
+                           
+                                <td class="nk-tb-col tb-col-md">
+                                    <div class="custom-control custom-control-sm custom-checkbox  mt-3">
+                                        <input type="checkbox" ng-model="currencyLst[3].default"ng-disabled="currencyLst[0].default||currencyLst[1].default||currencyLst[2].default"  class="custom-control-input" id="com-email3">
+                                        <label class="custom-control-label" for="com-email3">   {{Translate[lang].TEXT_DEFAULT}}</label>
+                                    </div>
+                                </td>
+                                <td>
+                                <button id="sbtn4" type="submit" class="btn btn-success" ng-disabled="!currencyLst[3].default" ng-click="update(currencyLst[3])"
+                               >
+                                {{Translate[lang]. TEXT_SAVE}}
+                            </button>
+                            </td>
+                        </tr>
+                                </tbody>
+                            </table>
+                           
+                            </div>
+                        </div>
+                    </div>
+                    <!-- .card-inner-group -->
+                </div>
+                <!-- .card -->
+            </div>
+            <!-- .nk-block -->
+        </div>
+    </div>
+</div>

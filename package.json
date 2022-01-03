@@ -1,0 +1,43 @@
+{
+  "name": "erp-front",
+  "version": "1.0.0",
+  "description": "code erp app",
+  "dependencies": {
+    "browser-sync": "^2.27.7",
+    "del": "^2.0.2",
+    "grunt": "^1.4.1",
+    "grunt-contrib-uglify": "^5.0.1",
+    "gulp-angular-templatecache": "^2.0.0",
+    "gulp-htmlmin": "^1.2.0",
+    "gulp-jshint": "*",
+    "gulp-livereload": "*",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-ng-templates": "0.0.6",
+    "gulp-nodemon": "*",
+    "gulp-sass": "*",
+    "gulp-task-listing": "*",
+    "gulp-uglify": "*",
+    "main-bower-files": "^2.9.0",
+    "tiny-lr": "*",
+    "ui-select": "^0.19.8"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Code-for-it-solutions-services/Erp-front.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Code-for-it-solutions-services/Erp-front/issues"
+  },
+  "homepage": "https://github.com/Code-for-it-solutions-services/Erp-front#readme",
+  "main": "gruntfile.js"
+}

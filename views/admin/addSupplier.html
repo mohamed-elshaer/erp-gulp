@@ -1,0 +1,77 @@
+<div class=" container-fluid">
+    <div class="card-inner position-relative card-tools-toggle">
+        <div class="card-title-group">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">{{Translate[lang].TEXT_ADDSUPPLIER}}</h3>
+            </div>
+            <!-- .card-tools -->
+            
+            <!-- .card-tools -->
+        </div>
+        <!-- .card-title-group -->
+        
+        <!-- .card-search -->
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="basic-form">
+                        <form name="form"   ng-submit="addSupplier(supplierForm)">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].TEXT_SupplierName}} <span
+                                        class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_SupplierName}}" name="supplierName" ng-model="supplierForm.supplierName" ng-required="true">
+                                    <span class=" text-danger" ng-show="form.supplierName.$touched && form.supplierName.$error.required">{{Translate[lang].TEXT_supplierRequired}}</span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].Text_Email}}</label>
+                                    <input type="email" class="form-control" placeholder="{{Translate[lang].Text_Email}}" name="email"  ng-model="supplierForm.email">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].Text_mobilephone}}</label>
+                                    <input type="text" class="form-control" name="phoneNumber" placeholder="{{Translate[lang].Text_mobilephone}}" ng-model="supplierForm.phoneNumber" >
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].TEXT_HomeMobile}}</label>
+                                    <input type="text" class="form-control" name="address" placeholder="{{Translate[lang].TEXT_HomeMobile}}" ng-model="supplierForm.homeMobile" >
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].Text_Address}}</label>
+                                    <input type="text" class="form-control" name="address" placeholder="{{Translate[lang].Text_Address}}" ng-model="supplierForm.address" >
+                                </div>
+                            <div class="form-group col-md-4">
+                                <label>{{Translate[lang].TEXT_FAX}}</label>
+                                <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_FAX}}" name="fax"  ng-model="supplierForm.fax" >
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>{{Translate[lang].TEXT_DISCOUNT}}</label>
+                                <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_DISCOUNT}}" name="discount"  ng-model="supplierForm.discount" >
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>{{Translate[lang].Text_Balance}}</label>
+                                <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_CREDIT}}" name="credit"  ng-model="supplierForm.credit" >
+                            </div>
+                            </div>
+                            <!-- <div class="form-group col-md-4 mt-3">
+                                <input type="checkbox"  ng-model="supplierForm.isBoth" >&nbsp;{{Translate[lang].  TEXT_SUPPLIERANDCUSTOMER}}
+                            </div> -->
+                            <div class="custom-control custom-control-sm custom-checkbox  mt-3">
+                                <input type="checkbox" ng-model="supplierForm.isBoth" class="custom-control-input" id="com-email">
+                                <label class="custom-control-label" for="com-email">{{Translate[lang].TEXT_SUPPLIERANDCUSTOMER}}</label>
+                            </div>
+                            <div class="mt-3">
+                                <button type="submit"  class="btn btn-success" ng-disabled="form.$invalid">{{Translate[lang].ADD}}</button>
+                            <a ui-sref="menu.suppliers" class=" btn btn-secondary" style="color: #fff;
+                            background-color: #364a63;
+                            border-color: #364a63;">{{Translate[lang].CANCEL}}</a>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

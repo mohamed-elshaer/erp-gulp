@@ -1,0 +1,189 @@
+<div class="container-fluid">
+    <div class="card-inner position-relative card-tools-toggle">
+      <div class="card-title-group">
+        <div class="nk-block-head-content">
+          <h3 class="nk-block-title page-title">
+            {{Translate[lang]. TEXT_UPDATEBANKACCOUNT}}
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="basic-form">
+              <form name="bankAccountForm" ng-submit="updateBankAccount(editBankAccount)">
+            
+
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                      <div class="row">
+                        <div class="col-md-10 pr-0">
+                          <label
+                            >{{Translate[lang].TEXT_BANK_NAME}}<span
+                              class="text-danger"
+                              >*</span
+                            ></label
+                          >
+                          <ui-select
+                            ng-model="editBankAccount.bankId"
+                            theme="select2"
+                            on-select="setToAccBalance($select.selected)"
+                            ng-required="true"
+                            name="bank"
+                          >
+                            <ui-select-match>
+                              <span ng-bind="$select.selected.bankNameArabic"></span>
+                            </ui-select-match>
+                            <ui-select-choices
+                              repeat="item.id  as item in bankLst | filter: $select.search"
+                            >
+                              <span ng-bind="item.bankNameArabic"></span>
+                            </ui-select-choices>
+                          </ui-select>
+                          <span class=" text-danger" ng-show="editBankAccount.bank.$touched && editBankAccount.bank.$error.required">{{Translate[lang].TEXT_BANKREQUIRD}}</span>
+                          
+                        </div>
+                 
+                    <div class="col-md-2 m-auto mt-lg-3 pl-lg-0">
+                      <a
+                        class="btn btn-primary btn-sm mt-4"
+                        data-toggle="modal"
+                        data-target="#exampleModal2"
+                      >
+                        <span class="text-lighter"
+                          ><i class="icon ni ni-plus-medi"></i
+                        ></span>
+                      </a>
+                    </div> 
+                      </div>
+                    
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].TEXT_BANKACCOUNTNAME}}</label><span
+                    class="text-danger"
+                    >*</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="{{Translate[lang].TEXT_BANKACCOUNTNAME}}"
+                      name="bankAccountName"
+                      ng-model="editBankAccount.bankAccountName"
+                      ng-required="true"
+                    />
+                    <span class=" text-danger" ng-show="bankAccountForm.bankAccountName.$touched && bankAccountForm.bankAccountName.$error.required">{{Translate[lang].TEXT_BANKACCOUNTNAMEREQUIRED}}</span>
+  
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].TEXT_BANKACCOUNTNUMBER}}</label>
+                    <span
+                          class="text-danger"
+                          >*</span>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="{{Translate[lang].TEXT_BANKACCOUNTNUMBER}}"
+                      name="bankAccountNumber"
+                      ng-model="editBankAccount.bankAccountNumber"
+                      ng-required="true"
+                    />
+                    <span class=" text-danger" ng-show="bankAccountForm.bankAccountNumber.$touched && bankAccountForm.bankAccountNumber.$error.required">{{Translate[lang].TEXT_BANKACCOUNTNUMBERREQUIRED}}</span>
+                  </div>
+             
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].TEXT_ACCOUNT_TYPE}}</label>
+                    <ui-select
+                      ng-model="editBankAccount.bankAccountType"
+                      theme="select2"
+                      on-select="getFactory($select.selected)"
+                    >
+                      <ui-select-match>
+                        <span ng-bind="$select.selected.name"></span>
+                      </ui-select-match>
+                      <ui-select-choices
+                        repeat="item.name as item in typesLst | filter: $select.search"
+                      >
+                        <span ng-bind="item.name"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                  </div>
+                  <!-- <div class="form-group col-md-4">
+                    <label>{{Translate[lang].TEXT_START_BALANCE}}</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      placeholder="{{Translate[lang].TEXT_START_BALANCE}}"
+                      name="amount"
+                      ng-model="editBankAccount.debit"
+                    />
+                  </div> -->
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].TEXT_CURRENCY_NAME}}</label>
+                    <ui-select ng-model="editBankAccount.currencyId" theme="select2">
+                      <ui-select-match>
+                        <span
+                          ng-bind="$select.selected.currencyNameArabic"
+                        ></span>
+                      </ui-select-match>
+                      <ui-select-choices
+                        repeat="item.id as item in currencyLst | filter: $select.search track by item.id"
+                      >
+                        <span ng-bind="item.currencyNameArabic"></span>
+                      </ui-select-choices>
+                    </ui-select>
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    ng-disabled="bankAccountForm.$invalid"
+                  >
+                    {{Translate[lang].UPDATE}}
+                  </button>
+                  <a ui-sref="menu.bankaccount" class=" btn btn-secondary" style="color: #fff;
+                  background-color: #364a63;
+                  border-color: #364a63;">{{Translate[lang].CANCEL}}</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">{{Translate[lang].TEXT_CREATE_BANK}}</h5>
+              <button type="button" class="close" data-dismiss="modal"
+                  aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <form name="form"  >
+              <div class="modal-body">
+                  <div class="form-group col-md-12">
+                      <label class="justify-start">{{Translate[lang].TEXT_BANK_NAME}}
+                          <span class="text-danger">*</span></label>
+                      <input type="text" class="form-control"
+                          placeholder="{{Translate[lang].TEXT_BANK_NAME}}"
+                          name="bank" ng-model="bankObj.bankName"
+                          ng-required="true" />
+                      <span class="text-danger"
+                          ng-show="form.bank.$touched && form.bank.$error.required">{{Translate[lang].MSG_REQUIRED}}</span>
+                  </div>
+              </div>
+              <div class="modal-footer justify-content-start">
+                  <button id="sbtn1" ng-click="addbank(bankObj)"type="submit" class="btn btn-secondary"
+                      data-dismiss="modal">{{Translate[lang].TEXT_ADD}}</button>
+                  <button id="sbtn2" type="button"  data-dismiss="modal"
+                      class="btn btn-primary">{{Translate[lang].TEXT_CANCEL}}</button>
+              </div>
+          </form>
+      </div>
+  </div>
+  </div>

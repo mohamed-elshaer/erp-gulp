@@ -1,0 +1,234 @@
+<div class="container-fluid">
+    <div class="card-inner position-relative card-tools-toggle">
+        <div class="card-title-group">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">
+                    {{Translate[lang].TEXT_SUPPLIER_INV}}
+                </h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="basic-form">
+                        <form name="form" ng-submit="addBankAccount(currentObj)">
+                            <div class="form-row">
+                                <div class="form-group col-md-3">
+                                    <label>{{Translate[lang].TEXT_CODE}}</label>
+                                    <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_CODE}}" name="amount" ng-model="currentObj.invoiceNumber" readonly/>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>{{Translate[lang].TEXT_DATE}} <span class="text-danger">*</span></label>
+                                    <input type="date" class="form-control" ng-model="currentObj.invoiceDate" name="txtAutomaticdate" name="date" id="date" />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>{{Translate[lang].TEXT_SUPPLIERS}} <span class="text-danger">*</span></label>
+                                    <ui-select ng-model="currentObj.supplierId" theme="select2" on-select="getFactory($select.selected)">
+                                        <ui-select-match>
+                                            <span ng-bind="$select.selected.supplierName"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item.id as item in suppliersLst | filter: $select.search">
+                                            <span ng-bind="item.supplierName"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>{{Translate[lang].TEXT_TAXES}} <span class="text-danger">*</span></label>
+                                    <ui-select ng-model="currentObj.taxId" theme="select2" on-select="getFactory($select.selected)">
+                                        <ui-select-match>
+                                            <span ng-bind="$select.selected.taxTypeName"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item.id as item in taxsLst | filter: $select.search">
+                                            <span ng-bind="item.taxTypeName"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+
+                                <!-- <div class="form-group col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-10 pr-0">
+                                            <label>{{Translate[lang].TEXT_BANK_NAME}}<span
+                                                    class="text-danger">*</span></label>
+                                            <ui-select ng-model="currentObj.bankId" theme="select2"
+                                                on-select="setToAccBalance($select.selected)" ng-required="true">
+                                                <ui-select-match>
+                                                    <span ng-bind="$select.selected.bankName"></span>
+                                                </ui-select-match>
+                                                <ui-select-choices
+                                                    repeat="item.accountId  as item in bankLst | filter: $select.search">
+                                                    <span ng-bind="item.bankName"></span>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                        </div>
+                                        <div class="col-md-2 m-auto mt-lg-3 pl-lg-0">
+                                            <a class="btn btn-primary btn-sm mt-4" data-toggle="modal"
+                                                data-target="#exampleModal2">
+                                                <span class="text-lighter"><i class="icon ni ni-plus-medi"></i></span>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                
+                                
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].TEXT_CURRENCY_NAME}}</label>
+                                    <ui-select ng-model="currentObj.currencyId" theme="select2">
+                                        <ui-select-match>
+                                            <span ng-bind="$select.selected.currencyNameArabic"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices
+                                            repeat="item.id as item in currencyLst | filter: $select.search track by item.id">
+                                            <span ng-bind="item.currencyNameArabic"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div> -->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="form-label">{{Translate[lang].description}}</label>
+                                        <div class="form-control-wrap">
+                                            <textarea ng-model="currentObj.description" class="form-control" cols="30" rows="5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <a class="btn btn-primary btn-sm mt-4" data-toggle="modal" data-target="#itemsModal">
+                                        <span class="text-lighter">{{Translate[lang].TEXT_ADD_ITEMS}}</span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit" class="btn btn-success" ng-disabled="!currentObj.supplierId || !currentObj.taxId || !currentObj.invoiceDate">
+                                    {{Translate[lang].ADD}}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{Translate[lang].TEXT_CREATE_BANK}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="form">
+                <div class="modal-body">
+                    <div class="form-group col-md-12">
+                        <label class="justify-start">{{Translate[lang].TEXT_BANK_NAME}}
+                            <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_BANK_NAME}}" name="bank" ng-model="bankObj.bankName" ng-required="true" />
+                        <span class="text-danger" ng-show="form.bank.$touched && form.bank.$error.required">{{Translate[lang].MSG_REQUIRED}}</span>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-start">
+                    <button id="sbtn1" ng-click="addbank(bankObj)" type="submit" class="btn btn-secondary" data-dismiss="modal">{{Translate[lang].TEXT_ADD}}</button>
+                    <button id="sbtn2" type="button" data-dismiss="modal" class="btn btn-primary">{{Translate[lang].TEXT_CANCEL}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="itemsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{Translate[lang].TEXT_CREATE_BANK}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form name="form">
+                <div class="modal-body">
+                    <div class="form-group col-md-12">
+                        <table class="table table-striped table-lg">
+                            <thead class="bg-blue-dim">
+                                <tr class="">
+                                    <th sort by="order" reverse="reverse" order="'currentBalance'" class="nk-tb-col tb-col-md"><span class="sub-text">{{Translate[lang].TEXT_PRODUCTCODE}}</span></th>
+                                    <th sort by="order" reverse="reverse" order="'personName'" class="nk-tb-col">
+                                        <span class="sub-text">{{Translate[lang].TEXT_PRODUCTNAME}}</span></th>
+                                    class="sub-text">{{Translate[lang].units}}</span>
+                                    </th>
+                                    <th sort by="order" reverse="reverse" order="'currentBalance'" class="nk-tb-col tb-col-md"><span class="sub-text">{{Translate[lang].stock}}</span></th>
+                                    <th sort by="order" reverse="reverse" order="'currentBalance'" class="nk-tb-col tb-col-md"><span class="sub-text">{{Translate[lang].balanceCost}}</span></th>
+                                    <th sort by="order" reverse="reverse" order="'currentBalance'" class="nk-tb-col tb-col-md"><span class="sub-text">{{Translate[lang].balanceUnit}}</span></th>
+                                    <th class="nk-tb-col tb-col-md"></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="nk-tb-item" dir-paginate="item in itemsLst|orderBy:sortKey:reverse|filter:search|itemsPerPage:perPageCount track by $index">
+                                    <td class="nk-tb-col tb-col-md">
+                                        <span>{{item.productCode}}</span>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-md">
+                                        <span>{{item.productName}}</span>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-md">
+                                        <span ng-repeat="item2 in item.units track by $index">
+                                            <span>{{item2.unitName}}</span>
+                                        </span>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-md">
+                                        <span>{{item.stock}}</span>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-md">
+                                        <span>{{item.amount}}</span>
+                                    </td>
+                                    <td class="nk-tb-col tb-col-md">
+                                        <span ng-repeat="item2 in item.units track by $index">
+                                            <span ng-if="item2.defaultSelling">{{item2.unitName}}</span>
+                                        </span>
+                                    </td>
+                                    <td class="cursor d-print-none" ng-if="hideLastColumn != true">>
+                                        <span class="pl-2 pr-2 pt-0 pb-0 btn btn-outline-info btn-sm ml-3" title="{{Translate[lang].TEXT_EDIT}}" ng-click="filldata(item)">
+                                            <i class="icon ni ni-edit"></i>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <!-- .nk-tb-item  -->
+                            </tbody>
+                        </table>
+                        <div class="row pt-2">
+                            <div class="col-md-6">
+                                <dir-pagination-controls max-size="5" direction-links="true" boundary-links="true">
+                                </dir-pagination-controls>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="text-right">
+                                    <select ng-init="perPageCount == 20" ng-model="perPageCount" class="dropDown1 colorpicker-default form-control w-auto p-0 d-inline-flex">
+                                        <option value="10">10</option>
+                                        <option value="20">20</option>
+                                        <option value="50">50</option>
+                                        <option value="100000">الكل</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-start">
+                    <button id="sbtn1" ng-click="addbank(bankObj)" type="submit" class="btn btn-secondary" data-dismiss="modal">{{Translate[lang].TEXT_ADD}}</button>
+                    <button id="sbtn2" type="button" data-dismiss="modal" class="btn btn-primary">{{Translate[lang].TEXT_CANCEL}}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

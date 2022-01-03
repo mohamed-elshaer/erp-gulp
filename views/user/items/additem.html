@@ -1,0 +1,358 @@
+<div class="card card-bordered">
+    <div class="card-inner">
+        <div class="card-head mb-5">
+            <h3 class="card-title">{{Translate[lang].TEXT_ADDPRODUCT}}</h3>
+        </div>
+        <form ng-submit="addproduct(productform)">
+            <div class="row g-4">
+
+                <div class="col-12 d-flex bg-light">
+                    <span style="font-size: large;" >{{Translate[lang].maininformation}}</span><hr style="width: 80%;">
+                </div>
+                <div class="col-12 " >
+                    <div class="row ">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-label" for="full-name-1">{{Translate[lang].TEXT_PRODUCTNAME}}</label>
+                                <div class="form-control-wrap">
+                                    <input ng-model="productform.productName" type="text" class="form-control" id="full-name-1" placeholder="{{Translate[lang].TEXT_PRODUCTNAME}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="form-label" for="default-01">{{Translate[lang].TEXT_PRODUCTCODE}}</label>
+                                <div class="form-control-wrap">
+                                    <input ng-model="productform.productCode" type="text" class="form-control" id="default-01" placeholder="{{Translate[lang].TEXT_PRODUCTCODE}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label class="form-label">{{Translate[lang].store}}</label>
+                                <div class="form-control-wrap">
+                                    <div class="row">
+                                        <select ng-model="productform.storeId" class="form-select form-control col-10">
+                                            <option selected  ng-value="0">{{Translate[lang].CHOOSE}}</option>
+                                            <option  ng-repeat="item in stores track by $index" ng-value="item.id">{{item.storeName}}</option>
+                                            
+                                        </select>
+                                        <button class=" btn btn-primary btn-sm" data-toggle="modal" data-target="#storeForm"><span><i class=" icon ni ni-plus-medi"></i></span></button>
+                                    </div>
+                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-lg-4">
+                            
+                            <div class="form-group ">
+                                <label class="form-label">{{Translate[lang].category}}</label>
+                                <div class="form-control-wrap">
+                                    <div class="row pl-3">
+                                    <select ng-model="productform.categoryId" class="form-select form-control d-inline col-10">
+                                        <option selected>{{Translate[lang].CHOOSE}} </option>
+                                        <option  ng-repeat="item in categories track by $index" ng-value="item.id">{{item.categoryName}}</option>
+                                        
+                                    </select>
+                                    <button class=" btn btn-primary btn-sm" data-toggle="modal" data-target="#categoryForm"><span><i class=" icon ni ni-plus-medi"></i></span></button>
+                                    
+                                </div>
+                                    
+                                </div>
+                            </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <label class="form-label" for="phone-no-1">{{Translate[lang].demandLimit}}</label>
+                            <div class="form-control-wrap">
+                                <input ng-model="productform.demandLimit" type="number" class="form-control" id="phone-no-1">
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row pt-2">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label class="form-label" for="email-address-1">{{Translate[lang].description}}</label>
+                                <div class="form-control-wrap">
+                                    <textarea ng-model="productform.description" class="form-control" cols="30" rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12  d-flex bg-light">
+                    <span  style="font-size: large;" > {{Translate[lang].Expiration}}</span><hr style="width: 80%;">
+                </div>
+                <div class="col-lg-12">
+                    <div class="col-lg-4">
+                        <div class="form-group">
+                            <div class="custom-control custom-control-sm custom-checkbox">
+                                <input ng-model="productform.isExpiration" type="checkbox" class="custom-control-input" id="pay-card-1">
+                                <label class="custom-control-label" for="pay-card-1">{{Translate[lang].isExpiration}}</label>
+                            </div>
+                        </div>
+                    </div>   
+                </div>
+                <div class="col-lg-12">
+                   <div ng-if="productform.isExpiration" class="d-flex">
+                    <!-- <div class="row"> -->
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="form-label">{{Translate[lang].productionDate}}</label>
+                                <div class="form-control-wrap">
+                                    <div class="form-icon form-icon-left">
+                                        <em class="icon ni ni-calendar"></em>
+                                    </div>
+                                    <input type="date" ng-model="productform.productionDate" class="form-control " >
+                                </div>
+                         
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label class="form-label">{{Translate[lang].expirationDate}}</label>
+                                <div class="form-control-wrap">
+                                    <div class="form-icon form-icon-left">
+                                        <em class="icon ni ni-calendar"></em>
+                                    </div>
+                                    <input type="date" ng-model="productform.expirationDate"  class="form-control">
+                                </div>
+                                
+                            </div>
+                        </div>
+                  
+                    <!-- </div> -->
+                </div> 
+                </div>
+                
+
+                <div class="col-12  d-flex bg-light">
+                    <span  style="font-size: large;" > {{Translate[lang].size}}</span><hr style="width: 80%;">
+                </div>
+                
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-3">
+                            <label for="">{{Translate[lang].width}}</label>
+                            <input ng-model="productform.wiedth" type="number" class="form-control" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">{{Translate[lang].height}}</label>
+                            <input ng-model="productform.hiegth" type="number" class="form-control" >
+                        </div>
+                        <div class="col-3">
+                            <label for="">{{Translate[lang].elevation}}</label>
+                            <input ng-model="productform.elevation" type="number" class="form-control" >
+                        </div>
+                    </div>
+        
+                </div>
+
+                <div class="col-12  d-flex bg-light">
+                    <span  style="font-size: large;" > {{Translate[lang].units}}</span><hr style="width: 80%;">
+                </div>
+               
+                <div class="col-12">
+                    <div class="">
+                        <div class="card card-preview col-112">
+                            <div class="card-inner row">
+                                <table class="table table-striped col-12 text-center">
+                                    <thead>
+                                        <tr >
+                                            <th></th>
+                                            <th scope="col">{{Translate[lang].unitName}} </th>
+                                            <th scope="col">{{Translate[lang].purchasingPric}}</th>
+                                            <th scope="col">{{Translate[lang].sellingprice}}</th>
+                                            <th scope="col">{{Translate[lang].defaultSelling}}</th>
+                                            <th scope="col">{{Translate[lang].defaultPurchasing}}</th>
+                                            <th scope="col">{{Translate[lang].productBarCode}}</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in productform.unitViewModels track by $index">
+                                            <th scope="row">{{$index+1}}</th>
+                                            <td>
+                                                <input type="text" ng-model="productform.unitViewModels[$index].unitName">
+                                            </td>
+                                            <td>
+                                                <input type="number" ng-model="productform.unitViewModels[$index].purchasingprice">
+                                            </td>
+                                            <td>
+                                                <input type="number" ng-model="productform.unitViewModels[$index].sellingprice">
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" ng-model="productform.unitViewModels[$index].defaultSelling">
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" ng-model="productform.unitViewModels[$index].defaultPurchasing">
+                                            </td>
+                                            <td>
+                                                <input type="number" ng-model="productform.unitViewModels[$index].bareCode">
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-danger btn-sm" ng-click="removerow($index)"><span><i class=" icon ni ni-trash"></i></span></button>    
+                                            </td>
+                                        </tr>
+                               
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div><!-- .card-preview -->
+                    </div>
+                </div>
+
+                <!-- firststock -->
+                <div class="col-12 nk-menu-item has-sub  d-flex bg-light" >
+                    <span  style="font-size: large;" >{{Translate[lang].startbakance}} </span><hr style="width: 80%;">
+                </div>
+                
+                <div class="col-12 ">
+                    <div class="row ">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="form-label" for="email-address-1">{{Translate[lang].stock}}</label>
+                                <div class="form-control-wrap">
+                                    <input ng-model="productform.stock" type="number" class="form-control" id="email-address-1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <!-- <div class="form-group"> -->
+                                <div class="form-group">
+                                    <label class="form-label" for="default-06">{{Translate[lang].balanceUnit}}</label>
+                                    <div class="form-control-wrap ">
+                                        <div class="">
+                                            <button class="btn btn-outline-light dropdown-toggle form-control col-12" type="button" data-toggle="dropdown">
+                                             <span ng-bind="selectedunit.unitName"></span>
+                                              <span class="caret"><i class=" icon ni ni-arrow-to-down"></i></span>
+                                            </button>
+                                            <ul id="dropselect-demo1" class="dropdown-menu w-100">
+                                              <li class=" text-xl-center"  ng-repeat="item in productform.unitViewModels track by $index" ng-click="calcamount(item)">{{item.unitName}}</li>
+                                             
+                                            </ul>
+                                          </div>
+                                    </div>
+                                </div>
+                            <!-- </div> -->
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="form-label" for="default-05">{{Translate[lang].balanceCost}}  </label>
+                                <div class="form-control-wrap">
+                                    <div class="form-text-hint">
+                                        <span class="overline-title">Usd</span>
+                                    </div>
+                                    <input  type="number" ng-model="productform.amount" class="form-control" id="default-05" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                        
+                            <div class="form-group">
+                                <label class="form-label" for="default-05">{{Translate[lang].completAccount}}  </label>
+                                <div class="form-control-wrap">
+                                    <select ng-model="productform.accountId" class="form-select form-control d-inline col-10">
+                                        <option >{{Translate[lang].choseAccount}} </option>
+                                        <option value="option_select_name" ng-repeat="item in accounts track by $index" ng-value="item.accountId">{{item.accountNameArabic}}</option>
+                                        
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 nk-menu-item has-sub  d-flex bg-light" >
+                    <span  style="font-size: large;" >  {{Translate[lang].storeaccount}}</span><hr style="width: 80%;">
+                </div>
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="form-label" for="default-05"> {{Translate[lang].storeaccount}} </label>
+                        <div class="form-control-wrap">
+                            <select ng-model="productform.accountIdstore" class="form-select form-control d-inline col-10">
+                                <option value="">..choose.. </option>
+                                <option value="option_select_name" ng-repeat="item in accounts track by $index" ng-value="item.accountId">{{item.accountNameArabic}}</option>
+                                
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">{{Translate[lang].TEXT_SAVE}}</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+</div><!-- .nk-block -->
+
+      <!-- ccategory Form -->
+      <div class="modal fade" tabindex="-1" id="categoryForm">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Store </h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                        <em class="icon ni ni-cross"></em>
+                    </a>
+                </div>
+                <form  class="form-validate is-alter" ng-submit="addcategory(categoryform)">
+                <div class="modal-body">
+                    
+                        <div class="form-group">
+                            <label class="form-label" for="full-name">Category Name</label>
+                            <div class="form-control-wrap">
+                                <input type="text" class="form-control" id="full-name" ng-model="categoryform.categoryName" required>
+                            </div>
+                        </div>
+             
+                   
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="submit" class=" btn btn-success" data-dismiss="modal" ng-click="addcategory(categoryform)">add</button>
+                    <a href="#" class="close btn btn-warning" data-dismiss="modal" aria-label="Close" >cancel</a>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+        <!-- store Form -->
+        <div class="modal fade" tabindex="-1" id="storeForm">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Store </h5>
+                        <a href="#" class="close" data-dismiss="modal" aria-label="Close">
+                            <em class="icon ni ni-cross"></em>
+                        </a>
+                    </div>
+                    <form  class="form-validate is-alter" ng-submit="addstore(storeform)">
+                    <div class="modal-body">
+                        
+                            <div class="form-group">
+                                <label class="form-label" for="full-name">Store Name</label>
+                                <div class="form-control-wrap">
+                                    <input type="text" class="form-control" id="full-name" ng-model="storeform.storeName" required>
+                                </div>
+                            </div>
+                 
+                       
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <button type="submit" class="  btn btn-success" data-dismiss="modal"  ng-click="addstore(storeform)">add</button>
+                        <a href="#" class="close btn btn-warning" data-dismiss="modal" aria-label="Close" >cancel</a>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>

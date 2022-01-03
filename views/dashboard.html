@@ -1,0 +1,323 @@
+<div class="container-fluid">
+    <div class="nk-content-inner">
+        <div class="nk-content-body" ng-if="userrole != 'SuperAdmin'">
+            <div class="nk-block-head nk-block-head-sm">
+                <div class="nk-block-between">
+                    <div class="nk-block-head-content" id="title">
+                        <h3 class="nk-block-title page-title">{{Translate[lang].DASHBOARD}}</h3>
+                    </div>
+                </div>
+                <!-- .nk-block-between -->
+            </div>
+            <!-- .nk-block-head -->
+            <div class="nk-block">
+                <div class="row g-gs">
+                    <div class="col-md-4">
+                        <div class="card card-bordered card-full">
+                            <div id="step1" class="bg-blue-dim  card-inner shadow">
+                                <div class="card-title-group align-start mb-0">
+                                    <div class="card-title">
+                                        <h6 class="subtitle">{{Translate[lang].TEXT_TOTAL_EXPENES}}</h6>
+                                    </div>
+                                    <div class="card-tools">
+                                        <em class="card-hint icon ni ni-help-fill" ng-click="CallMe();" data-toggle="tooltip" data-placement="left" title="{{Translate[lang].TEXT_TOTAL_EXPENES}}"></em>
+                                    </div>
+                                </div>
+                                <div class="card-amount">
+                                    <span class="amount"> {{totalExpenses.currentMonth || 0}} <span class="currency currency-usd">{{currencySymbol}}</span>
+                                    </span>
+                                    <!-- <span class="change up text-danger"><em class="icon ni ni-arrow-long-up"></em>1.93%</span> -->
+                                </div>
+                                <div class="invest-data">
+                                    <div class="invest-data-amount g-2">
+                                        <div class="invest-data-history">
+                                            <div class="title">{{Translate[lang].TEXT_LAST_MONTH}}</div>
+                                            <div class="amount">{{totalExpenses.lastMonth || 0}} <span class="currency currency-usd">{{currencySymbol}}</span></div>
+                                        </div>
+                                        <div class="invest-data-history">
+                                            <div class="title">{{Translate[lang].TEXT_LAST_WEEK}}</div>
+                                            <div class="amount">{{totalExpenses.lastWeek || 0}} <span class="currency currency-usd">{{currencySymbol}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .card -->
+                    </div>
+                    <!-- .col -->
+                    <div class="col-md-4">
+                        <div class="card card-bordered card-full">
+                            <div id="step2" class="bg-warning-dim card-inner shadow">
+                                <div class="card-title-group align-start mb-0">
+                                    <div class="card-title">
+                                        <h6 class="subtitle">{{Translate[lang].TEXT_TOTAL_REVENUE}}</h6>
+                                    </div>
+                                    <div class="card-tools">
+                                        <em class="card-hint icon ni ni-help-fill" ng-click="CallMe(2);" data-toggle="tooltip" data-placement="left" title="{{Translate[lang].TEXT_TOTAL_REVENUE}}"></em>
+                                    </div>
+                                </div>
+                                <div class="card-amount">
+                                    <span class="amount"> {{totalRevenues.currentMonth || 0}} <span class="currency currency-usd">{{currencySymbol}}</span>
+                                    </span>
+                                    <!-- <span class="change down text-danger"><em class="icon ni ni-arrow-long-down"></em>1.93%</span> -->
+                                </div>
+                                <div class="invest-data">
+                                    <div class="invest-data-amount g-2">
+                                        <div class="invest-data-history">
+                                            <div class="title">{{Translate[lang].TEXT_LAST_MONTH}}</div>
+                                            <div class="amount">{{totalRevenues.lastMonth || 0}} <span class="currency currency-usd">{{currencySymbol}}</span></div>
+                                        </div>
+                                        <div class="invest-data-history">
+                                            <div class="title">{{Translate[lang].TEXT_LAST_WEEK}}</div>
+                                            <div class="amount">{{totalRevenues.lastWeek || 0}} <span class="currency currency-usd">{{currencySymbol}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .card -->
+                    </div>
+                    <!-- .col -->
+                    <div class="col-md-4">
+                        <div class="card card-bordered  card-full">
+                            <div id="step3" class="bg-lighter card-inner shadow">
+                                <div class="card-title-group align-start mb-0">
+                                    <div class="card-title">
+                                        <h6 class="subtitle">{{Translate[lang].TEXT_CURRENT_BALANCE}}</h6>
+                                    </div>
+                                    <div class="card-tools">
+                                        <em class="card-hint icon ni ni-help-fill" ng-click="CallMe(3);" data-toggle="tooltip" data-placement="left" title="{{Translate[lang].TEXT_CURRENT_BALANCE}}"></em>
+                                    </div>
+                                </div>
+                                <div class="card-amount">
+                                    <span class="amount"> {{Balance.balance || 0}} <span class="currency currency-usd">{{currencySymbol}}</span>
+                                    </span>
+                                </div>
+                                <div class="invest-data">
+                                    <div class="invest-data-amount g-2">
+                                        <div class="invest-data-history">
+                                            <div class="title">{{Translate[lang].TEXT_Bank}}</div>
+                                            <div class="amount">{{Balance.banks || 0}}<span class="currency currency-usd">{{currencySymbol}}</span></div>
+                                        </div>
+                                        <div class="invest-data-history">
+                                            <div class="title">{{Translate[lang].TEXT_CASES}}</div>
+                                            <div class="amount">{{Balance.saves || 0}}<span class="currency currency-usd">{{currencySymbol}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .card -->
+                    </div>
+                    <!-- .col -->
+                    <div class="col-xxl-12">
+                        <div class="row g-gs">
+                            <div class="col-lg-12 col-xxl-12">
+                                <div class="card card-bordered">
+                                    <div class="card-inner" id="step4">
+                                        <div class="card-title  d-inline-flex">
+                                            <h6 class="title">اكتر 10 اصناف من حيث القيمه والكميه</h6>
+                                            <em class="card-hint icon ni ni-help-fill" ng-click="CallMe(4);" data-toggle="tooltip" data-placement="left"></em>
+                                        </div>
+                                        <div id="chart">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- .col -->
+                            <div class="col-lg-6 col-xxl-12">
+                                <div class="row g-gs">
+                                    <div class="col-sm-6 col-lg-12 col-xxl-6">
+                                        <div class="card card-bordered">
+                                            <div class="card-inner"  id="step5">
+                                                <div class="card-title d-inline-flex">
+                                                    <h6 class="title">اكتر 5 عملاء</h6>
+                                                    <em class="card-hint icon ni ni-help-fill" ng-click="CallMe(5);" data-toggle="tooltip" data-placement="left"></em>
+                                                </div>
+                                                <div id="pie-customers">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .card -->
+                                    </div>
+                                    <!-- .col -->
+                                    <div class="col-sm-6 col-lg-12 col-xxl-6">
+                                        <div class="card card-bordered">
+                                            <div class="card-inner"  id="step6">
+                                                <div class="card-title d-inline-flex">
+                                                    <h6 class="title">اكتر 5 موردين</h6>
+                                                    <em class="card-hint icon ni ni-help-fill" ng-click="CallMe(6);" data-toggle="tooltip" data-placement="left"></em>
+                                                </div>
+                                                <div id="pie-suppliers">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- .card -->
+                                    </div>
+                                    <!-- .col -->
+                                </div>
+                                <!-- .row -->
+                            </div>
+                            <!-- .col -->
+                        </div>
+                        <!-- .row -->
+                    </div>
+                    <!-- .col -->
+                    <div class="col-xxl-8">
+                        <div class="card card-bordered card-full" id="step7">
+                            <div class="card-inner">
+                                <div class="card-title-group">
+                                    <div class="card-title d-inline-flex">
+                                        <h6 class="title"><span class="mr-2">اخر 10 قيود</span></h6>
+                                        <em class="card-hint icon ni ni-help-fill" ng-click="CallMe(7);" data-toggle="tooltip" data-placement="left"></em>
+                                    </div>
+                                </div>
+                            </div>
+                            <table id="tblMaster" class="table table-sm text-center">
+                                <thead class="bg-blue-dim">
+                                    <tr class="">
+                                        <th
+                                            class="nk-tb-col col-2">
+                                            <span
+                                                class="sub-text">{{Translate[lang].TEXT_TRANSACTION_NUMBER}}</span>
+                                        </th>
+                                        <th 
+                                            class="nk-tb-col col-2">
+                                            <span class="sub-text">{{Translate[lang].TEXT_DATE}}</span>
+                                        </th>
+                                        <th 
+                                            class="nk-tb-col col-2">
+                                            <span class="sub-text">رقم المرجع</span>
+                                        </th>
+                                        <th
+                                            class="nk-tb-col w-200px">
+                                            <span class="sub-text">{{Translate[lang].TEXT_ACCOUNT_NAME}}</span>
+                                        </th>
+                                        <th 
+                                            class="nk-tb-col w-200px">
+                                            <span class="sub-text">{{Translate[lang].TEXT_DEBIT}}</span>
+                                        </th>
+                                        <th 
+                                            class="nk-tb-col w-200px">
+                                            <span class="sub-text">{{Translate[lang].TEXT_CREDIT}}</span>
+                                        </th>
+                                        <!-- <th colspan="3"></th> -->
+                                        <th 
+                                            class="nk-tb-col tb-col-mb">
+                                            <span class="sub-text">{{Translate[lang].TEXT_NOTES}}</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody
+                                    ng-repeat="item in transactionsLst track by $index">
+
+                                    <tr class="nk-tb-item" style="background-color: rgb(201, 230, 231);">
+                                        <td class="nk-tb-col tb-col-md col-2">
+                                            <span>{{item.transactionId}}</span>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-md col-2">
+                                            <span>{{item.transactionDate | date:'yyyy-MM-dd'}}</span>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-md col-2">
+                                            <span>{{item.refrenceId}}</span>
+                                        </td>
+                                        <td></td>
+                                        <td class="nk-tb-col tb-col-md">
+                                            <span>{{item.debit}}</span>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-md">
+                                            <span>{{item.credit}}</span>
+                                        </td>
+                                        <td class="nk-tb-col tb-col-md">
+                                            <span>{{item.description}}</span>
+                                        </td>
+
+                                    </tr>
+                                    <tr ng-repeat="obj in item.transactionDetails">
+                                        <td class="col-2"></td>
+                                        <td class="col-2"></td>
+                                        <td class="col-2"></td>
+                                        <td class="tb-col-md w-200px" colspan="1">
+                                            {{obj.account.accountNameArabic}}
+                                        </td>
+                                        <td class="tb-col-md w-200px" colspan="1">
+                                            {{obj.debit}}
+                                        </td>
+                                        <td class="tb-col-md w-200px" colspan="1">
+                                            {{obj.credit}}
+                                        </td>
+                                        <td class="tb-col-md w-200px" colspan="1">
+                                            {{obj.description}}
+                                        </td>
+                                    </tr>
+                                    <!-- .nk-tb-item  -->
+                                </tbody>
+                            </table>
+                            <div class="card-inner-sm border-top text-center d-sm-none">
+                                <a class="btn btn-link btn-block">See History</a>
+                            </div>
+                        </div>
+                        <!-- .card -->
+                    </div>
+                    <!-- .col -->
+                    <div class="col-md-6 col-xxl-4">
+                        <div class="card card-bordered card-full" id="step8">
+                            <div class="card-inner border-bottom">
+                                <div class="card-title-group">
+                                    <div class="card-title d-inline-flex">
+                                        <h6 class="title">Recent Activities</h6>
+                                        <em class="card-hint icon ni ni-help-fill" ng-click="CallMe(8);" data-toggle="tooltip" data-placement="left"></em>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-inner p-0 border-top">
+                                <div class="nk-tb-list nk-tb-orders">
+                                    <div class="nk-tb-item nk-tb-head">
+                                        <div class="nk-tb-col"><span>الوصف</span></div>
+                                        <div class="nk-tb-col"><span class="d-none d-sm-inline">العدد</span></div>
+                                    </div>
+                                    <div class="nk-tb-item">
+                                        <div class="nk-tb-col tb-col-lg">
+                                            <span class="tb-sub text-primary">عدد العملاء</span>
+                                        </div>
+                                        <div class="nk-tb-col">
+                                            <span class="badge badge-warning">{{customerCount}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="nk-tb-item">
+                                        <div class="nk-tb-col tb-col-lg">
+                                            <span class="tb-sub text-primary">عدد الموردين</span>
+                                        </div>
+                                        <div class="nk-tb-col">
+                                            <span class="badge badge-danger">{{suppliersCount}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="nk-tb-item">
+                                        <div class="nk-tb-col tb-col-lg">
+                                            <span class="tb-sub text-primary">عدد الاصناف</span>
+                                        </div>
+                                        <div class="nk-tb-col">
+                                            <span class="badge badge-primary">{{prouductsCount}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="nk-tb-item">
+                                        <div class="nk-tb-col tb-col-lg">
+                                            <span class="tb-sub text-primary">عدد المستخدمين</span>
+                                        </div>
+                                        <div class="nk-tb-col">
+                                            <span class="badge badge-info">{{usersCount}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .card -->
+                    </div>
+                    <!-- .col -->
+                </div>
+                <!-- .row -->
+            </div>
+            <!-- .nk-block -->
+        </div>
+    </div>
+</div>

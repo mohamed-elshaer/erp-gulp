@@ -1,0 +1,326 @@
+<div class="container-fluid">
+    <div class="card-inner position-relative card-tools-toggle">
+      <div class="card-title-group">
+        <div class="nk-block-head-content">
+          <h3 class="nk-block-title page-title">
+            {{Translate[lang].TEXT_REPORTS}}
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="basic-form">
+                <div class="form-row">
+                  <div class="form-group col-md-3">
+                    <div id="accordion" class="accordion">
+                        <div class="accordion-item">
+                            <a class="accordion-head" data-toggle="collapse" data-target="#accordion-item-1" ng-if="CheckPerm(['Permissions.SalesInvoicesReport.View'])
+                            || CheckPerm(['Permissions.CustomersInvoicesWithFilterReport.View'])
+                            || CheckPerm(['Permissions.SalesInvoiceReport.View'])
+                            || CheckPerm(['Permissions.InvoicesEarningsReport.View'])
+                            || CheckPerm(['Permissions.ProductsEarningsReport.View'])
+                            ">
+                                <h6 class="title">المبيعات</h6>
+                                <span class="accordion-icon"></span>
+                            </a>
+                            <div class="accordion-body collapse show" id="accordion-item-1" data-parent="#accordion">
+                                <div class="accordion-inner pointer p-2"  ng-repeat="o in reports.sales track by $index">
+                                    <div  ng-click="setReport(o)" class="col-md-10 p-0">
+                                        <a ng-class="{'text-danger': report.name === o.name}" class="nk-menu-link"><span class="nk-menu-text" style="font-size: 14px;">{{o.name}}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <a class="accordion-head" data-toggle="collapse" data-target="#accordion-item-2" ng-if="CheckPerm(['Permissions.SupplierInvoicesReport.View'])
+                            || CheckPerm(['Permissions.MostActiveSuppliersReport.View'])
+                            ">
+                                <h6 class="title">المشتريات</h6>
+                                <span class="accordion-icon"></span>
+                            </a>
+                            <div class="accordion-body collapse" id="accordion-item-2" data-parent="#accordion">
+                                <div class="accordion-inner pointer p-2"  ng-repeat="o in reports.purchase track by $index" ng-if="CheckPerm(o.Perm)">
+                                    <div  ng-click="setReport(o)" class="col-md-10 p-0">
+                                        <a ng-class="{'text-danger': report.name === o.name}" class="nk-menu-link"><span class="nk-menu-text" style="font-size: 14px;">{{o.name}}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <a class="accordion-head collapsed" data-toggle="collapse" data-target="#accordion-item-3" ng-if="CheckPerm(['Permissions.ProductsMovementsReport.View'])
+                            || CheckPerm(['Permissions.ProductMovementReport.View'])
+                            || CheckPerm(['Permissions.ProductsReport.View'])
+                            || CheckPerm(['Permissions.DemandLimitReport.View'])
+                            || CheckPerm(['Permissions.ProductExpirationReport.View'])
+                            || CheckPerm(['Permissions.StoreMovementReport.View'])
+                            || CheckPerm(['Permissions.ProductsEarningsReport.View'])
+                            ">
+                                <h6 class="title">المخازن</h6>
+                                <span class="accordion-icon"></span>
+                            </a>
+                            <div class="accordion-body collapse" id="accordion-item-3" data-parent="#accordion" >
+                                <div class="accordion-inner pointer p-2"  ng-repeat="o in reports.items track by $index" ng-if="CheckPerm(o.Perm)">
+                                    <div  ng-click="setReport(o)" class="col-md-10 p-0">
+                                        <a ng-class="{'text-danger': report.name === o.name}" class="nk-menu-link"><span class="nk-menu-text" style="font-size: 14px;">{{o.name}}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <a class="accordion-head collapsed" data-toggle="collapse" data-target="#accordion-item-4" ng-if="CheckPerm(['Permissions.LedgerReport.View'])">
+                                <h6 class="title">الحسابات</h6>
+                                <span class="accordion-icon"></span>
+                            </a>
+                            <div class="accordion-body collapse" id="accordion-item-4" data-parent="#accordion" >
+                                <div class="accordion-inner pointer p-2"  ng-repeat="o in reports.accounts track by $index" ng-if="CheckPerm(o.Perm)">
+                                    <div  ng-click="setReport(o)" class="col-md-10 p-0">
+                                        <a ng-class="{'text-danger': report.name === o.name}" class="nk-menu-link"><span class="nk-menu-text" style="font-size: 14px;">{{o.name}}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <a class="accordion-head collapsed" data-toggle="collapse" data-target="#accordion-item-5" ng-if="CheckPerm(['Permissions.CustomerStatementReport.View'])
+                            || CheckPerm(['Permissions.CustomersReport.View'])
+                            || CheckPerm(['Permissions.MostActiveCustomersReport.View'])
+                            || CheckPerm(['Permissions.CustomerMovementAsInvoicesReport.View'])
+                            || CheckPerm(['Permissions.CustomerMovementAsPayMoneyReport.View'])
+                            ">
+                                <h6 class="title">العملاء</h6>
+                                <span class="accordion-icon"></span>
+                            </a>
+                            <div class="accordion-body collapse" id="accordion-item-5" data-parent="#accordion" >
+                                <div class="accordion-inner pointer p-2"  ng-repeat="o in reports.customers track by $index" ng-if="CheckPerm(o.Perm)">
+                                    <div  ng-click="setReport(o)" class="col-md-10 p-0">
+                                        <a ng-class="{'text-danger': report.name === o.name}" class="nk-menu-link"><span class="nk-menu-text" style="font-size: 14px;">{{o.name}}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <a class="accordion-head collapsed" data-toggle="collapse" data-target="#accordion-item-6" ng-if="CheckPerm(['Permissions.SupplierStatemntReport.View'])
+                            || CheckPerm(['Permissions.supplierReport.View'])
+                            || CheckPerm(['Permissions.SupplierMovementAsInvoicesReport.View'])
+                            || CheckPerm(['Permissions.SupplierMovementsAsPayMoney.View'])
+                            ">
+                                <h6 class="title">الموردين</h6>
+                                <span class="accordion-icon"></span>
+                            </a>
+                            <div class="accordion-body collapse" id="accordion-item-6" data-parent="#accordion" >
+                                <div class="accordion-inner pointer p-2"  ng-repeat="o in reports.Supplier track by $index" ng-if="CheckPerm(o.Perm)">
+                                    <div  ng-click="setReport(o)" class="col-md-10 p-0">
+                                        <a ng-class="{'text-danger': report.name === o.name}" class="nk-menu-link"><span class="nk-menu-text" style="font-size: 14px;">{{o.name}}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <a class="accordion-head collapsed" data-toggle="collapse" data-target="#accordion-item-7" ng-if="CheckPerm(['Permissions.SupplierStatemntReport.View'])
+                            || CheckPerm(['Permissions.supplierReport.View'])
+                            || CheckPerm(['Permissions.SupplierMovementAsInvoicesReport.View'])
+                            || CheckPerm(['Permissions.SupplierMovementsAsPayMoney.View'])
+                            ">
+                                <h6 class="title">الحسابات الختاميه</h6>
+                                <span class="accordion-icon"></span>
+                            </a>
+                            <div class="accordion-body collapse" id="accordion-item-7" data-parent="#accordion" >
+                                <div class="accordion-inner pointer p-2"  ng-repeat="o in reports.endingAccount track by $index" ng-if="CheckPerm(o.Perm)">
+                                    <div  ng-click="setReport(o)" class="col-md-10 p-0">
+                                        <a ng-class="{'text-danger': report.name === o.name}" class="nk-menu-link"><span class="nk-menu-text" style="font-size: 14px;">{{o.name}}</span></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group col-md-9 border p-2">
+                    <div class="card">
+                        <div class="card-header">
+                            {{report.name}}
+                        </div>
+                        <div class="card-body">
+                            <div ng-hide="report" class="alert alert-info">
+                                {{ Translate[lang].TEXT_SELECT_FROM_MENU_REPORTS }}</div>
+                            <div ng-show="report.parametars.length < 1" class="alert alert-info">
+                                {{ Translate[lang].TEXT_THERE_IS_NOT_REPORT_SELECT }}</div>
+                            <form>
+                                <div class="row align-items-center flex-wrap">
+                                   
+                                      
+                                        <div ng-if="report.link=='CustomerInvoicesWith_3_Parameters'" class="col-md-12 col-xs-12 pt-4" style="border: 2px;border-color: darkcyan; border-style: solid; border-radius: 5px;">
+                                            <div class="row">
+                                                <div class="col-2 text-center">
+                                                    <label for="">اسم العميل</label>
+                                                    <input ng-if="calcfilter<=3" type="checkbox" ng-model="filter.customerId" class=" form-control" name="" id="" ng-change="getchange()">
+                                                    <label  ng-if="calcfilter>3" for="" class=" text-danger">الحد الاقصي 3 اختيارات</label>
+                                                </div>
+                                                <div class="col-2 text-center">
+                                                    <label for=""> المخزن</label>
+                                                    <input ng-if="calcfilter<=3" type="checkbox" ng-model="filter.storeId" class=" form-control" name="" id="" ng-change="getchange()">
+                                                    <label  ng-if="calcfilter>3" for="" class=" text-danger">الحد الاقصي 3 اختيارات</label>
+                                                </div>
+                                                <div class="col-2 text-center">
+                                                    <label for="" >طريقه الدفع</label>
+                                                    <input ng-if="calcfilter<=3" type="checkbox" ng-model="filter.paymentTypeId" class=" form-control" name="" id="" ng-change="getchange()">
+                                                    <label  ng-if="calcfilter>3" for="" class=" text-danger">الحد الاقصي 3 اختيارات</label>
+                                                </div>
+                                                <div class="col-2 text-center">
+                                                    <label for=""> نوع العمله</label>
+                                                    <input ng-if="calcfilter<=3" type="checkbox" ng-model="filter.currencyId" class=" form-control" name="" id="" ng-change="getchange()">
+                                                    <label  ng-if="calcfilter>3" for="" class=" text-danger">الحد الاقصي 3 اختيارات</label>
+                                                </div>
+                                                <div class="col-2 text-center">
+                                                    <label for=""> منشئ الفاتوره</label>
+                                                    <input ng-if="calcfilter<=3" type="checkbox" ng-model="filter.userId" class=" form-control" name="" id="" ng-change="getchange()">
+                                                    <label  ng-if="calcfilter>3" for="" class=" text-danger">الحد الاقصي 3 اختيارات</label>
+                                                </div>
+                                                <div class="col-2 text-center">
+                                                    <label for="">  الاختيار من جديد</label>
+                                                    <a class=" btn btn-round text-info"><em class="icon ni ni-repeat-fill" style="font-size: 40px;" data-toggle="tooltip" data-placement="top" title="اعاده اختيار الفلتر" ng-click="reset()"></em></a>
+                                                </div>
+                                            </div>
+                                            
+                                           
+                                        </div>
+                                  
+                                    <div class="col-md-6 col-xs-12 pt-4" ng-repeat="p in report.parametars" ng-if="p.name != 'Ware1' && p.name != 'Ware2' && p.name != 'Cost1' && p.name != 'Cost2'">
+                                       
+                                        <label ng-if="p.type != 'checkbox'" class="mr-sm-2" for="inlineFormInput">{{p.title}}</label>
+                                        <input type="text" ng-if="p.type == 'text'" ng-model="p.default" class="form-control">
+                               
+                                        <input type="date" ng-if="p.type == 'date' && p.name == 'd1' || p.name == 'DATE1' || p.name == 'DateFrom' || p.name == 'datefrom'" ng-init="p.default = todayDate1" ng-model="p.default" class="form-control" id="txtDate{{$index}}">
+                                        <input type="date" ng-if="p.type == 'date' && p.name == 'd2' || p.name == 'DATE2' || p.name == 'DateTo' || p.name == 'dateto'" ng-init="p.default = todayDate" ng-model="p.default" class="form-control" id="txtDate{{$index}}">
+
+                                        <ui-select ng-if="p.type == 'select' && p.type != 'select'" id="txtDate{{$index}}" on-select="validate($index)" ng-disabled="p.name == branchId" ng-model="p.default" theme="select2">
+                                            <ui-select-match>
+                                                <span ng-bind="$select.selected.Title"></span>
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item.Id as item in (getLookup(p.range) | filter: $select.search) track by $index">
+                                                <span ng-bind="item.Title"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <!-- branch -->
+                                        <ui-select ng-if="p.type == 'lookup' && p.type != 'select' && p.name == 'branchId'" ng-disabled="p.name == 'branchId'" ng-model="p.default" on-select="validate($index)" id="txtDate{{$index}}" theme="select2">
+                                            <ui-select-match>
+                                                <span ng-bind="$select.selected.branchName"></span>
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item.branchId as item in (getLookup(p.range) | filter: $select.search) track by $index">
+                                                <span ng-bind="item.branchName"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <!-- customer -->
+                                        <ui-select ng-if="p.type == 'lookup' && p.type != 'select' && p.name == 'customerId'&& filter.customerId&&calcfilter<=3" ng-model="p.default" on-select="validate($index)" id="txtDate{{$index}}" theme="select2">
+                                            <ui-select-match>
+                                                <span ng-bind="$select.selected.personName"></span>
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item.id as item in (getLookup(p.range) | filter: $select.search) track by $index">
+                                                <span ng-bind="item.personName"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <!-- suppliers -->
+                                        <ui-select ng-if="p.type == 'lookup' && p.type != 'select' && p.name == 'supplierId'" ng-model="p.default" on-select="validate($index)" id="txtDate{{$index}}" theme="select2">
+                                            <ui-select-match>
+                                                <span ng-bind="$select.selected.personName"></span>
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item.id as item in (getLookup(p.range) | filter: $select.search) track by $index">
+                                                <span ng-bind="item.personName"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <!-- customerAccount -->
+                                        <ui-select ng-if="p.type == 'lookup' && p.type != 'select' && p.name == 'customerAccountId'" ng-model="p.default" on-select="validate($index)" id="txtDate{{$index}}" theme="select2">
+                                            <ui-select-match>
+                                                <span ng-bind="$select.selected.accountNameArabic"></span>
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item.accountId as item in (getLookup(p.range) | filter: $select.search) track by $index">
+                                                <span ng-bind="item.accountNameArabic"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <!-- supplierAccount -->
+                                        <ui-select ng-if="p.type == 'lookup' && p.type != 'select' && p.name == 'supplierAccountId'" ng-model="p.default" on-select="validate($index)" id="txtDate{{$index}}" theme="select2">
+                                            <ui-select-match>
+                                                <span ng-bind="$select.selected.accountNameArabic"></span>
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item.accountId as item in (getLookup(p.range) | filter: $select.search) track by $index">
+                                                <span ng-bind="item.accountNameArabic"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                        <!-- store -->
+                                        <ui-select ng-if="p.type == 'lookup' && p.type != 'select' && p.name == 'storeIdFrom' || p.name == 'storeIdTo'" ng-model="p.default" on-select="validate($index)" id="txtDate{{$index}}" theme="select2">
+                                            <ui-select-match>
+                                                <span ng-bind="$select.selected.storeName"></span>
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item.id as item in (getLookup(p.range) | filter: $select.search) track by $index">
+                                                <span ng-bind="item.storeName"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                                                              <!-- store2 -->
+                                                                              <ui-select ng-if="p.type == 'lookup' && p.type != 'select' && p.name == 'storeId' &&filter.storeId&&calcfilter<=3" ng-model="p.default" on-select="validate($index)" id="txtDate{{$index}}" theme="select2">
+                                                                                <ui-select-match>
+                                                                                    <span ng-bind="$select.selected.storeName"></span>
+                                                                                </ui-select-match>
+                                                                                <ui-select-choices repeat="item.id as item in (getLookup(p.range) | filter: $select.search) track by $index">
+                                                                                    <span ng-bind="item.storeName"></span>
+                                                                                </ui-select-choices>
+                                                                            </ui-select>
+                                        <!-- product -->
+                                        <ui-select ng-if="p.type == 'lookup' && p.type != 'select' && p.name == 'productId'" ng-model="p.default" on-select="validate($index)" id="txtDate{{$index}}" theme="select2">
+                                            <ui-select-match>
+                                                <span ng-bind="$select.selected.productName"></span>
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item.id as item in (getLookup(p.range) | filter: $select.search) track by $index">
+                                                <span ng-bind="item.productName"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                                     <!-- currency -->
+                                                     <ui-select ng-if="p.type == 'lookup' && p.type != 'select' && p.name == 'currencyId' &&filter.currencyId&&calcfilter<=3" ng-model="p.default" on-select="validate($index)" id="txtDate{{$index}}" theme="select2">
+                                                        <ui-select-match>
+                                                            <span ng-bind="$select.selected.currencyNameArabic"></span>
+                                                        </ui-select-match>
+                                                        <ui-select-choices repeat="item.id as item in (getLookup(p.range) | filter: $select.search) track by $index">
+                                                            <span ng-bind="item.currencyNameArabic"></span>
+                                                        </ui-select-choices>
+                                                    </ui-select>
+                                                                 <!-- payment -->
+                                        <ui-select ng-if="p.type == 'lookup' && p.type != 'select' && p.name == 'paymentTypeId'  &&filter.paymentTypeId&&calcfilter<=3" ng-model="p.default" on-select="validate($index)" id="txtDate{{$index}}" theme="select2">
+                                            <ui-select-match>
+                                                <span ng-bind="$select.selected.paymentTypeNameArabic"></span>
+                                            </ui-select-match>
+                                            <ui-select-choices repeat="item.id as item in (getLookup(p.range) | filter: $select.search) track by $index">
+                                                <span ng-bind="item.paymentTypeNameArabic"></span>
+                                            </ui-select-choices>
+                                        </ui-select>
+                                                                         <!-- users -->
+                                                                         <ui-select ng-if="p.type == 'lookup' && p.type != 'select' && p.name == 'userId'  && filter.userId&&calcfilter<=3" ng-model="p.default" on-select="validate($index)" id="txtDate{{$index}}" theme="select2">
+                                                                            <ui-select-match>
+                                                                                <span ng-bind="$select.selected.userName"></span>
+                                                                            </ui-select-match>
+                                                                            <ui-select-choices repeat="item.id as item in (getLookup(p.range) | filter: $select.search) track by $index">
+                                                                                <span ng-bind="item.userName"></span>
+                                                                            </ui-select-choices>
+                                                                        </ui-select>
+                                      
+                                        <select ng-if="p.type == 'select'" ng-model="p.default" ng-init="p.default = p.range[0].value" class="form-control" ng-options="a.value as a.text for a in p.range"></select>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="col-md-12 pt-5">
+                                <a ng-show="report" ng-click="loadReport()" ng-disabled="overVal == true" class="btn btn-primary text-white">{{ Translate[lang].TEXT_VIEW_REPORTS }}
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+            
+   
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

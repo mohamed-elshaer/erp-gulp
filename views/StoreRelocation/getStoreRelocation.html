@@ -1,0 +1,165 @@
+<div class="container-fluid">
+    <div class="nk-content-inner">
+        <div class="nk-content-body">
+            <div class="nk-block-head nk-block-head-sm">
+                <div class="nk-block-between">
+                    <div class="nk-block-head-content">
+                        <h3 class="nk-block-title page-title">
+                            {{Translate[lang].TEXT_STORE_RELOCATION}}
+                        </h3>
+                    </div>
+                </div>
+                <!-- .nk-block-between -->
+            </div>
+            <!-- .nk-block-head -->
+            <div class="nk-block">
+                <div class="card card-bordered card-stretch">
+                    <div class="card-inner-group">
+                        <!-- .card-inner -->
+                        <div class="card-inner card card-bordered card-stretch">
+                            <div class="row">
+                                <div class="form-group col-md-4">
+                                    <label> {{Translate[lang]. TEXT_STORE_FROM}}</label>
+                                    <ui-select ng-model="currentObj.storeIdFrom" ng-required="true" theme="select2">
+                                        <ui-select-match>
+                                            <span ng-bind="$select.selected.storeName"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item.id as item in stores | filter: $select.search">
+                                            <span ng-bind="item.storeName"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].TEXT_STORE_TO}}</label>
+                                    <ui-select ng-model="currentObj.storeIdTo" ng-required="true" theme="select2">
+                                        <ui-select-match>
+                                            <span ng-bind="$select.selected.storeName"></span>
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="item.id as item in stores | filter: $select.search">
+                                            <span ng-bind="item.storeName"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+
+                                <div class="align-center mt-3">
+                                    <button class="btn btn-info"
+                                        ng-click="filterbyStore(currentObj.storeIdFrom,currentObj.storeIdTo)">
+                                        <span><i class="icon ni ni-search"></i></span>
+                                    </button>
+                                </div>
+                                <div class="ml-4">
+                                    <a ui-sref="menu.addStoreRelocation" class="btn btn-info">
+                                        <span><i class="icon ni ni-plus"></i></span>
+                                    </a>
+                                    <button ng-click="exportToPdf('tblMaster')" class="text-right btn btn-info">
+                                        <img src="../../theme/images/icons/pdf.png" width="20px"
+                                            class="mrx text-right" />&nbsp;
+                                        {{Translate[lang].TEXT_EXPORT_PDF}} &nbsp;
+                                    </button>
+                                    <button ng-click="exportToExcel('#tblMaster')" class="text-right btn btn-info">
+                                        <img src="../../theme/images/icons/xls.png" width="20px"
+                                            class="mrx text-right" />&nbsp;{{Translate[lang].TEXT_EXPORT_EXCEL}}
+                                        &nbsp;
+                                    </button>
+                                    <button ng-click="print('#printTable')" id="print" class="text-right btn btn-info">
+                                        <img src="../../theme/images/icons/print-131964753156480777.png" width="20px"
+                                            class="mrx text-right" />{{Translate[lang].TEXT_PRINT}}
+                                    </button>
+
+                                </div>
+
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div id="printDiv" class="w-100 table-responsive">
+                                    <table id="tblMaster" class="table table-lg text-center">
+                                        <thead class="bg-blue-dim">
+                                            <tr class="">
+                                                <th sort by="order" reverse="reverse" order="'transactionId'"
+                                                    class="nk-tb-col">
+                                                    <span class="sub-text">{{Translate[lang].TEXT_PRODUCT_RELOCATE}}
+                                                    </span>
+                                                </th>
+                                                <th sort by="order" reverse="reverse" order="'transactionDate'"
+                                                    class="nk-tb-col">
+                                                    <span class="sub-text">{{Translate[lang]. TEXT_STORE_FROM}} </span>
+                                                </th>
+                                                <th sort by="order" reverse="reverse" order="'transactionId'"
+                                                    class="nk-tb-col w-200px">
+                                                    <span class="sub-text">{{Translate[lang]. TEXT_STORE_TO}}</span>
+                                                </th>
+                                                <th sort by="order" reverse="reverse" order="'transactionId'"
+                                                    class="nk-tb-col w-200px">
+                                                    <span class="sub-text">
+                                                        {{Translate[lang].TEXT_STOCK_RELOCATE}}</span>
+                                                </th>
+                                                <th sort by="order" reverse="reverse" order="'transactionId'"
+                                                    class="nk-tb-col w-200px">
+                                                    <span
+                                                        class="sub-text">{{Translate[lang].TEXT_QUANTITY_RELOCATE}}</span>
+                                                </th>
+                                                <!-- <th colspan="3"></th> -->
+                                                <th sort by="order" reverse="reverse" order="'description'"
+                                                    class="nk-tb-col tb-col-mb">
+                                                    <span
+                                                        class="sub-text">{{Translate[lang].TEXT_AMOUNT_RELOCATE}}</span>
+                                                </th>
+                                                <th sort by="order" reverse="reverse" order="'description'"
+                                                    class="nk-tb-col tb-col-mb">
+                                                    <span class="sub-text">{{Translate[lang].TEXT_DATE}}</span>
+                                                </th>
+                                                <th sort by="order" reverse="reverse" order="'description'"
+                                                    class="nk-tb-col tb-col-mb">
+                                                    <span class="sub-text"> {{Translate[lang]. TEXT_DESCRIPTION}}</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+
+                                            <tr class="nk-tb-item" dir-paginate="item in
+                                        relocateStoreLst|orderBy:sortKey:reverse|filter:search|itemsPerPage:perPageCount
+                                        track by $index">
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.product.productName}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.storeIdFrom.storeName}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.storeIdTo.storeName}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.stock}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.outgoingQuantity}}</span>
+                                                </td>
+
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.residual}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.date| date:'yyyy-MM-dd'}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.description }}</span>
+                                                </td>
+                                            </tr>
+                                            <!-- .nk-tb-item  -->
+                                        </tbody>
+                                    </table>
+
+                                    <div ng-show="relocateStoreLst.length==0" class="text-center mt-3">
+                                        {{Translate[lang].TEXT_NO_DATA}}</div>
+
+                                </div>
+                            </div>
+                            <!-- .card-inner-group -->
+                        </div>
+                        <!-- .card -->
+                    </div>
+                    <!-- .nk-block -->
+                </div>
+            </div>
+        </div>

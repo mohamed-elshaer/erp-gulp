@@ -1,0 +1,243 @@
+<div class="container-fluid">
+    <div class="nk-content-inner">
+        <div class="nk-content-body">
+            <div class="nk-block-head nk-block-head-sm">
+                <div class="nk-block-between">
+                    <div class="nk-block-head-content">
+                        <h3 class="nk-block-title page-title">
+                            {{Translate[lang].TEXT_TRANSACTIONS_REPORT}}
+                        </h3>
+                    </div>
+                </div>
+                <!-- .nk-block-between -->
+            </div>
+            <!-- .nk-block-head -->
+            <div class="nk-block">
+                <div class="card card-bordered card-stretch">
+                    <div class="card-inner-group">
+                        <!-- .card-inner -->
+                        <div class="card-inner card card-bordered card-stretch">
+                            <div class="row">
+                                <div class="form-group col-md-3">
+                                    <label>{{Translate[lang].TEXT_THE_ACCOUNT}}<span
+                                            class="text-danger">*</span></label>
+                                    <ui-select ng-model="currentObj.accountId" theme="select2" ng-required="true">
+
+                                        <ui-select-match placeholder="{{Translate[lang].TEXT_CHOOSEACCOUNT}}">
+                                            {{$select.selected.accountNameArabic}}</ui-select-match>
+
+
+                                        <ui-select-choices
+                                            repeat="item.accountId  as item in accounttype | filter: $select.search">
+                                            <span ng-bind="item.accountNameArabic"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>{{Translate[lang].TEXT_FROM_DATE}}</label>
+                                    <input type="date" class="form-control" ng-model="currentObj.dateFrom"
+                                        name="txtAutomaticdate" name="date" id="date" />
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>{{Translate[lang].TEXT_TO_DATE}}</label>
+                                    <input type="date" class="form-control" ng-model="currentObj.dateTo"
+                                        name="txtAutomaticdate" name="date" id="date" />
+                                </div>
+                                <div class="align-center mt-3">
+                                    <button class="btn btn-info" ng-click="filterbyDate(currentObj)">
+                                        <span><i class="icon ni ni-search"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row pb-5" ng-if="showdata">
+                                <strong class="col-4 m-auto text-lg-center" style="font-size: x-large;">حركه
+                                    الحساب</strong>
+                            </div>
+                            <div class="row" ng-if="showdata">
+                                <div class="col-6 m-auto">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <span class=" btn btn-info">في الفتره من</span>
+                                            <input type="date" ng-model="currentObj.dateFrom" class="colorpicker-default
+                                                form-control" disabled />
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <span class=" btn btn-info">الي</span>
+                                            <input type="date" ng-model="currentObj.dateTo" class="colorpicker-default
+                                                form-control" disabled />
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row" ng-if="showdata">
+                                <div class="col-10 m-auto">
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>كود الحساب</label>
+                                            <input type="text" ng-model="transactionLst.account.code" class="colorpicker-default
+                                            form-control" disabled />
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>اسم الحساب</label>
+                                            <input type="text" ng-model="transactionLst.account.accountNameArabic"
+                                                class="colorpicker-default
+                                            form-control" disabled />
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <!-- <label>الرصيد الحالي</label>
+                                            <input type="text" ng-model="transactionLst.account.balance"
+                                            class="colorpicker-default
+                                            form-control" disabled/> -->
+                                            <label class="form-label" for="default-05">الرصيد الحالي</label>
+                                            <div class="form-control-wrap">
+                                                <div class="form-text-hint">
+                                                    <span class="overline-title">{{currency.symbol}}</span>
+                                                </div>
+                                                <input type="text" class="form-control" id="default-05"
+                                                    ng-model="transactionLst.account.balance" disabled>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>الفرع</label>
+                                            <input type="text" ng-model="transactionLst.account.branch.branchName"
+                                                class="colorpicker-default
+                                            form-control" disabled />
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="row pb-1">
+                                <div class="col-md-4 text-center">
+                                    <div class="input-icon mt-2 w-75">
+                                        <i class="fa fa-search"></i>
+                                        <input type="text" ng-model="search" class="colorpicker-default
+                                            form-control" placeholder="{{Translate[lang].TEXT_SEARCH}}" />
+                                    </div>
+                                </div>
+                                <div class="col-md-8 text-right">
+                                    <!-- <button data-toggle="modal" data-target="#taxModal" class="btn btn-info">
+                                        <span><i class="icon ni ni-plus"></i></span>
+                                    </button>
+                                 -->
+                                    <button ng-click="exportToPdf('tblMaster')" class="text-right btn btn-info">
+                                        <img src="../../theme/images/icons/pdf.png" width="20px"
+                                            class="mrx text-right" />&nbsp;
+                                        {{Translate[lang].TEXT_EXPORT_PDF}} &nbsp;
+                                    </button>
+                                    <button ng-click="exportToExcel('#tblMaster')" class="text-right btn btn-info">
+                                        <img src="../../theme/images/icons/xls.png" width="20px"
+                                            class="mrx text-right" />&nbsp;{{Translate[lang].TEXT_EXPORT_EXCEL}} &nbsp;
+                                    </button>
+                                    <button ng-click="print('#printTable')" id="print" class="text-right btn btn-info">
+                                        <img src="../../theme/images/icons/print-131964753156480777.png" width="20px"
+                                            class="mrx text-right" />{{Translate[lang].TEXT_PRINT}}
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div id="printDiv" class="w-100 table-responsive">
+                                    <table id="tblMaster" class="table table-lg text-center">
+                                        <thead class="bg-blue-dim">
+                                            <tr class="">
+                                                <th sort by="order" reverse="reverse" order="'transactionId'"
+                                                    class="nk-tb-col">
+                                                    <span
+                                                        class="sub-text">{{Translate[lang].TEXT_TRANSACTION_NUMBER}}</span>
+                                                </th>
+                                                <th sort by="order" reverse="reverse" order="'transactionDate'"
+                                                    class="nk-tb-col">
+                                                    <span class="sub-text">{{Translate[lang].TEXT_DATE}}</span>
+                                                </th>
+                                                <th sort by="order" reverse="reverse" order="'transactionId'"
+                                                    class="nk-tb-col w-200px">
+                                                    <span class="sub-text">رقم المرجع</span>
+                                                </th>
+                                                <th sort by="order" reverse="reverse" order="'transactionId'"
+                                                    class="nk-tb-col w-200px">
+                                                    <span class="sub-text">{{Translate[lang].TEXT_DEBIT}}</span>
+                                                </th>
+                                                <th sort by="order" reverse="reverse" order="'transactionId'"
+                                                    class="nk-tb-col w-200px">
+                                                    <span class="sub-text">{{Translate[lang].TEXT_CREDIT}}</span>
+                                                </th>
+                                                <!-- <th colspan="3"></th> -->
+                                                <th sort by="order" reverse="reverse" order="'description'"
+                                                    class="nk-tb-col tb-col-mb">
+                                                    <span class="sub-text">{{Translate[lang].TEXT_NOTES}}</span>
+                                                </th>
+                                                <th class="nk-tb-col nk-tb-col-tools text-right d-print-none" ng-if="hideLastColumn != true"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="nk-tb-item" dir-paginate="item in
+                                        transactionLst.masterReports|orderBy:sortKey:reverse|filter:search|itemsPerPage:perPageCount
+                                        track by $index">
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.transactionId}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.transactionDate |
+                                                        date:'yyyy-MM-dd'}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.refrenceId}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.debit}}</span>
+                                                </td>
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.credit}}</span>
+                                                </td>
+
+                                                <td class="nk-tb-col tb-col-md">
+                                                    <span>{{item.description}}</span>
+                                                </td>
+                                            </tr>
+                                            <!-- .nk-tb-item  -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="row pt-2">
+                                    <div class="col-md-6">
+                                        <dir-pagination-controls max-size="5" direction-links="true"
+                                            boundary-links="true">
+                                        </dir-pagination-controls>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="text-right">
+                                            <select ng-init="perPageCount == 20" ng-model="perPageCount" class="dropDown1
+                                            colorpicker-default
+                                            form-control
+                                            w-auto
+                                            p-0
+                                            d-inline-flex">
+                                                <option value="10">10</option>
+                                                <option value="20">20</option>
+                                                <option value="50">50</option>
+                                                <option value="100000">الكل</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- .card-inner-group -->
+                    </div>
+                    <!-- .card -->
+                </div>
+                <!-- .nk-block -->
+            </div>
+        </div>
+    </div>

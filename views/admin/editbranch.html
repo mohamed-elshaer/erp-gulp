@@ -1,0 +1,101 @@
+<div class="container-fluid">
+    <div class="card-inner position-relative card-tools-toggle">
+      <div class="card-title-group">
+        <div class="nk-block-head-content">
+          <h3 class="nk-block-title page-title">
+            {{Translate[lang].TEXT_EDITBRANCHINFO}}
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="basic-form">
+              <form name="form" ng-submit="updatebranch(editbranch)">
+                <div class="form-row">
+                  <div class="form-group col-md-4">
+                    <label
+                      >{{Translate[lang].Text_branchName}}
+                      <span class="text-danger">*</span></label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="{{Translate[lang].Text_branchName}}"
+                      name="branchName"
+                      ng-model="editbranch.branchName"
+                      ng-required="true"
+                    />
+                    <span
+                      class="text-danger"
+                      ng-show="form.branchName.$touched && form.branchName.$error.required"
+                      >{{Translate[lang].TEXT_BRANCHREQUIRED}}</span
+                    >
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].Text_companyAddress}}</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="{{Translate[lang].Text_companyAddress}}"
+                      name="email"
+                      ng-model="editbranch.address"
+                    />
+                  </div>
+  
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].Text_phone}}</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="Password"
+                      placeholder="{{Translate[lang].Text_phone}}"
+                      ng-model="editbranch.landNumber"
+                    />
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label>{{Translate[lang].Text_mobilephone}}</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="address"
+                      placeholder="{{Translate[lang].Text_mobilephone}}"
+                      ng-model="editbranch.phoneNumber"
+                    />
+                  </div>
+                  <div class="form-group col-md-4">
+                    <label class="col-lg-4 col-form-label" for="val-suggestions"
+                      >{{Translate[lang].Text_Email}}
+                    </label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="val-email"
+                      ng-model="editbranch.email"
+                     
+                    />
+                  </div>
+                </div>
+                <div class="mt-4">
+                  <button
+                    type="submit"
+                    class="btn btn-success"
+                    ng-disabled="editbranch.$pristine"
+                  >
+                    {{Translate[lang].UPDATE}}
+                  </button>
+                  <button ui-sref="menu.branches" class="btn btn-info">
+                    {{Translate[lang].CANCEL}}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+

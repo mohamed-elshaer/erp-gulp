@@ -1,0 +1,438 @@
+<div class="nk-body npc-default has-apps-sidebar has-sidebar">
+    <toast></toast>
+
+    <div class="nk-apps-sidebar is-dark">
+        <div class="nk-apps-brand">
+            <a style="cursor: pointer;" ui-sref="menu.dashboard" class="logo-link">
+                <img class="logo-light logo-img" src="../theme/images/logo-small.png"
+                    srcset="./images/logo-small2x.png 2x" alt="logo">
+                <img class="logo-dark logo-img" src="../theme/images/logo-dark-small.png"
+                    srcset="./images/logo-dark-small2x.png 2x" alt="logo-dark">
+            </a>
+        </div>
+        <div class="nk-sidebar-element">
+            <div class="nk-sidebar-body">
+                <div class="nk-sidebar-content" style="height: 100% !important;">
+                    <div class="nk-sidebar-menu">
+                        <!-- fav Menu -->
+                        <ul class="nk-menu apps-menu">
+                            <li class="nk-menu-item pt-2" ng-repeat="i in favListMenu track by $index"
+                                ng-if="CheckPerm(i.Perm)">
+                                <div class="nk-menu-link" title="{{Translate[lang][i.Name]}}" ng-if="i.fav == true"
+                                    ng-click="state(i)">
+                                    <span class="nk-menu-icon"><img ng-src="{{i.Img}}" alt="" srcset=""></span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="nk-sidebar-profile nk-sidebar-profile-fixed">
+                        <ul class="nk-menu nk-menu-md">
+                            <li class="nk-menu-item">
+                                <a href="#" class="nk-menu-link" title="logOut" ng-click="logout()">
+                                    <span class="nk-menu-icon"><img src="../theme/images/icons/logOut.png" alt=""
+                                            srcset=""></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- wrap @s -->
+        <div class="nk-wrap ">
+
+            <!-- main header @s -->
+            <div class="nk-header nk-header-fixed is-light">
+                <div class="container-fluid">
+                    <div class="nk-header-wrap">
+                        <div class="nk-menu-trigger">
+                            <a ng-click="toggleside($event)" class="nk-nav-toggle toggle-active"
+                                data-target="sidebarMenu"><em class="icon ni ni-menu" style="font-size: 25px;"></em></a>
+                        </div>
+                        <div class="nk-header-app-name">
+                            <div class="nk-header-app-logo">
+                                <img src="../theme/images/logo-small.png" alt="logo">
+                            </div>
+                            <div class="nk-header-app-info">
+                                <span class="sub-text">Code ERP</span>
+                                <span class="lead-text">Dashboard</span>
+                            </div>
+                        </div>
+                        <div class="nk-header-tools">
+                            <ul class="nk-quick-nav">
+
+
+                                <li class="dropdown chats-dropdown hide-mb-xs d-none">
+                                    <a class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown">
+                                        <div class="icon-status icon-status-na"><em class="icon ni ni-comments"></em>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
+                                        <div class="dropdown-head">
+                                            <span class="sub-title nk-dropdown-title">Recent Chats</span>
+                                            <a href="#">Setting</a>
+                                        </div>
+                                        <div class="dropdown-body">
+                                            <ul class="chat-list">
+                                                <li class="chat-item">
+                                                    <a class="chat-link" href="html/apps/chats.html">
+                                                        <div class="chat-media user-avatar">
+                                                            <span>IH</span>
+                                                            <span class="status dot dot-lg dot-gray"></span>
+                                                        </div>
+                                                        <div class="chat-info">
+                                                            <div class="chat-from">
+                                                                <div class="name">Iliash Hossain</div>
+                                                                <span class="time">Now</span>
+                                                            </div>
+                                                            <div class="chat-context">
+                                                                <div class="text">You: Please confrim if you got my last
+                                                                    messages.</div>
+                                                                <div class="status delivered">
+                                                                    <em class="icon ni ni-check-circle-fill"></em>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <!-- .chat-item -->
+                                                <li class="chat-item is-unread">
+                                                    <a class="chat-link" href="html/apps/chats.html">
+                                                        <div class="chat-media user-avatar bg-pink">
+                                                            <span>AB</span>
+                                                            <span class="status dot dot-lg dot-success"></span>
+                                                        </div>
+                                                        <div class="chat-info">
+                                                            <div class="chat-from">
+                                                                <div class="name">Abu Bin Ishtiyak</div>
+                                                                <span class="time">4:49 AM</span>
+                                                            </div>
+                                                            <div class="chat-context">
+                                                                <div class="text">Hi, I am Ishtiyak, can you help me
+                                                                    with this problem ?</div>
+                                                                <div class="status unread">
+                                                                    <em class="icon ni ni-bullet-fill"></em>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <!-- .chat-item -->
+                                                <li class="chat-item">
+                                                    <a class="chat-link" href="html/apps/chats.html">
+                                                        <div class="chat-media user-avatar">
+                                                            <img src="../theme/images/avatar/b-sm.jpg" alt="">
+                                                        </div>
+                                                        <div class="chat-info">
+                                                            <div class="chat-from">
+                                                                <div class="name">George Philips</div>
+                                                                <span class="time">6 Apr</span>
+                                                            </div>
+                                                            <div class="chat-context">
+                                                                <div class="text">Have you seens the claim from Rose?
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <!-- .chat-item -->
+                                                <li class="chat-item">
+                                                    <a class="chat-link" href="html/apps/chats.html">
+                                                        <div class="chat-media user-avatar user-avatar-multiple">
+                                                            <div class="user-avatar">
+                                                                <img src="../theme/images/avatar/c-sm.jpg" alt="">
+                                                            </div>
+                                                            <div class="user-avatar">
+                                                                <span>AB</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="chat-info">
+                                                            <div class="chat-from">
+                                                                <div class="name">Softnio Group</div>
+                                                                <span class="time">27 Mar</span>
+                                                            </div>
+                                                            <div class="chat-context">
+                                                                <div class="text">You: I just bought a new computer but
+                                                                    i am having some problem</div>
+                                                                <div class="status sent">
+                                                                    <em class="icon ni ni-check-circle"></em>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <!-- .chat-item -->
+                                                <li class="chat-item">
+                                                    <a class="chat-link" href="html/apps/chats.html">
+                                                        <div class="chat-media user-avatar">
+                                                            <img src="../theme/images/avatar/a-sm.jpg" alt="">
+                                                            <span class="status dot dot-lg dot-success"></span>
+                                                        </div>
+                                                        <div class="chat-info">
+                                                            <div class="chat-from">
+                                                                <div class="name">Larry Hughes</div>
+                                                                <span class="time">3 Apr</span>
+                                                            </div>
+                                                            <div class="chat-context">
+                                                                <div class="text">Hi Frank! How is you doing?</div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <!-- .chat-item -->
+                                                <li class="chat-item">
+                                                    <a class="chat-link" href="html/apps/chats.html">
+                                                        <div class="chat-media user-avatar bg-purple">
+                                                            <span>TW</span>
+                                                        </div>
+                                                        <div class="chat-info">
+                                                            <div class="chat-from">
+                                                                <div class="name">Tammy Wilson</div>
+                                                                <span class="time">27 Mar</span>
+                                                            </div>
+                                                            <div class="chat-context">
+                                                                <div class="text">You: I just bought a new computer but
+                                                                    i am having some problem</div>
+                                                                <div class="status sent">
+                                                                    <em class="icon ni ni-check-circle"></em>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                <!-- .chat-item -->
+                                            </ul>
+                                            <!-- .chat-list -->
+                                        </div>
+                                        <!-- .nk-dropdown-body -->
+                                        <div class="dropdown-foot center">
+                                            <a href="html/chats.html">View All</a>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <!-- <li class="dropdown notification-dropdown w-175px">
+                           
+                                    <span ng-repeat="item in branches track by $index" ng-if="item.view">{{item.branchName}}</span>
+                                   
+                                </li> -->
+                                <li class="dropdown notification-dropdown w-175px" ng-show="userrole=='Admin'">
+                                    <ui-select ng-model="defaultObj.branch" theme="select2"
+                                        on-select="changebranch($select.selected.branchId)">
+
+                                        <ui-select-match placeholder="{{Translate[lang].TEXT_CHOOSEBRANCH}}">
+                                            {{$select.selected.branchName}}</ui-select-match>
+
+                                        <ui-select-choices
+                                            repeat="item.id  as item in branches | filter: $select.search">
+                                            <span ng-bind="item.branchName"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+
+
+                                </li>
+                                <li ng-show="userrole!='Admin'||userrole!='SuperAdmin'">
+                                    <span>{{branchForUser.branch.branchName}}</span>
+                                </li>
+                                <li class="dropdown list-apps-dropdown d-lg-none d-none">
+                                    <a class="dropdown-toggle nk-quick-nav-icon" data-toggle="dropdown">
+                                        <div class="icon-status icon-status-na"><em
+                                                class="icon ni ni-menu-circled"></em></div>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                                        <div class="dropdown-body">
+                                            <ul class="list-apps">
+                                                <li>
+                                                    <a style="cursor: pointer;" ui-serf="menu.dashboard">
+                                                        <span class="list-apps-media"><em
+                                                                class="icon ni ni-dashlite bg-primary text-white"></em></span>
+                                                        <span class="list-apps-title">Dashboard</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="html/apps/chats.html">
+                                                        <span class="list-apps-media"><em
+                                                                class="icon ni ni-chat-circle bg-info-dim"></em></span>
+                                                        <span class="list-apps-title">Chats</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="html/apps/mailbox.html">
+                                                        <span class="list-apps-media"><em
+                                                                class="icon ni ni-inbox bg-purple-dim"></em></span>
+                                                        <span class="list-apps-title">Mailbox</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="html/apps/messages.html">
+                                                        <span class="list-apps-media"><em
+                                                                class="icon ni ni-chat bg-success-dim"></em></span>
+                                                        <span class="list-apps-title">Messages</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="html/apps/file-manager.html">
+                                                        <span class="list-apps-media"><em
+                                                                class="icon ni ni-folder bg-purple-dim"></em></span>
+                                                        <span class="list-apps-title">File Manager</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="html/components.html">
+                                                        <span class="list-apps-media"><em
+                                                                class="icon ni ni-setting"></em></span>
+                                                        <span class="list-apps-title">Components</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <ul class="list-apps">
+                                                <li>
+                                                    <a href="/demo2/ecommerce/index.html">
+                                                        <span class="list-apps-media"><em
+                                                                class="icon ni ni-cart bg-danger-dim"></em></span>
+                                                        <span class="list-apps-title">Ecommerce Panel</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/demo4/subscription/index.html">
+                                                        <span class="list-apps-media"><em
+                                                                class="icon ni ni-calendar-booking bg-primary-dim"></em></span>
+                                                        <span class="list-apps-title">Subscription Panel</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/demo5/crypto/index.html">
+                                                        <span class="list-apps-media"><em
+                                                                class="icon ni ni-bitcoin-cash bg-warning-dim"></em></span>
+                                                        <span class="list-apps-title">Crypto Wallet Panel</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/demo6/invest/index.html">
+                                                        <span class="list-apps-media"><em
+                                                                class="icon ni ni-invest bg-blue-dim"></em></span>
+                                                        <span class="list-apps-title">HYIP Invest Panel</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- .nk-dropdown-body -->
+                                    </div>
+                                </li>
+                                <li class="dropdown user-dropdown ">
+                                    <a class="dropdown-toggle mr-n1 " data-toggle="dropdown">
+                                        <div class="user-toggle">
+                                            <div class="user-avatar sm" style="background-color: #09c2de;">
+                                                <em class="icon ni ni-user-alt"></em>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-md dropdown-menu-right">
+                                        <div class="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
+                                            <div class="user-card">
+                                                <div class="user-avatar">
+                                                    <em class="icon ni ni-user"></em>
+                                                </div>
+                                                <div class="user-info">
+                                                    <span class="lead-text">{{userProfileData.userName}}</span>
+                                                    <span class="sub-text">{{userProfileData.email}}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown-inner">
+                                            <ul class="link-list">
+                                                <li><a ui-sref="menu.userprofile"><em class="icon ni ni-user-alt"></em><span>{{Translate[lang].TEXT_USER_ACCOUNT}}</span></a></li>
+                                                <li><a  ui-sref="menu.changepassword"><em class="icon ni ni-setting-alt"></em><span>{{Translate[lang].TEXT_CHANGE_TITLE_PASSWORD}}</span></a></li>
+                                                <li><a href=""><em class="icon ni ni-activity-alt"></em><span>{{Translate[lang].TEXT_SYSTEM_INFO}}</span></a></li>
+                                                <li><a class="dark-switch"  ng-click="toggledark()"><em class="icon ni ni-moon"></em><span>{{Translate[lang].TEXT_Dark_Mode}}</span></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="dropdown-inner">
+                                            <ul class="link-list">
+                                                <li><a style="cursor: pointer;" ng-click="logout()"><em class="icon ni ni-signout"></em><span>{{Translate[lang].TEXT_LOGOUT}}</span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="d-mb-none">
+                                    <button class=" d-inline-block btn btn-info" ng-click="arabiclang()">Ar</button>
+                                    <button class="btn btn-info" ng-click="englishlang()">En</button>
+
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- main header @e -->
+            <div class="nk-sidebar nk-sidebar-active" data-content="sidebarMenu">
+                <div class="nk-sidebar-inner" data-simplebar>
+                    <ul class="nk-menu nk-menu-md">
+                        <!-- .nk-menu-heading  ng-if="checkLength(o.List)" -->
+                        <li class="nk-menu-item has-sub" style="cursor: pointer;" ng-repeat="o in menu track by $index"
+                            ng-if="o.List.length > 0 || !o.List" ng-click="setActive(o.Id)"
+                            ng-class="{'active': ativetab === o.Id}">
+                            <a class="nk-menu-link" ng-class="{'nk-menu-toggle': o.List.length > 0}" ng-click="go(o)">
+                                <span class="nk-menu-icon"><img ng-src="{{o.Img}}" alt="" srcset=""></span>
+                                <span class="nk-menu-text ml-2"
+                                    style="font-size: 15px;">{{Translate[lang][o.Name]}}</span>
+                            </a>
+                            <ul class="nk-menu-sub">
+                                <li class="nk-menu-item" style="cursor: pointer;"
+                                    ng-class="{'active-sub': activeSup === l.Name}"
+                                    ng-repeat="l in o.List track by $index" ng-if="CheckPerm(l.Perm)">
+                                    <div class="row fix-sup" style="width: 100%;">
+                                        <span class="col col-1 m-auto">
+                                            <i class="icon ni ni-star" style="font-size: 19px;" ng-if="l.fav == false"
+                                                ng-click="toggleFav(l)"></i>
+                                            <i class="icon ni ni-star-fill text-warning" style="font-size: 19px;"
+                                                ng-if="l.fav" ng-click="toggleFav(l)"></i>
+                                        </span>
+                                        <span ng-click="go(l)" class="col col-10 p-0">
+                                            <a ng-class="{'text-white': activeSup === l.Name}"
+                                                class="nk-menu-link"><span class="nk-menu-text"
+                                                    style="font-size: 14px;">{{Translate[lang][l.Name]}}</span></a>
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- .nk-menu-sub -->
+
+                        </li>
+                    </ul>
+                    <!-- .nk-menu -->
+                </div>
+            </div>
+            <!-- content @s -->
+            <div class="nk-content mytoggleside">
+                <div class="container-fluid">
+                    <div class="nk-content-inner">
+                        <div ui-view="pageContent" ng-intro-options="IntroOptions" ng-intro-method="CallMe"
+                        ng-intro-oncomplete="CompletedEvent" ng-intro-onexit="ExitEvent"
+                        ng-intro-onchange="ChangeEvent" ng-intro-onbeforechange="BeforeChangeEvent"
+                        ng-intro-autostart="false"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="nk-footer">
+                <div class="container-fluid text-center">
+                    <div class="nk-footer-wrap">
+                        <div class="nk-footer-copyright m-auto"> ERP <span class="text-primary">V 1.0.0</span> POWERED
+                            BY <a href="https://code-iss.com/en/home-page/" target="_blank">CODE SOLUTIONS | © 2021</a>
+                        </div>
+                    </div>
+                    <span class="d-lg-none">
+                        <button class=" d-inline-block btn btn-info" ng-click="arabiclang()">Ar</button> <button
+                            class="btn btn-info" ng-click="englishlang()">En</button>
+                    </span>
+                </div>
+            </div>
+            <!-- content @e -->
+        </div>
+        <!-- wrap @e -->
+    </div>
+    <!-- main @e -->
+</div>

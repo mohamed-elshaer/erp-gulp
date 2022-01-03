@@ -1,0 +1,116 @@
+@import url("https://fonts.googleapis.com/css2?family=Cairo&display=swap");
+
+* {
+  font-family: "Cairo", sans-serif !important;
+}
+
+.select2-container .select2-selection--single {
+  height: 37px !important;
+}
+
+.modal-footer {
+  justify-content: flex-start;
+}
+
+#paymoneywidth{
+  position: relative;
+  display: table; /* <-- This makes the trick */
+  overflow-y: auto;    
+  overflow-x: auto;
+  width: auto;
+  min-width: 1300px;   
+}
+
+.ribbon {
+  position: absolute;
+  right: 0px;
+  top: -5px;
+  z-index: 1;
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
+  text-align: right;
+  pointer-events: none;
+}
+
+
+.ribbon span {
+  font-size: 20px;
+  font-weight: bold;
+  color: #FFF;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 30px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  width: 250px;
+  display: block;
+
+  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 1);
+  position: absolute;
+  top: 40px;
+  right: -40px;
+}
+
+.partpaid
+{
+  background: #af9d61;
+  background: linear-gradient(#c9c262 0%, #aa901b 100%);
+}
+.allpaid
+{
+  background: #5fc781;
+  background: linear-gradient(#6ccc6c 0%, #48b632 100%);
+}
+
+.notpaid
+{
+  background: #d1655b;
+  background: linear-gradient(#cc6c6c 0%, #9b1d1d 100%);
+}
+
+
+.ribbon span::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 100%;
+  z-index: -1;
+  border-left: 3px solid #5f0000;
+  border-right: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #5f0000;
+}
+
+.ribbon span::after {
+  content: "";
+  position: absolute;
+  right: 0px;
+  top: 100%;
+  z-index: -1;
+  border-left: 3px solid transparent;
+  border-right: 3px solid #5f0000;
+  border-bottom: 3px solid transparent;
+  border-top: 3px solid #5f0000;
+}
+
+.is-dark .select2-container .select2-choice {
+  background: #15202f;
+  color: #fff;
+}
+.full {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.fixed-button-sales {
+  position: inherit;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: right;
+}
+@media screen and (min-width: 375px) {
+  .d-xs-none { display: none !important; }
+}
+
+

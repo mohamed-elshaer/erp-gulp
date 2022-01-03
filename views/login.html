@@ -1,0 +1,101 @@
+<div class="nk-body npc-default pg-auth">
+    <!-- main @s -->
+    <div class="nk-main ">
+        <!-- wrap @s -->
+        <div class="nk-wrap nk-wrap-nosidebar">
+            <!-- content @s -->
+            <div class="nk-content ">
+                <div class="nk-split nk-split-page nk-split-md">
+                    <div class="nk-split-content nk-block-area nk-block-area-column nk-auth-container bg-white">
+                        <div class="absolute-top-right d-lg-none p-3 p-sm-5">
+                            <a class="toggle btn-white btn btn-icon btn-light" data-target="athPromo"><em
+                                    class="icon ni ni-info"></em></a>
+                        </div>
+                        <div class="m-auto nk-auth-body nk-block nk-block-middle">
+                            <div class="brand-logo pb-5 text-center">
+                                <a href="html/index.html" class="logo-link">
+                                    <img class="logo-light logo-img logo-img-lg" src="theme/images/logo.png"
+                                        srcset="theme/images/logo2x.png 2x" alt="logo">
+                                    <img class="logo-dark logo-img logo-img-lg" src="theme/images/logo-dark.png"
+                                        srcset="theme/images/logo-dark2x.png 2x" alt="logo-dark">
+                                </a>
+                            </div>
+                            <div class="nk-block-head">
+                                <div class="nk-block-head-content">
+                                    <h5 class="nk-block-title">{{Translate[lang].TEXT_SIGNIN}}</h5>
+                                </div>
+                            </div>
+                            <!-- .nk-block-head -->
+                            <form name="loginForm" novalidate ng-submit="login(user)">
+                                <div class="form-group">
+                                    <div class="form-label-group">
+                                        <label class="form-label" for="default-01">
+                                            {{Translate[lang].TEXT_EMAIL_LOGIN}} </label>
+                                    </div>
+                                    <input name="mail" type="email" ng-model="user.email" ng-required="true"
+                                        class="form-control form-control-lg">
+                                    <span class="invalid" ng-show="loginForm.mail.$touched && loginForm.mail.$invalid">
+                                        <span
+                                            ng-show="loginForm.mail.$error.required">{{Translate[lang].TEXT_EMAIL_REQUIRED}}</span>
+                                    </span>
+                                </div>
+                                <!-- .form-group -->
+                                <div class="form-group">
+                                    <div class="form-label-group">
+                                        <label class="form-label"
+                                            for="password">{{Translate[lang].TEXT_PASSWORD_LOGIN}}</label>
+                                        <a class="link link-primary link-sm" tabindex="-1" ui-sref="confirmEmail">
+                                            {{Translate[lang].TEXT_PASSWORD_FORGET_LOGIN}} </a>
+                                    </div>
+                                    <div class="form-control-wrap">
+                                        <a tabindex="-1" class="form-icon form-icon-right passcode-switch"
+                                            data-target="password">
+                                            <em class="passcode-icon icon-show icon ni ni-eye"></em>
+                                            <em class="passcode-icon icon-hide icon ni ni-eye-off"></em>
+                                        </a>
+                                        <input type="password" class="form-control form-control-lg" ng-required="true"
+                                            name="password" ng-model="user.password">
+                                        <span class="invalid"
+                                            ng-show="loginForm.password.$touched && loginForm.password.$invalid">
+                                            <span
+                                                ng-show="loginForm.password.$error.required">{{Translate[lang].TEXT_PASSWORD_REQUIRED}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- <div class="toast" role="alert" aria-live="assertive" ng-if="==fasle" aria-atomic="true">
+                                    <div class="toast-header">
+                                      <img src="..." class="rounded me-2" alt="...">
+                                      <strong class="me-auto">Bootstrap</strong>
+                                      <small>11 mins ago</small>
+                                      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                    </div>
+                                    <div class="toast-body">
+                                      Hello, world! This is a toast message.
+                                    </div>
+                                  </div> -->
+                                <!-- .foem-group -->
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-lg btn-primary btn-block"
+                                        ng-disabled="loginForm.$invalid"
+                                        id="toastr-success-top-center">{{Translate[lang].TEXT_SIGNIN}}</button>
+                                </div>
+                            </form>
+
+
+                            
+                            <!-- form -->
+                        </div>
+                        <!-- .nk-block -->
+                    </div>
+                    <!-- .nk-split-content -->
+                    <div class="nk-split-content nk-split-stretch bg-abstract"></div>
+                    <!-- .nk-split-content -->
+                </div>
+                <!-- .nk-split -->
+            </div>
+            <!-- wrap @e -->
+        </div>
+        <!-- content @e -->
+    </div>
+    <!-- main @e -->
+</div>

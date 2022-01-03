@@ -1,0 +1,73 @@
+<div class=" container-fluid">
+    <div class="card-inner position-relative card-tools-toggle">
+        <div class="card-title-group">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">{{Translate[lang].TEXT_ADDCUSTOMER}}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                   <div class="basic-form">
+                        <form name="form" ng-submit="addCustomer(customerForm)">
+
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].TEXT_CustomerName}} <span
+                                        class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_CustomerName}}" name="customerName" ng-model="customerForm.personName" ng-required="true">
+                                    <span class=" text-danger" ng-show="form.customerName.$touched && form.customerName.$error.required">{{Translate[lang].TEXT_customerRequired}}</span>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].Text_Email}}</label>
+                                    <input type="email" class="form-control" placeholder="{{Translate[lang].Text_Email}}" name="email"  ng-model="customerForm.email">
+                                </div>
+                              
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].Text_mobilephone}}</label>
+                                    <input type="text" class="form-control" name="phoneNumber" placeholder="{{Translate[lang].Text_mobilephone}}" ng-model="customerForm.phoneNumber">
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].TEXT_HomeMobile}}</label>
+                                    <input type="text" class="form-control" name="address" placeholder="{{Translate[lang].TEXT_HomeMobile}}" ng-model="customerForm.homeMobile" >
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label>{{Translate[lang].Text_Address}}</label>
+                                    <input type="text" class="form-control" name="address" placeholder="{{Translate[lang].Text_Address}}" ng-model="customerForm.address" >
+                                </div>
+                            <div class="form-group col-md-4">
+                                <label>{{Translate[lang].TEXT_FAX}}</label>
+                                <input type="text" class="form-control" placeholder="{{Translate[lang].TEXT_FAX}}" name="fax"  ng-model="customerForm.fax" >
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>{{Translate[lang].TEXT_DISCOUNT}}</label>
+                                <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_DISCOUNT}}" name="discount"  ng-model="customerForm.discount" >
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label>{{Translate[lang].Text_Balance}}</label>
+                                <input type="number" class="form-control" placeholder="{{Translate[lang].TEXT_DEBIT}}" name="debit"  ng-model="customerForm.debit" >
+                            </div>
+                      
+                          
+                            
+                            </div>
+                            <div class="custom-control custom-control-sm custom-checkbox  mt-3">
+                                <input type="checkbox" ng-model="customerForm.isBoth" class="custom-control-input" id="com-email">
+                                <label class="custom-control-label" for="com-email">{{Translate[lang].TEXT_CUSTOMERANDSUPPLIER}}</label>
+                            </div>
+                            <div class="mt-4">
+                                <button type="submit"  class="btn btn-success" ng-disabled="form.$invalid">{{Translate[lang].ADD}}</button>
+                                <a ui-sref="menu.customers" class=" btn btn-secondary" style="color: #fff;
+                                background-color: #364a63;
+                                border-color: #364a63;">{{Translate[lang].CANCEL}}</a>
+                            </div>
+                          
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

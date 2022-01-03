@@ -1,0 +1,105 @@
+<div class="container-fluid">
+  <div class="card-inner position-relative card-tools-toggle">
+    <div class="card-title-group">
+      <div class="nk-block-head-content">
+        <h3 class="nk-block-title page-title">
+          {{Translate[lang].TEXT_CREATE_USER}}
+        </h3>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-12 col-lg-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="basic-form">
+            <form name="form" ng-submit="submit(userform)">
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <label>{{Translate[lang].USERNAME}}
+                    <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" placeholder="{{Translate[lang].USERNAME}}"
+                    name="userName" ng-model="userform.userName" ng-required="true" />
+                  <span class="text-danger"
+                    ng-show="form.userName.$touched && form.userName.$error.required">{{Translate[lang]. MSG_REQUIRED}}</span>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>{{Translate[lang].Text_Email}}
+                    <span class="text-danger">*</span>
+                  </label>
+                  <input type="email" class="form-control"ng-required="true" placeholder="{{Translate[lang].Text_Email}}" name="email"
+                    ng-model="userform.email" />
+                    <span class="text-danger"
+                    ng-show="form.email.$touched && form.email.$error.required">{{Translate[lang]. TEXT_EMAIL_REQUIRED}}</span>
+                    <span class="text-danger"
+                    ng-show="form.email.$touched && form.email.$error.email">{{Translate[lang]. MSG_INVALID_EMAIL}}</span>
+                </div>
+
+                <div class="form-group col-md-4">
+                  <label>{{Translate[lang].Password}}
+                    <span class="text-danger">*</span>
+                  </label>
+                  <div class="d-flex">
+                    <input type="text" class="form-control" name="password"ng-required="true" placeholder="{{Translate[lang].Password}}"
+                    ng-model="userform.password" />
+                    <span class="text-danger" ng-show="form.password.$error.required&&form.password.$touched">{{Translate[lang].TEXT_PASSWORD_REQUIRED}}</span>
+                        <a
+                        class="btn btn-primary btn-sm"
+                        ng-click="generatePassword()"
+                        title="انشاء كلمة سر"
+                      >
+                        <span class="text-lighter"
+                          ><i class="icon ni ni-invest"></i
+                        ></span>
+                          </a>
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>{{Translate[lang].Text_mobilephone}}</label>
+                  <input type="text" class="form-control" name="phoneNumber"
+                    placeholder="{{Translate[lang].Text_mobilephone}}" ng-model="userform.phoneNumber" />
+                </div>
+                <!-- <div class="form-group col-md-4">
+                  <label>{{Translate[lang].ROLE}}</label>
+                  <select id="inputState" class="form-control default-select" name="roles" ng-model="userform.roles"
+                    ng-required="required">
+                    <option value="" disabled>
+                      ..{{Translate[lang].CHOOSE}}..
+                    </option>
+                    <option ng-repeat="role in roles track by $index" ng-value="role.name">
+                      {{role.name}}
+                    </option>
+                  </select>
+                </div> -->
+                <div class="form-group col-md-4">
+                  <label>{{Translate[lang].ROLE}}
+                    <span class="text-danger">*</span>
+
+                  </label>
+                  <ui-select ng-model="userform.roles" theme="select2" name="role" ng-required="true">
+                     
+                    <ui-select-match placeholder="{{Translate[lang].TEXT_CHOOSEROLE}}">{{$select.selected.name.split(".")[0]}}</ui-select-match>
+
+                    <ui-select-choices
+                      repeat="item.name as item in roles | filter: $select.search"
+                      
+                    >
+                      <span ng-bind="item.name.split('.')[0]"></span>
+                    </ui-select-choices>
+                  </ui-select>
+                  <span class="text-danger" ng-show="form.role.$error.required&&form.role.$touched">{{Translate[lang].TEXT_ROLE_REQUIRED}}</span>
+                </div>
+              </div>
+              <div class="mt-4">
+                <button type="submit" class="btn btn-success" ng-disabled="form.$invalid">
+                  {{Translate[lang].ADD}}
+                </button>
+                <a ui-sref="menu.users" class="btn btn-info">{{Translate[lang].CANCEL}}</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
