@@ -1,57 +1,76 @@
 const gulp = require('gulp');
-const concat = require('gulp-concat');
-const browserSync = require('browser-sync').create();
-
-const scripts = require('./scripts');
-const styles = require('./styles');
-
-// Some pointless comments for our project.
-
-var devMode = false;
-
-gulp.task('css', function() {
-    gulp.src(styles)
-        .pipe(concat('main.css'))
-        .pipe(gulp.dest('dist/css'))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
+const csso = require('gulp-csso');
+const htmlmin = require('gulp-htmlmin');
+const imagemin = require('gulp-imagemin');
+const del = require('del');
+const uglify = require('gulp-uglify');
+// Gulp task to minify HTML files
+gulp.task('copyHtml', function() {
+    return gulp.src('web/**/*.html')
+        .pipe(htmlmin({
+            collapseWhitespace: true,
+            removeComments: true
+        }))
+        .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('js', function() {
-    gulp.src(scripts)
-        .pipe(concat('scripts.js'))
-        .pipe(gulp.dest('./dist/js'))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
+// Optimize Images
+gulp.task('imageMin', function(done) {
+	gulp.src('web/**/*.{png,jpg,jpeg,gif}')
+		.pipe(imagemin())
+		.pipe(gulp.dest('./dist'))
+        done()
 });
 
-gulp.task('html', function() {
-    return gulp.src('./views/**/*.html')
-        .pipe(gulp.dest('./dist/'))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
+// gulp.task('imageMin', () =>
+//     gulp.src('web/**/*.{png,jpg,jpeg,gif}')
+//     .pipe(imagemin())
+//     .pipe(gulp.dest('./dist'))
+// );
+// Gulp task to copy fonts
+gulp.task('copyFonts', function() {
+    return gulp.src('web/**/*.{eot,otf,svg,ttf,woff,woff2}')
+        .pipe(gulp.dest('./dist'));
+});
+// Gulp task to copy storage
+gulp.task('copyStorage', function() {
+    return gulp.src('web/**/*.mp3')
+        .pipe(gulp.dest('./dist'));
+});
+// Gulp task to copy json
+gulp.task('copyJson', function() {
+    return gulp.src('web/**/*.json')
+        .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('build', function() {
-    gulp.start(['css', 'js', 'html'])
+// Gulp task to minify CSS files
+gulp.task('styles', function() {
+    return gulp.src('web/**/*.css')
+        .pipe(csso())
+        .pipe(gulp.dest('./dist'))
 });
 
-gulp.task('browser-sync', function() {
-    browserSync.init(null, {
-        open: false,
-        server: {
-            baseDir: 'dist',
-        }
-    });
+gulp.task('copyJs', function() {
+    return gulp.src('web/**/*.js')
+        .pipe(uglify({
+            mangle: false,
+            compress: {
+                drop_console: true, // filter console
+                drop_debugger: true // filter debugger
+            }
+        }))
+        .pipe(gulp.dest('./dist'));
 });
+gulp.task('clean', () => del(['./dist']));
 
-gulp.task('start', function() {
-    devMode = true;
-    gulp.start(['build', 'browser-sync']);
-    gulp.watch(['./theme/css/**/*.css'], ['css']);
-    gulp.watch(['./js/**/*.js'], ['js']);
-    gulp.watch(['./views/**/*.html'], ['html']);
-});
+
+gulp.task('default',
+    gulp.series('clean', gulp.parallel(
+        'copyHtml',
+        'imageMin',
+        'copyFonts',
+        'copyStorage',
+        'copyJson',
+        'styles',
+        'copyJs'
+    )));
